@@ -26,5 +26,12 @@ namespace FINALSSS
         {
 
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            Main main = new Main();
+            main.Show();
+            this.Hide();
+        }
     }
 }
