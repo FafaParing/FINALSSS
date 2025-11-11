@@ -13,13 +13,13 @@ namespace FINALSSS
 {
     public partial class Main: Form
     {
-        private List<InventoryItem> inventoryItems = new List<InventoryItem>();
 
         public Main()
         {
             InitializeComponent();
             ShowPanel(panelDashboard);
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
         }

@@ -36,5 +36,10 @@ namespace FINALSSS
         {
 
         }
+
+        private void txtEditItemID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

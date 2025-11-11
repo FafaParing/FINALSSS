@@ -180,6 +180,7 @@
             this.txtEditItemID.Name = "txtEditItemID";
             this.txtEditItemID.Size = new System.Drawing.Size(181, 26);
             this.txtEditItemID.TabIndex = 15;
+            this.txtEditItemID.TextChanged += new System.EventHandler(this.txtEditItemID_TextChanged);
             // 
             // txtEditItemName
             // 
