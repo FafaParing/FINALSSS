@@ -108,7 +108,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Name = "UserLogIn";
-            this.Text = "UserLogIn";
+            this.Text = "0";
             this.Load += new System.EventHandler(this.UserLogIn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
