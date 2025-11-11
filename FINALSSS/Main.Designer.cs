@@ -261,6 +261,7 @@
             this.btnCreateOrder.TabIndex = 3;
             this.btnCreateOrder.Text = "+ Create Order";
             this.btnCreateOrder.UseVisualStyleBackColor = false;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
             // dgvOrders
             // 

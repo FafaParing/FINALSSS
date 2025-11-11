@@ -20,6 +20,7 @@ namespace FINALSSS
             ShowPanel(panelDashboard);
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
         }
@@ -133,6 +134,12 @@ namespace FINALSSS
                 addStockForm.ShowDialog();
 
             }
+        }
+
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            CreateOrder createOrder = new CreateOrder();
+            createOrder.ShowDialog();
         }
     }
 }
