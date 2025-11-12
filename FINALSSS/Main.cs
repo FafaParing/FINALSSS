@@ -21,6 +21,7 @@ namespace FINALSSS
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
         }
@@ -140,6 +141,11 @@ namespace FINALSSS
         {
             CreateOrder createOrder = new CreateOrder();
             createOrder.ShowDialog();
+        }
+
+        private void dgvActivityLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
