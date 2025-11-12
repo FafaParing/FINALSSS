@@ -141,5 +141,15 @@ namespace FINALSSS
             CreateOrder createOrder = new CreateOrder();
             createOrder.ShowDialog();
         }
+
+        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void panelTransactionHistory_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
