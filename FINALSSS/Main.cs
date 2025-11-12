@@ -143,7 +143,16 @@ namespace FINALSSS
             createOrder.ShowDialog();
         }
 
+<<<<<<< HEAD
         private void dgvActivityLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
+=======
+        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void panelTransactionHistory_Paint(object sender, PaintEventArgs e)
+>>>>>>> 12527e7cffe72d29d3865f8daa8042d14fc878c7
         {
 
         }

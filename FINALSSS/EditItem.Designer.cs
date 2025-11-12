@@ -222,11 +222,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(141, 24);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(171, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 25);
             this.label1.TabIndex = 21;
             this.label1.Text = "Edit Item";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
@@ -236,6 +238,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(485, 81);
             this.panel1.TabIndex = 22;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // EditItem
             // 
