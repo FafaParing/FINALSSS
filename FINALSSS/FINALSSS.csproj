@@ -70,6 +70,8 @@
     <Compile Include="CreateOrder.Designer.cs">
       <DependentUpon>CreateOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllItems.cs" />
+    <Compile Include="DBconnection.cs" />
     <Compile Include="EditItem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +86,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetQuantity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetQuantity.Designer.cs">
+      <DependentUpon>SetQuantity.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserLogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +125,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SetQuantity.resx">
+      <DependentUpon>SetQuantity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserLogIn.resx">
       <DependentUpon>UserLogIn.cs</DependentUpon>
     </EmbeddedResource>

@@ -144,6 +144,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddStock";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddStock";
             ((System.ComponentModel.ISupportInitialize)(this.numAddQuantity)).EndInit();
             this.ResumeLayout(false);

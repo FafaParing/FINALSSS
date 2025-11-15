@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,27 +16,49 @@ namespace FINALSSS
     {
         private int itemId;
         private int currentQty;
-        public AddStock(int id, string name, int qty)
+        public AddStock(int itemId, string itemName, int currentQty)
         {
             InitializeComponent();
-            itemId = id;
-            currentQty = qty;
+            this.itemId = itemId;
+            this.currentQty = currentQty;
 
-            lblItemName.Text = name;          // read-only
-            lblCurrentQuantity.Text = qty.ToString(); // read-only
-            numAddQuantity.Value = 1;       // default value
+            lblItemName.Text = itemName;          // Show the item name
+            lblCurrentQuantity.Text = currentQty.ToString();     // Show current stock
+            numAddQuantity.Value = 0;
         }
 
         private void btnUpdateStock_Click(object sender, EventArgs e)
         {
-            int addedQty = (int)numAddQuantity.Value;
-            int newQty = currentQty + addedQty;
+            int qtyToAdd = (int)numAddQuantity.Value;        // Quantity to add
+            int newQty = currentQty + qtyToAdd;
 
-            // For now, update in-memory or DataGridView
-            MessageBox.Show($"Stock updated! New quantity: {newQty}");
+            if (qtyToAdd <= 0)
+            {
+                MessageBox.Show("Please enter a quantity greater than 0.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open();
 
-            // Close the form
-            this.Close();
+                    string query = "UPDATE Items SET StockQuantity=@newQty WHERE ItemID=@id";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@newQty", newQty);
+                    cmd.Parameters.AddWithValue("@id", itemId);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Stock updated successfully.");
+
+                this.Close(); // Close AddStock form
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void btnCancelStock_Click(object sender, EventArgs e)
