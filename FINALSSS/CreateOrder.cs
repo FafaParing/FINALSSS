@@ -1,141 +1,68 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FINALSSS
 {
-    public partial class CreateOrder: Form
+    public partial class CreateOrder : Form
     {
         public CreateOrder()
         {
             InitializeComponent();
             dgvAvailableItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCurrentItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrderSummary.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
             LoadAvailableItems();
         }
 
+        // ===============================
+        // CANCEL BUTTON
+        // ===============================
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnSubmitOrder_Click(object sender, EventArgs e)
+        // ===============================
+        // LOAD AVAILABLE ITEMS
+        // ===============================
+        public void LoadAvailableItems()
         {
-            // 1️⃣ Validate customer info
-            if (string.IsNullOrWhiteSpace(txtCustomerName.Text) ||
-                string.IsNullOrWhiteSpace(txtContactNum.Text) ||
-                string.IsNullOrWhiteSpace(txtEmail.Text) ||
-                string.IsNullOrWhiteSpace(txtDeliverAdd.Text))
-            {
-                MessageBox.Show("Please fill out all customer information.", "Warning",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // 2️⃣ Validate that there are items in order
-            if (dgvOrderSummary.Rows.Count == 0)
-            {
-                MessageBox.Show("No items added to the order.", "Warning",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            dgvAvailableItems.Rows.Clear();
 
             using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
             {
                 conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction();
+                string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit FROM Items";
 
-                try
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    // 3️⃣ Insert into Orders table
-                    string insertOrderQuery = @"
-                INSERT INTO Orders 
-                    (CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status)
-                OUTPUT INSERTED.OrderID
-                VALUES (@name, @contact, @email, @address, @date, @total, @status)";
-
-                    SqlCommand cmdOrder = new SqlCommand(insertOrderQuery, conn, transaction);
-                    cmdOrder.Parameters.AddWithValue("@name", txtCustomerName.Text);
-                    cmdOrder.Parameters.AddWithValue("@contact", txtContactNum.Text);
-                    cmdOrder.Parameters.AddWithValue("@email", txtEmail.Text);
-                    cmdOrder.Parameters.AddWithValue("@address", txtDeliverAdd.Text);
-                    cmdOrder.Parameters.AddWithValue("@date", DateTime.Now);
-                    cmdOrder.Parameters.AddWithValue("@total", CalculateTotalAmount());
-                    cmdOrder.Parameters.AddWithValue("@status", "Pending");
-
-                    int newOrderID = (int)cmdOrder.ExecuteScalar(); // Get generated OrderID
-
-                    // 4️⃣ Insert each item into OrderItems table and deduct stock
-                    foreach (DataGridViewRow row in dgvOrderSummary.Rows)
+                    while (reader.Read())
                     {
-                        if (row.IsNewRow) continue;
+                        int rowIndex = dgvAvailableItems.Rows.Add();
+                        DataGridViewRow row = dgvAvailableItems.Rows[rowIndex];
 
-                        int itemId = Convert.ToInt32(row.Cells["colItemIDSummary"].Value);
-                        int qty = Convert.ToInt32(row.Cells["colQuantitySummary"].Value);
-                        decimal price = Convert.ToDecimal(row.Cells["colPriceSummary"].Value);
-                        decimal subtotal = Convert.ToDecimal(row.Cells["colSubTotalSummary"].Value);
-
-                        // Generate OrderItemID manually
-                        int orderItemID = GetNextOrderItemID(conn, transaction);
-
-                        string insertItemQuery = @"
-        INSERT INTO OrderItems (OrderItemID, OrderID, ItemID, Quantity, Price, SubTotal)
-        VALUES (@orderItemID, @orderID, @itemID, @qty, @price, @subtotal)";
-                        SqlCommand cmdItem = new SqlCommand(insertItemQuery, conn, transaction);
-                        cmdItem.Parameters.AddWithValue("@orderItemID", orderItemID);
-                        cmdItem.Parameters.AddWithValue("@orderID", newOrderID);
-                        cmdItem.Parameters.AddWithValue("@itemID", itemId);
-                        cmdItem.Parameters.AddWithValue("@qty", qty);
-                        cmdItem.Parameters.AddWithValue("@price", price);
-                        cmdItem.Parameters.AddWithValue("@subtotal", subtotal);
-
-                        cmdItem.ExecuteNonQuery();
-
-                        // Deduct stock
-                        string updateStockQuery = @"
-        UPDATE Items 
-        SET StockQuantity = StockQuantity - @qty
-        WHERE ItemID = @itemID";
-                        SqlCommand cmdUpdate = new SqlCommand(updateStockQuery, conn, transaction);
-                        cmdUpdate.Parameters.AddWithValue("@qty", qty);
-                        cmdUpdate.Parameters.AddWithValue("@itemID", itemId);
-                        cmdUpdate.ExecuteNonQuery();
+                        row.Cells["colItemID"].Value = reader["ItemID"].ToString();
+                        row.Cells["colItemName"].Value = reader["ItemName"].ToString();
+                        row.Cells["colCategory"].Value = reader["Category"].ToString();
+                        row.Cells["colStock"].Value = reader["StockQuantity"].ToString();
+                        row.Cells["colPrice"].Value = reader["Price"].ToString();
+                        row.Cells["colUnit"].Value = reader["Unit"].ToString();
                     }
-
-
-                    transaction.Commit();
-
-                    MessageBox.Show("Order placed successfully!", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // 5️⃣ Refresh Orders page in Main form
-                    if (this.Owner is Main mainForm)
-                    {
-                        mainForm.LoadOrders();
-                    }
-
-                    // Close CreateOrder form
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show("Error placing order: " + ex.Message, "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        // ===============================
+        // CLICK "ADD" BUTTON IN AVAILABLE ITEMS
+        // ===============================
         private void dgvAvailableItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // header
+            if (e.RowIndex < 0) return;
             if (dgvAvailableItems.Columns[e.ColumnIndex].Name != "colAdd") return;
 
             DataGridViewRow selected = dgvAvailableItems.Rows[e.RowIndex];
@@ -149,7 +76,7 @@ namespace FINALSSS
                 return;
             }
 
-            // Open popup to select quantity
+            // Popup for quantity
             SetQuantity qtyForm = new SetQuantity(
                 selected.Cells["colItemName"].Value.ToString(),
                 stock
@@ -159,25 +86,29 @@ namespace FINALSSS
             {
                 int quantityToAdd = qtyForm.SelectedQuantity;
 
-                // Check if item already exists in CurrentItems
+                // Check if already in current items
                 foreach (DataGridViewRow row in dgvCurrentItems.Rows)
                 {
-                    if (row.IsNewRow) continue; // skip placeholder row
+                    if (row.IsNewRow) continue;
                     if (row.Cells["colItemID2"].Value == null) continue;
 
-                    if (row.Cells["colItemID2"].Value.ToString() == selected.Cells["colItemID"].Value.ToString())
+                    if (row.Cells["colItemID2"].Value.ToString() ==
+                        selected.Cells["colItemID"].Value.ToString())
                     {
-                        // Update quantity & subtotal
-                        row.Cells["colQuantity"].Value = (int)row.Cells["colQuantity"].Value + quantityToAdd;
-                        row.Cells["colSubTotal"].Value = Convert.ToDecimal(row.Cells["colPrice2"].Value) * (int)row.Cells["colQuantity"].Value;
+                        // Update qty
+                        int newQty = (int)row.Cells["colQuantity"].Value + quantityToAdd;
+                        row.Cells["colQuantity"].Value = newQty;
+                        row.Cells["colSubTotal"].Value =
+                            Convert.ToDecimal(row.Cells["colPrice2"].Value) * newQty;
+
                         UpdateTotal();
                         return;
                     }
                 }
 
-                // Add new row to CurrentItems
+                // Add NEW row
                 dgvCurrentItems.Rows.Add(
-                    "Remove", // Button column
+                    "Remove",
                     selected.Cells["colItemID"].Value,
                     selected.Cells["colItemName"].Value,
                     quantityToAdd,
@@ -188,68 +119,74 @@ namespace FINALSSS
                 UpdateTotal();
             }
         }
-        public void LoadAvailableItems()
-        {
-            dgvAvailableItems.Rows.Clear(); // Clear previous rows
 
-            using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
-            {
-                conn.Open();
-                string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit FROM Items";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int rowIndex = dgvAvailableItems.Rows.Add(); // add empty row
-                        DataGridViewRow row = dgvAvailableItems.Rows[rowIndex];
-
-                        row.Cells["colItemID"].Value = reader["ItemID"].ToString();
-                        row.Cells["colItemName"].Value = reader["ItemName"].ToString();
-                        row.Cells["colCategory"].Value = reader["Category"].ToString();
-                        row.Cells["colStock"].Value = reader["StockQuantity"].ToString();
-                        row.Cells["colPrice"].Value = reader["Price"].ToString();
-                        row.Cells["colUnit"].Value = reader["Unit"].ToString();
-
-                        // Button column 'colAdd' will automatically show the "Add" text
-                    }
-                }
-            }
-        }
-
-        private void panelOrder_Paint(object sender, PaintEventArgs e)
-        {
-            LoadAvailableItems();
-        }
-
-        private void btnAddToOrder_Click(object sender, EventArgs e)
-        {
-          
-        }
-        private void UpdateTotal()
-        {
-            decimal total = 0;
-            foreach (DataGridViewRow row in dgvCurrentItems.Rows)
-            {
-                total += Convert.ToDecimal(row.Cells["colSubTotal"].Value);
-            }
-            lblTotal.Text = total.ToString("C");
-        }
-
+        // ===============================
+        // REMOVE ITEM BUTTON
+        // ===============================
         private void dgvCurrentItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvCurrentItems.Columns[e.ColumnIndex].Name == "colRemove")
+            if (e.RowIndex >= 0 &&
+                dgvCurrentItems.Columns[e.ColumnIndex].Name == "colRemove")
             {
                 dgvCurrentItems.Rows.RemoveAt(e.RowIndex);
                 UpdateTotal();
             }
         }
-        private void dgvAvailableItems_SelectionChanged(object sender, EventArgs e)
+
+        // ===============================
+        // NEXT BUTTON  (button1)
+        // ===============================
+        private void button1_Click(object sender, EventArgs e)
         {
-            
+            // ❗ PREVENT NEXT IF NO ITEMS
+            if (!HasAtLeastOneItem())
+            {
+                MessageBox.Show("Please add at least one item to proceed.", "No Items", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Clear summary
+            dgvOrderSummary.Rows.Clear();
+
+            // Copy items into summary table
+            foreach (DataGridViewRow row in dgvCurrentItems.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                int idx = dgvOrderSummary.Rows.Add();
+                DataGridViewRow sum = dgvOrderSummary.Rows[idx];
+
+                sum.Cells["colItemIDSummary"].Value = row.Cells["colItemID2"].Value;
+                sum.Cells["colItemNameSummary"].Value = row.Cells["colItemName2"].Value;
+                sum.Cells["colQuantitySummary"].Value = row.Cells["colQuantity"].Value;
+                sum.Cells["colPriceSummary"].Value = row.Cells["colPrice2"].Value;
+
+                decimal qty = Convert.ToDecimal(row.Cells["colQuantity"].Value);
+                decimal price = Convert.ToDecimal(row.Cells["colPrice2"].Value);
+
+                sum.Cells["colSubTotalSummary"].Value = (qty * price).ToString("N2");
+            }
+
+            lblTotal.Text = CalculateTotalAmount().ToString("N2");
+
+            // Switch panels
+            panelOrder.Visible = false;
+            panelCustomerInformation.Visible = true;
+
         }
-        // Helper method to calculate total amount from dgvOrderSummary
+
+        // ===============================
+        // BACK BUTTON
+        // ===============================
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panelCustomerInformation.Visible = false;
+            panelOrder.Visible = true;
+        }
+
+        // ===============================
+        // CALCULATE TOTAL
+        // ===============================
         private decimal CalculateTotalAmount()
         {
             decimal total = 0;
@@ -265,42 +202,146 @@ namespace FINALSSS
             return total;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // ===============================
+        // PLACE ORDER BUTTON
+        // ===============================
+        private void btnSubmitOrder_Click(object sender, EventArgs e)
         {
-            // 1️⃣ Clear previous summary
-            dgvOrderSummary.Rows.Clear();
-
-            // 2️⃣ Loop through current order items and copy them to summary
-            foreach (DataGridViewRow row in dgvCurrentItems.Rows)
+            // Validate customer info
+            if (string.IsNullOrWhiteSpace(txtCustomerName.Text) ||
+                string.IsNullOrWhiteSpace(txtContactNum.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtDeliverAdd.Text))
             {
-                if (row.IsNewRow) continue;
-
-                int rowIndex = dgvOrderSummary.Rows.Add();
-                DataGridViewRow summaryRow = dgvOrderSummary.Rows[rowIndex];
-
-                summaryRow.Cells["colItemIDSummary"].Value = row.Cells["colItemID2"].Value;
-                summaryRow.Cells["colItemNameSummary"].Value = row.Cells["colItemName2"].Value;
-                summaryRow.Cells["colQuantitySummary"].Value = row.Cells["colQuantity"].Value;
-                summaryRow.Cells["colPriceSummary"].Value = row.Cells["colPrice2"].Value;
-
-                // Calculate subtotal: Quantity * Price
-                decimal qty = Convert.ToDecimal(row.Cells["colQuantity"].Value);
-                decimal price = Convert.ToDecimal(row.Cells["colPrice2"].Value);
-                summaryRow.Cells["colSubTotalSummary"].Value = (qty * price).ToString("N2");
+                MessageBox.Show("Please fill out all customer information.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            // 3️⃣ Show the next panel (Order Summary / Customer Info)
-            panelCustomerInformation.Visible = true;
-            panelOrder.Visible = false;
+            if (dgvOrderSummary.Rows.Count == 0)
+            {
+                MessageBox.Show("No items added to order.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            // 4️⃣ Optionally, calculate total amount and show in a label
-            lblTotal.Text = CalculateTotalAmount().ToString("N2");
+            using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+            {
+                conn.Open();
+                SqlTransaction trx = conn.BeginTransaction();
+
+                try
+                {
+                    // Insert order
+                    string insertOrder =
+                        @"INSERT INTO Orders
+                        (CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status)
+                        OUTPUT INSERTED.OrderID
+                        VALUES (@n, @c, @e, @a, @d, @t, @s)";
+
+                    SqlCommand cmd = new SqlCommand(insertOrder, conn, trx);
+                    cmd.Parameters.AddWithValue("@n", txtCustomerName.Text);
+                    cmd.Parameters.AddWithValue("@c", txtContactNum.Text);
+                    cmd.Parameters.AddWithValue("@e", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@a", txtDeliverAdd.Text);
+                    cmd.Parameters.AddWithValue("@d", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@t", CalculateTotalAmount());
+                    cmd.Parameters.AddWithValue("@s", "Pending");
+
+                    int newOrderID = (int)cmd.ExecuteScalar();
+
+                    // Insert items
+                    foreach (DataGridViewRow row in dgvOrderSummary.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        int itemId = Convert.ToInt32(row.Cells["colItemIDSummary"].Value);
+                        int qty = Convert.ToInt32(row.Cells["colQuantitySummary"].Value);
+                        decimal price = Convert.ToDecimal(row.Cells["colPriceSummary"].Value);
+                        decimal subtotal = Convert.ToDecimal(row.Cells["colSubTotalSummary"].Value);
+
+                        // Get next OrderItemID
+                        int orderItemID = GetNextOrderItemID(conn, trx);
+
+                        string insertItem =
+                            @"INSERT INTO OrderItems (OrderItemID, OrderID, ItemID, Quantity, Price, SubTotal)
+                              VALUES (@oi, @o, @i, @q, @p, @s)";
+
+                        SqlCommand ci = new SqlCommand(insertItem, conn, trx);
+                        ci.Parameters.AddWithValue("@oi", orderItemID);
+                        ci.Parameters.AddWithValue("@o", newOrderID);
+                        ci.Parameters.AddWithValue("@i", itemId);
+                        ci.Parameters.AddWithValue("@q", qty);
+                        ci.Parameters.AddWithValue("@p", price);
+                        ci.Parameters.AddWithValue("@s", subtotal);
+                        ci.ExecuteNonQuery();
+
+                        // Deduct stock
+                        SqlCommand us = new SqlCommand(
+                            "UPDATE Items SET StockQuantity = StockQuantity - @q WHERE ItemID = @i",
+                            conn, trx);
+                        us.Parameters.AddWithValue("@q", qty);
+                        us.Parameters.AddWithValue("@i", itemId);
+                        us.ExecuteNonQuery();
+                    }
+
+                    trx.Commit();
+
+                    MessageBox.Show("Order placed successfully!", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    if (this.Owner is Main m)
+                        m.LoadOrders();
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    trx.Rollback();
+                    MessageBox.Show("Error placing order: " + ex.Message);
+                }
+            }
         }
-        int GetNextOrderItemID(SqlConnection conn, SqlTransaction transaction)
+
+        // ===============================
+        // GET NEXT ORDER ITEM ID
+        // ===============================
+        private int GetNextOrderItemID(SqlConnection conn, SqlTransaction trx)
         {
-            string query = "SELECT ISNULL(MAX(OrderItemID), 0) + 1 FROM OrderItems";
-            SqlCommand cmd = new SqlCommand(query, conn, transaction);
-            return (int)cmd.ExecuteScalar();
+            string q = "SELECT ISNULL(MAX(OrderItemID), 0) + 1 FROM OrderItems";
+            SqlCommand cmd = new SqlCommand(q, conn, trx);
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
+        private void UpdateTotal()
+        {
+            decimal total = 0;
+
+            foreach (DataGridViewRow row in dgvOrderSummary.Rows)
+            {
+                if (row.Cells["colSubTotalSummary"].Value != null)
+                {
+                    decimal subTotal;
+                    if (decimal.TryParse(row.Cells["colSubTotalSummary"].Value.ToString(), out subTotal))
+                    {
+                        total += subTotal;
+                    }
+                }
+            }
+
+            lblTotal.Text = total.ToString("0.00");
+        }
+
+        private bool HasAtLeastOneItem()
+        {
+            foreach (DataGridViewRow row in dgvCurrentItems.Rows)
+            {
+                // Skip the placeholder row
+                if (!row.IsNewRow)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

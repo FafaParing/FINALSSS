@@ -28,23 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle104 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle105 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle107 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle108 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle109 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle106 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle97 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle103 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle98 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle99 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle100 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle101 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle102 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle110 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle111 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle112 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelSidebar = new System.Windows.Forms.Panel();
             this.btnSalesReport = new System.Windows.Forms.Button();
             this.btnActivityLog = new System.Windows.Forms.Button();
@@ -54,16 +53,19 @@
             this.btnDashboard = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.panelOrders = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnCreateOrder = new System.Windows.Forms.Button();
-            this.dgvOrders = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
+            this.panelActivityLog = new System.Windows.Forms.Panel();
+            this.dgvActivityLog = new System.Windows.Forms.DataGridView();
+            this.colLogID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActionBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActionDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colViewDetails = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelInventory = new System.Windows.Forms.Panel();
             this.btnAddStocks = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnSearchInventory = new System.Windows.Forms.Button();
+            this.txtSearchInventory = new System.Windows.Forms.TextBox();
             this.btnAddNewItem = new System.Windows.Forms.Button();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
             this.colItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,14 +77,21 @@
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
-            this.panelActivityLog = new System.Windows.Forms.Panel();
-            this.dgvActivityLog = new System.Windows.Forms.DataGridView();
-            this.colActivityID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivityDetails = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label5 = new System.Windows.Forms.Label();
+            this.panelOrders = new System.Windows.Forms.Panel();
+            this.txtSearchOrders = new System.Windows.Forms.TextBox();
+            this.btnSearchOrder = new System.Windows.Forms.Button();
+            this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.dgvOrders = new System.Windows.Forms.DataGridView();
+            this.colOrderID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colContactNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDeliverAdd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrderStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAction = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelTransactionHistory = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -99,24 +108,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelSalesReport = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.colOrderID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colContactNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDeliverAdd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOrderStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDetails = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panelSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelMain.SuspendLayout();
-            this.panelOrders.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
-            this.panelInventory.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.panelActivityLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActivityLog)).BeginInit();
+            this.panelInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
+            this.panelOrders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
             this.panelTransactionHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransactionHistory)).BeginInit();
             this.panelDashboard.SuspendLayout();
@@ -175,7 +175,7 @@
             this.btnTransactionHistory.Name = "btnTransactionHistory";
             this.btnTransactionHistory.Size = new System.Drawing.Size(251, 75);
             this.btnTransactionHistory.TabIndex = 3;
-            this.btnTransactionHistory.Text = "Transaction History";
+            this.btnTransactionHistory.Text = "Transactions";
             this.btnTransactionHistory.UseVisualStyleBackColor = true;
             this.btnTransactionHistory.Click += new System.EventHandler(this.btnTransactionHistory_Click);
             // 
@@ -235,10 +235,10 @@
             // 
             this.panelMain.BackColor = System.Drawing.Color.LightGray;
             this.panelMain.Controls.Add(this.panelOrders);
-            this.panelMain.Controls.Add(this.panelInventory);
             this.panelMain.Controls.Add(this.panelActivityLog);
-            this.panelMain.Controls.Add(this.panelTransactionHistory);
             this.panelMain.Controls.Add(this.panelDashboard);
+            this.panelMain.Controls.Add(this.panelInventory);
+            this.panelMain.Controls.Add(this.panelTransactionHistory);
             this.panelMain.Controls.Add(this.panelSalesReport);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(251, 0);
@@ -247,119 +247,108 @@
             this.panelMain.Size = new System.Drawing.Size(1232, 777);
             this.panelMain.TabIndex = 1;
             // 
-            // panelOrders
+            // panelActivityLog
             // 
-            this.panelOrders.Controls.Add(this.textBox1);
-            this.panelOrders.Controls.Add(this.button1);
-            this.panelOrders.Controls.Add(this.btnCreateOrder);
-            this.panelOrders.Controls.Add(this.dgvOrders);
-            this.panelOrders.Controls.Add(this.label3);
-            this.panelOrders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelOrders.Location = new System.Drawing.Point(0, 0);
-            this.panelOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panelOrders.Name = "panelOrders";
-            this.panelOrders.Size = new System.Drawing.Size(1232, 777);
-            this.panelOrders.TabIndex = 0;
+            this.panelActivityLog.BackColor = System.Drawing.Color.Transparent;
+            this.panelActivityLog.Controls.Add(this.dgvActivityLog);
+            this.panelActivityLog.Controls.Add(this.label5);
+            this.panelActivityLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelActivityLog.Location = new System.Drawing.Point(0, 0);
+            this.panelActivityLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelActivityLog.Name = "panelActivityLog";
+            this.panelActivityLog.Size = new System.Drawing.Size(1232, 777);
+            this.panelActivityLog.TabIndex = 0;
             // 
-            // textBox1
+            // dgvActivityLog
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox1.Location = new System.Drawing.Point(51, 153);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(505, 34);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "Search...";
+            dataGridViewCellStyle104.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle104.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle104.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle104.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle104.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle104.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle104.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvActivityLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle104;
+            this.dgvActivityLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvActivityLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colLogID,
+            this.colActionBy,
+            this.colActionType,
+            this.colActionDetails,
+            this.colActionDate,
+            this.colViewDetails});
+            this.dgvActivityLog.Location = new System.Drawing.Point(51, 190);
+            this.dgvActivityLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvActivityLog.Name = "dgvActivityLog";
+            this.dgvActivityLog.RowHeadersVisible = false;
+            this.dgvActivityLog.RowHeadersWidth = 51;
+            this.dgvActivityLog.RowTemplate.Height = 24;
+            this.dgvActivityLog.Size = new System.Drawing.Size(1131, 533);
+            this.dgvActivityLog.TabIndex = 2;
+            this.dgvActivityLog.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvActivityLog_CellContentClick);
             // 
-            // button1
+            // colLogID
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkGray;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(552, 153);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 33);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = false;
+            this.colLogID.HeaderText = "Log ID";
+            this.colLogID.MinimumWidth = 6;
+            this.colLogID.Name = "colLogID";
+            this.colLogID.Width = 125;
             // 
-            // btnCreateOrder
+            // colActionBy
             // 
-            this.btnCreateOrder.BackColor = System.Drawing.Color.Chartreuse;
-            this.btnCreateOrder.FlatAppearance.BorderSize = 0;
-            this.btnCreateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateOrder.Location = new System.Drawing.Point(1021, 142);
-            this.btnCreateOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnCreateOrder.Name = "btnCreateOrder";
-            this.btnCreateOrder.Size = new System.Drawing.Size(157, 43);
-            this.btnCreateOrder.TabIndex = 3;
-            this.btnCreateOrder.Text = "+ Create Order";
-            this.btnCreateOrder.UseVisualStyleBackColor = false;
-            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            this.colActionBy.HeaderText = "User";
+            this.colActionBy.MinimumWidth = 6;
+            this.colActionBy.Name = "colActionBy";
+            this.colActionBy.Width = 125;
             // 
-            // dgvOrders
+            // colActionType
             // 
-            this.dgvOrders.AllowUserToAddRows = false;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
-            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colOrderID,
-            this.colCustomer,
-            this.colContactNum,
-            this.colEmail,
-            this.colDeliverAdd,
-            this.colDate,
-            this.colTotalAmount,
-            this.colOrderStatus,
-            this.colDetails});
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvOrders.DefaultCellStyle = dataGridViewCellStyle25;
-            this.dgvOrders.Location = new System.Drawing.Point(51, 198);
-            this.dgvOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgvOrders.Name = "dgvOrders";
-            this.dgvOrders.ReadOnly = true;
-            this.dgvOrders.RowHeadersVisible = false;
-            this.dgvOrders.RowHeadersWidth = 51;
-            this.dgvOrders.RowTemplate.Height = 24;
-            this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrders.Size = new System.Drawing.Size(1149, 497);
-            this.dgvOrders.TabIndex = 2;
+            this.colActionType.HeaderText = "Action";
+            this.colActionType.MinimumWidth = 6;
+            this.colActionType.Name = "colActionType";
+            this.colActionType.Width = 125;
             // 
-            // label3
+            // colActionDetails
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(29, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 39);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Orders";
+            this.colActionDetails.HeaderText = "Details";
+            this.colActionDetails.MinimumWidth = 6;
+            this.colActionDetails.Name = "colActionDetails";
+            this.colActionDetails.Width = 125;
+            // 
+            // colActionDate
+            // 
+            this.colActionDate.HeaderText = "Date";
+            this.colActionDate.MinimumWidth = 6;
+            this.colActionDate.Name = "colActionDate";
+            this.colActionDate.Width = 125;
+            // 
+            // colViewDetails
+            // 
+            this.colViewDetails.HeaderText = "Details";
+            this.colViewDetails.MinimumWidth = 6;
+            this.colViewDetails.Name = "colViewDetails";
+            this.colViewDetails.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colViewDetails.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colViewDetails.Text = "Details";
+            this.colViewDetails.UseColumnTextForButtonValue = true;
+            this.colViewDetails.Width = 125;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(29, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(191, 39);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Activity Log";
             // 
             // panelInventory
             // 
             this.panelInventory.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelInventory.Controls.Add(this.btnAddStocks);
-            this.panelInventory.Controls.Add(this.btnSearch);
-            this.panelInventory.Controls.Add(this.txtSearch);
+            this.panelInventory.Controls.Add(this.btnSearchInventory);
+            this.panelInventory.Controls.Add(this.txtSearchInventory);
             this.panelInventory.Controls.Add(this.btnAddNewItem);
             this.panelInventory.Controls.Add(this.dgvInventory);
             this.panelInventory.Controls.Add(this.label2);
@@ -386,33 +375,32 @@
             this.btnAddStocks.UseVisualStyleBackColor = false;
             this.btnAddStocks.Click += new System.EventHandler(this.btnAddStocks_Click);
             // 
-            // btnSearch
+            // btnSearchInventory
             // 
-            this.btnSearch.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.ForeColor = System.Drawing.Color.Black;
-            this.btnSearch.Location = new System.Drawing.Point(552, 159);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(99, 33);
-            this.btnSearch.TabIndex = 9;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSearchInventory.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnSearchInventory.FlatAppearance.BorderSize = 0;
+            this.btnSearchInventory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchInventory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchInventory.ForeColor = System.Drawing.Color.Black;
+            this.btnSearchInventory.Location = new System.Drawing.Point(552, 159);
+            this.btnSearchInventory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSearchInventory.Name = "btnSearchInventory";
+            this.btnSearchInventory.Size = new System.Drawing.Size(99, 33);
+            this.btnSearchInventory.TabIndex = 9;
+            this.btnSearchInventory.Text = "Search";
+            this.btnSearchInventory.UseVisualStyleBackColor = false;
             // 
-            // txtSearch
+            // txtSearchInventory
             // 
-            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.txtSearch.Location = new System.Drawing.Point(23, 158);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtSearch.Multiline = true;
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(532, 34);
-            this.txtSearch.TabIndex = 8;
-            this.txtSearch.Text = "Search...";
+            this.txtSearchInventory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchInventory.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtSearchInventory.Location = new System.Drawing.Point(23, 158);
+            this.txtSearchInventory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSearchInventory.Multiline = true;
+            this.txtSearchInventory.Name = "txtSearchInventory";
+            this.txtSearchInventory.Size = new System.Drawing.Size(532, 34);
+            this.txtSearchInventory.TabIndex = 8;
+            this.txtSearchInventory.Text = "Search...";
             // 
             // btnAddNewItem
             // 
@@ -436,14 +424,14 @@
             this.dgvInventory.AllowUserToDeleteRows = false;
             this.dgvInventory.AllowUserToResizeColumns = false;
             this.dgvInventory.AllowUserToResizeRows = false;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInventory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle105.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle105.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle105.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle105.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle105.SelectionBackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle105.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle105.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInventory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle105;
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colItemID,
@@ -455,31 +443,31 @@
             this.colStatus,
             this.btnEdit});
             this.dgvInventory.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle107.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle107.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle107.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle107.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle107.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle107.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle107.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle107;
             this.dgvInventory.GridColor = System.Drawing.SystemColors.HighlightText;
             this.dgvInventory.Location = new System.Drawing.Point(23, 198);
             this.dgvInventory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInventory.RowHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle108.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle108.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle108.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle108.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle108.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle108.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle108.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInventory.RowHeadersDefaultCellStyle = dataGridViewCellStyle108;
             this.dgvInventory.RowHeadersVisible = false;
             this.dgvInventory.RowHeadersWidth = 51;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvInventory.RowsDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle109.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvInventory.RowsDefaultCellStyle = dataGridViewCellStyle109;
             this.dgvInventory.RowTemplate.Height = 24;
             this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvInventory.Size = new System.Drawing.Size(1189, 546);
@@ -488,8 +476,8 @@
             // 
             // colItemID
             // 
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colItemID.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle106.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colItemID.DefaultCellStyle = dataGridViewCellStyle106;
             this.colItemID.HeaderText = "Item ID";
             this.colItemID.MinimumWidth = 6;
             this.colItemID.Name = "colItemID";
@@ -573,91 +561,198 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Inventory";
             // 
-            // panelActivityLog
+            // panelOrders
             // 
-            this.panelActivityLog.BackColor = System.Drawing.Color.Transparent;
-            this.panelActivityLog.Controls.Add(this.dgvActivityLog);
-            this.panelActivityLog.Controls.Add(this.label5);
-            this.panelActivityLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelActivityLog.Location = new System.Drawing.Point(0, 0);
-            this.panelActivityLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panelActivityLog.Name = "panelActivityLog";
-            this.panelActivityLog.Size = new System.Drawing.Size(1232, 777);
-            this.panelActivityLog.TabIndex = 0;
+            this.panelOrders.Controls.Add(this.txtSearchOrders);
+            this.panelOrders.Controls.Add(this.btnSearchOrder);
+            this.panelOrders.Controls.Add(this.btnCreateOrder);
+            this.panelOrders.Controls.Add(this.dgvOrders);
+            this.panelOrders.Controls.Add(this.label3);
+            this.panelOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelOrders.Location = new System.Drawing.Point(0, 0);
+            this.panelOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelOrders.Name = "panelOrders";
+            this.panelOrders.Size = new System.Drawing.Size(1232, 777);
+            this.panelOrders.TabIndex = 0;
             // 
-            // dgvActivityLog
+            // txtSearchOrders
             // 
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvActivityLog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle31;
-            this.dgvActivityLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvActivityLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colActivityID,
-            this.colActivityDate,
-            this.colUser,
-            this.colSummary,
-            this.colActivityDetails});
-            this.dgvActivityLog.Location = new System.Drawing.Point(51, 190);
-            this.dgvActivityLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgvActivityLog.Name = "dgvActivityLog";
-            this.dgvActivityLog.RowHeadersVisible = false;
-            this.dgvActivityLog.RowHeadersWidth = 51;
-            this.dgvActivityLog.RowTemplate.Height = 24;
-            this.dgvActivityLog.Size = new System.Drawing.Size(1131, 533);
-            this.dgvActivityLog.TabIndex = 2;
+            this.txtSearchOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchOrders.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtSearchOrders.Location = new System.Drawing.Point(51, 153);
+            this.txtSearchOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSearchOrders.Multiline = true;
+            this.txtSearchOrders.Name = "txtSearchOrders";
+            this.txtSearchOrders.Size = new System.Drawing.Size(505, 34);
+            this.txtSearchOrders.TabIndex = 11;
+            this.txtSearchOrders.Text = "Search...";
             // 
-            // colActivityID
+            // btnSearchOrder
             // 
-            this.colActivityID.HeaderText = "Activity ID";
-            this.colActivityID.MinimumWidth = 6;
-            this.colActivityID.Name = "colActivityID";
-            this.colActivityID.Width = 125;
+            this.btnSearchOrder.BackColor = System.Drawing.Color.DarkGray;
+            this.btnSearchOrder.FlatAppearance.BorderSize = 0;
+            this.btnSearchOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchOrder.ForeColor = System.Drawing.Color.Black;
+            this.btnSearchOrder.Location = new System.Drawing.Point(552, 153);
+            this.btnSearchOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSearchOrder.Name = "btnSearchOrder";
+            this.btnSearchOrder.Size = new System.Drawing.Size(99, 33);
+            this.btnSearchOrder.TabIndex = 10;
+            this.btnSearchOrder.Text = "Search";
+            this.btnSearchOrder.UseVisualStyleBackColor = false;
             // 
-            // colActivityDate
+            // btnCreateOrder
             // 
-            this.colActivityDate.HeaderText = "Date";
-            this.colActivityDate.MinimumWidth = 6;
-            this.colActivityDate.Name = "colActivityDate";
-            this.colActivityDate.Width = 125;
+            this.btnCreateOrder.BackColor = System.Drawing.Color.Chartreuse;
+            this.btnCreateOrder.FlatAppearance.BorderSize = 0;
+            this.btnCreateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateOrder.Location = new System.Drawing.Point(1021, 142);
+            this.btnCreateOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCreateOrder.Name = "btnCreateOrder";
+            this.btnCreateOrder.Size = new System.Drawing.Size(157, 43);
+            this.btnCreateOrder.TabIndex = 3;
+            this.btnCreateOrder.Text = "+ Create Order";
+            this.btnCreateOrder.UseVisualStyleBackColor = false;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
-            // colUser
+            // dgvOrders
             // 
-            this.colUser.HeaderText = "User";
-            this.colUser.MinimumWidth = 6;
-            this.colUser.Name = "colUser";
-            this.colUser.Width = 125;
+            this.dgvOrders.AllowUserToAddRows = false;
+            dataGridViewCellStyle97.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle97.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle97.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle97.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle97.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle97.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle97.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle97;
+            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colOrderID,
+            this.colCustomer,
+            this.colContactNum,
+            this.colEmail,
+            this.colDeliverAdd,
+            this.colDate,
+            this.colTotalAmount,
+            this.colOrderStatus,
+            this.colAction});
+            dataGridViewCellStyle103.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle103.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle103.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle103.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle103.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle103.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle103.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvOrders.DefaultCellStyle = dataGridViewCellStyle103;
+            this.dgvOrders.Location = new System.Drawing.Point(51, 198);
+            this.dgvOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvOrders.Name = "dgvOrders";
+            this.dgvOrders.RowHeadersVisible = false;
+            this.dgvOrders.RowHeadersWidth = 51;
+            this.dgvOrders.RowTemplate.Height = 24;
+            this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrders.Size = new System.Drawing.Size(1149, 497);
+            this.dgvOrders.TabIndex = 2;
+            this.dgvOrders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrders_CellContentClick);
             // 
-            // colSummary
+            // colOrderID
             // 
-            this.colSummary.HeaderText = "Action";
-            this.colSummary.MinimumWidth = 6;
-            this.colSummary.Name = "colSummary";
-            this.colSummary.Width = 125;
+            dataGridViewCellStyle98.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle98.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colOrderID.DefaultCellStyle = dataGridViewCellStyle98;
+            this.colOrderID.HeaderText = "Order ID";
+            this.colOrderID.MinimumWidth = 6;
+            this.colOrderID.Name = "colOrderID";
+            this.colOrderID.Width = 125;
             // 
-            // colActivityDetails
+            // colCustomer
             // 
-            this.colActivityDetails.HeaderText = "Details";
-            this.colActivityDetails.MinimumWidth = 6;
-            this.colActivityDetails.Name = "colActivityDetails";
-            this.colActivityDetails.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colActivityDetails.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colActivityDetails.Text = "Details";
-            this.colActivityDetails.Width = 125;
+            dataGridViewCellStyle99.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle99.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colCustomer.DefaultCellStyle = dataGridViewCellStyle99;
+            this.colCustomer.HeaderText = "Customer";
+            this.colCustomer.MinimumWidth = 6;
+            this.colCustomer.Name = "colCustomer";
+            this.colCustomer.Width = 125;
             // 
-            // label5
+            // colContactNum
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(29, 25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(191, 39);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Activity Log";
+            dataGridViewCellStyle100.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle100.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colContactNum.DefaultCellStyle = dataGridViewCellStyle100;
+            this.colContactNum.HeaderText = "Contact no.";
+            this.colContactNum.MinimumWidth = 6;
+            this.colContactNum.Name = "colContactNum";
+            this.colContactNum.Visible = false;
+            this.colContactNum.Width = 125;
+            // 
+            // colEmail
+            // 
+            this.colEmail.HeaderText = "Email";
+            this.colEmail.MinimumWidth = 6;
+            this.colEmail.Name = "colEmail";
+            this.colEmail.Visible = false;
+            this.colEmail.Width = 125;
+            // 
+            // colDeliverAdd
+            // 
+            this.colDeliverAdd.HeaderText = "To";
+            this.colDeliverAdd.MinimumWidth = 6;
+            this.colDeliverAdd.Name = "colDeliverAdd";
+            this.colDeliverAdd.Visible = false;
+            this.colDeliverAdd.Width = 125;
+            // 
+            // colDate
+            // 
+            this.colDate.HeaderText = "Order Date";
+            this.colDate.MinimumWidth = 6;
+            this.colDate.Name = "colDate";
+            this.colDate.Width = 125;
+            // 
+            // colTotalAmount
+            // 
+            dataGridViewCellStyle101.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle101.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colTotalAmount.DefaultCellStyle = dataGridViewCellStyle101;
+            this.colTotalAmount.HeaderText = "Total Amount";
+            this.colTotalAmount.MinimumWidth = 6;
+            this.colTotalAmount.Name = "colTotalAmount";
+            this.colTotalAmount.Width = 125;
+            // 
+            // colOrderStatus
+            // 
+            dataGridViewCellStyle102.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle102.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colOrderStatus.DefaultCellStyle = dataGridViewCellStyle102;
+            this.colOrderStatus.HeaderText = "Status";
+            this.colOrderStatus.MinimumWidth = 6;
+            this.colOrderStatus.Name = "colOrderStatus";
+            this.colOrderStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colOrderStatus.Width = 125;
+            // 
+            // colAction
+            // 
+            this.colAction.HeaderText = "Action";
+            this.colAction.MinimumWidth = 6;
+            this.colAction.Name = "colAction";
+            this.colAction.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colAction.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colAction.Text = "Edit";
+            this.colAction.UseColumnTextForButtonValue = true;
+            this.colAction.Width = 125;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(29, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 39);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Orders";
             // 
             // panelTransactionHistory
             // 
@@ -701,14 +796,14 @@
             // 
             // dgvTransactionHistory
             // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTransactionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle110.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle110.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle110.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle110.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle110.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle110.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle110.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTransactionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle110;
             this.dgvTransactionHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTransactionHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTransactionID,
@@ -718,19 +813,19 @@
             this.dgvTransactionHistory.Location = new System.Drawing.Point(51, 190);
             this.dgvTransactionHistory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTransactionHistory.Name = "dgvTransactionHistory";
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTransactionHistory.RowHeadersDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle111.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle111.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle111.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle111.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle111.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle111.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle111.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTransactionHistory.RowHeadersDefaultCellStyle = dataGridViewCellStyle111;
             this.dgvTransactionHistory.RowHeadersVisible = false;
             this.dgvTransactionHistory.RowHeadersWidth = 51;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvTransactionHistory.RowsDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle112.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle112.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvTransactionHistory.RowsDefaultCellStyle = dataGridViewCellStyle112;
             this.dgvTransactionHistory.RowTemplate.Height = 24;
             this.dgvTransactionHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTransactionHistory.Size = new System.Drawing.Size(1131, 533);
@@ -786,7 +881,6 @@
             this.panelDashboard.Name = "panelDashboard";
             this.panelDashboard.Size = new System.Drawing.Size(1232, 777);
             this.panelDashboard.TabIndex = 0;
-            this.panelDashboard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDashboard_Paint);
             // 
             // groupBoxTotalSales
             // 
@@ -857,98 +951,6 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Sales Report";
             // 
-            // colOrderID
-            // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colOrderID.DefaultCellStyle = dataGridViewCellStyle19;
-            this.colOrderID.HeaderText = "Order ID";
-            this.colOrderID.MinimumWidth = 6;
-            this.colOrderID.Name = "colOrderID";
-            this.colOrderID.ReadOnly = true;
-            this.colOrderID.Width = 125;
-            // 
-            // colCustomer
-            // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colCustomer.DefaultCellStyle = dataGridViewCellStyle20;
-            this.colCustomer.HeaderText = "Customer";
-            this.colCustomer.MinimumWidth = 6;
-            this.colCustomer.Name = "colCustomer";
-            this.colCustomer.ReadOnly = true;
-            this.colCustomer.Width = 125;
-            // 
-            // colContactNum
-            // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colContactNum.DefaultCellStyle = dataGridViewCellStyle21;
-            this.colContactNum.HeaderText = "Contact no.";
-            this.colContactNum.MinimumWidth = 6;
-            this.colContactNum.Name = "colContactNum";
-            this.colContactNum.ReadOnly = true;
-            this.colContactNum.Width = 125;
-            // 
-            // colEmail
-            // 
-            this.colEmail.HeaderText = "Email";
-            this.colEmail.MinimumWidth = 6;
-            this.colEmail.Name = "colEmail";
-            this.colEmail.ReadOnly = true;
-            this.colEmail.Width = 125;
-            // 
-            // colDeliverAdd
-            // 
-            this.colDeliverAdd.HeaderText = "To";
-            this.colDeliverAdd.MinimumWidth = 6;
-            this.colDeliverAdd.Name = "colDeliverAdd";
-            this.colDeliverAdd.ReadOnly = true;
-            this.colDeliverAdd.Width = 125;
-            // 
-            // colDate
-            // 
-            this.colDate.HeaderText = "Order Date";
-            this.colDate.MinimumWidth = 6;
-            this.colDate.Name = "colDate";
-            this.colDate.ReadOnly = true;
-            this.colDate.Width = 125;
-            // 
-            // colTotalAmount
-            // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colTotalAmount.DefaultCellStyle = dataGridViewCellStyle22;
-            this.colTotalAmount.HeaderText = "Total Amount";
-            this.colTotalAmount.MinimumWidth = 6;
-            this.colTotalAmount.Name = "colTotalAmount";
-            this.colTotalAmount.ReadOnly = true;
-            this.colTotalAmount.Width = 125;
-            // 
-            // colOrderStatus
-            // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colOrderStatus.DefaultCellStyle = dataGridViewCellStyle23;
-            this.colOrderStatus.HeaderText = "Status";
-            this.colOrderStatus.MinimumWidth = 6;
-            this.colOrderStatus.Name = "colOrderStatus";
-            this.colOrderStatus.ReadOnly = true;
-            this.colOrderStatus.Width = 125;
-            // 
-            // colDetails
-            // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colDetails.DefaultCellStyle = dataGridViewCellStyle24;
-            this.colDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colDetails.HeaderText = "";
-            this.colDetails.MinimumWidth = 6;
-            this.colDetails.Name = "colDetails";
-            this.colDetails.ReadOnly = true;
-            this.colDetails.Text = "Details";
-            this.colDetails.Width = 125;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -965,15 +967,15 @@
             this.panelSidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelMain.ResumeLayout(false);
-            this.panelOrders.ResumeLayout(false);
-            this.panelOrders.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
-            this.panelInventory.ResumeLayout(false);
-            this.panelInventory.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             this.panelActivityLog.ResumeLayout(false);
             this.panelActivityLog.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActivityLog)).EndInit();
+            this.panelInventory.ResumeLayout(false);
+            this.panelInventory.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
+            this.panelOrders.ResumeLayout(false);
+            this.panelOrders.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
             this.panelTransactionHistory.ResumeLayout(false);
             this.panelTransactionHistory.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransactionHistory)).EndInit();
@@ -1012,14 +1014,14 @@
         private System.Windows.Forms.GroupBox groupBoxTotalSales;
         private System.Windows.Forms.Button btnAddNewItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.TextBox txtSearchInventory;
         public System.Windows.Forms.DataGridView dgvInventory;
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnSearchInventory;
         private System.Windows.Forms.Button btnAddStocks;
         private System.Windows.Forms.DataGridView dgvOrders;
         private System.Windows.Forms.Button btnCreateOrder;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtSearchOrders;
+        private System.Windows.Forms.Button btnSearchOrder;
         private System.Windows.Forms.DataGridView dgvTransactionHistory;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button2;
@@ -1028,11 +1030,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTransactionAmount;
         private System.Windows.Forms.DataGridView dgvActivityLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActivityID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActivityDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colUser;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSummary;
-        private System.Windows.Forms.DataGridViewButtonColumn colActivityDetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
@@ -1049,7 +1046,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOrderStatus;
-        private System.Windows.Forms.DataGridViewButtonColumn colDetails;
+        private System.Windows.Forms.DataGridViewButtonColumn colAction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLogID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActionBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActionType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActionDetails;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActionDate;
+        private System.Windows.Forms.DataGridViewButtonColumn colViewDetails;
     }
 }
 
