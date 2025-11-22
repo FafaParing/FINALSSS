@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FINALSSS
 {
@@ -12,7 +8,7 @@ namespace FINALSSS
     {
         public DataTable GetAllItems()
         {
-            DataTable dt = new DataTable(); 
+            DataTable dt = new DataTable();
 
             using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
             {
@@ -24,12 +20,9 @@ namespace FINALSSS
                 {
                     dt.Load(reader);
                 }
-
             }
 
             return dt;
         }
-        
-
     }
 }

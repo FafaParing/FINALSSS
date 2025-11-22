@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FINALSSS
 {
-    public partial class SetQuantity: Form
+    public partial class SetQuantity : Form
     {
         public int SelectedQuantity => (int)numQuantity.Value;
 
@@ -28,7 +21,7 @@ namespace FINALSSS
 
         private void SetQuantity_Load(object sender, EventArgs e)
         {
-
+            // No extra code needed here
         }
     }
 }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FINALSSS
@@ -19,17 +12,17 @@ namespace FINALSSS
 
         private void UserLogIn_Load(object sender, EventArgs e)
         {
-
+            // Optional: Any initialization code
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            // Optional: handle text change if needed
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            bool loginSuccess = true; // replace with real validation
+            bool loginSuccess = true; // Replace with real validation
 
             if (loginSuccess)
             {
@@ -38,7 +31,8 @@ namespace FINALSSS
             }
             else
             {
-                MessageBox.Show("Invalid credentials.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Invalid credentials.", "Login Failed",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

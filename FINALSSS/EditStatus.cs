@@ -18,7 +18,6 @@ namespace FINALSSS
 
             lblOrderID.Text = "Order ID: " + orderId.ToString();
 
-            // Select current status safely
             if (!string.IsNullOrWhiteSpace(currentStatus) &&
                 cmbEditStatus.Items.Contains(currentStatus))
             {
@@ -55,14 +54,13 @@ namespace FINALSSS
                         cmd.ExecuteNonQuery();
                     }
 
-                    // Log action in ActivityLog
                     string logQuery = @"
                         INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails)
                         VALUES (@user, @type, @details)";
 
                     using (SqlCommand logCmd = new SqlCommand(logQuery, conn))
                     {
-                        logCmd.Parameters.AddWithValue("@user", "System"); // or your username later
+                        logCmd.Parameters.AddWithValue("@user", "System");
                         logCmd.Parameters.AddWithValue("@type", "Updated Order Status");
                         logCmd.Parameters.AddWithValue("@details",
                             $"OrderID {orderId}: {currentStatus} → {newStatus}");

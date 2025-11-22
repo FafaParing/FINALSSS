@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using FINALSSS;
 
 namespace FINALSSS
 {
-    public partial class AddItemForm: Form
+    public partial class AddItemForm : Form
     {
         public AddItemForm()
         {
@@ -23,7 +13,7 @@ namespace FINALSSS
 
         private void AddItemForm_Load(object sender, EventArgs e)
         {
-
+            // No code needed here
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -37,21 +27,22 @@ namespace FINALSSS
                 MessageBox.Show("Please fill in all required fields.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // Prepare new item data
+
             string itemName = txtItemName.Text;
             string category = cmbCategory.Text;
             int stock = (int)numStock.Value;
             decimal price = decimal.Parse(txtPrice.Text);
             string unit = cmbUnit.Text;
             string status = cmbStatus.Text;
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
 
-                    string query = "INSERT INTO Items (ItemName, Category, StockQuantity, Unit, Price, Status) " +
-                                   "VALUES (@name, @category, @quantity, @price, @unit, @status)";
+                    string query = @"INSERT INTO Items (ItemName, Category, StockQuantity, Unit, Price, Status) 
+                                     VALUES (@name, @category, @quantity, @unit, @price, @status)";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     cmd.Parameters.AddWithValue("@name", itemName);
@@ -59,7 +50,6 @@ namespace FINALSSS
                     cmd.Parameters.AddWithValue("@quantity", stock);
                     cmd.Parameters.AddWithValue("@price", price);
                     cmd.Parameters.AddWithValue("@unit", unit);
-
                     cmd.Parameters.AddWithValue("@status", status);
 
                     cmd.ExecuteNonQuery();
@@ -68,7 +58,7 @@ namespace FINALSSS
                 MessageBox.Show("Item added successfully.");
 
                 // Refresh main form DataGridView
-                if (this.Owner is Main mainForm) // replace MainForm with your main form class name
+                if (this.Owner is Main mainForm)
                 {
                     mainForm.LoadItems();
                 }
@@ -79,7 +69,6 @@ namespace FINALSSS
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

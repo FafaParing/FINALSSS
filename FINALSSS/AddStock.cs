@@ -1,35 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace FINALSSS
 {
-    public partial class AddStock: Form
+    public partial class AddStock : Form
     {
         private int itemId;
         private int currentQty;
+
         public AddStock(int itemId, string itemName, int currentQty)
         {
             InitializeComponent();
+
             this.itemId = itemId;
             this.currentQty = currentQty;
 
-            lblItemName.Text = itemName;          // Show the item name
-            lblCurrentQuantity.Text = currentQty.ToString();     // Show current stock
+            lblItemName.Text = itemName;
+            lblCurrentQuantity.Text = currentQty.ToString();
             numAddQuantity.Value = 0;
         }
 
         private void btnUpdateStock_Click(object sender, EventArgs e)
         {
-            int qtyToAdd = (int)numAddQuantity.Value;        // Quantity to add
+            int qtyToAdd = (int)numAddQuantity.Value;
             int newQty = currentQty + qtyToAdd;
 
             if (qtyToAdd <= 0)
@@ -37,6 +31,7 @@ namespace FINALSSS
                 MessageBox.Show("Please enter a quantity greater than 0.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
@@ -52,8 +47,7 @@ namespace FINALSSS
                 }
 
                 MessageBox.Show("Stock updated successfully.");
-
-                this.Close(); // Close AddStock form
+                this.Close();
             }
             catch (Exception ex)
             {
