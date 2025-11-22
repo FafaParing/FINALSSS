@@ -30,6 +30,11 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.txtDetails = new System.Windows.Forms.TextBox();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,18 +59,69 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Activity Details";
             // 
+            // lblUser
+            // 
+            this.lblUser.AutoEllipsis = true;
+            this.lblUser.Location = new System.Drawing.Point(476, 170);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(100, 23);
+            this.lblUser.TabIndex = 1;
+            this.lblUser.Text = "lblUser";
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Location = new System.Drawing.Point(479, 270);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(58, 16);
+            this.lblAction.TabIndex = 2;
+            this.lblAction.Text = "lblAction";
+            // 
+            // txtDetails
+            // 
+            this.txtDetails.Location = new System.Drawing.Point(436, 377);
+            this.txtDetails.Name = "txtDetails";
+            this.txtDetails.Size = new System.Drawing.Size(100, 22);
+            this.txtDetails.TabIndex = 3;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(436, 480);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(50, 16);
+            this.lblDate.TabIndex = 4;
+            this.lblDate.Text = "lblDate";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(502, 602);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.Text = "close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // ActivityDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 736);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.txtDetails);
+            this.Controls.Add(this.lblAction);
+            this.Controls.Add(this.lblUser);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ActivityDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ActivityDetails";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -73,5 +129,10 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblAction;
+        private System.Windows.Forms.TextBox txtDetails;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Button btnClose;
     }
 }

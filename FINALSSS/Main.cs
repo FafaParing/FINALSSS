@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FINALSSS
 {
     public partial class Main : Form
     {
+        private string currentUsername = "Admin"; // Replace with real logged-in user
+
         public Main()
         {
             InitializeComponent();
@@ -23,10 +18,7 @@ namespace FINALSSS
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Assign CellContentClick handlers
-            dgvInventory.CellContentClick += dgvInventory_CellContentClick;
-            dgvOrders.CellContentClick += dgvOrders_CellContentClick;
-            dgvActivityLog.CellContentClick += dgvActivityLog_CellContentClick;
+            
         }
 
         private void ShowPanel(Panel panelToShow)
@@ -36,6 +28,7 @@ namespace FINALSSS
             panelOrders.Visible = false;
             panelActivityLog.Visible = false;
             panelSalesReport.Visible = false;
+            panelTransactionHistory.Visible = false;
 
             panelToShow.Visible = true;
         }
@@ -45,7 +38,6 @@ namespace FINALSSS
         private void btnOrders_Click(object sender, EventArgs e) => ShowPanel(panelOrders);
         private void btnActivityLog_Click(object sender, EventArgs e) => ShowPanel(panelActivityLog);
         private void btnTransactionHistory_Click(object sender, EventArgs e) => ShowPanel(panelTransactionHistory);
-
         private void btnSalesReport_Click(object sender, EventArgs e) => ShowPanel(panelSalesReport);
 
         // ---------- INVENTORY TAB ----------
@@ -65,7 +57,7 @@ namespace FINALSSS
                     while (reader.Read())
                     {
                         int rowIndex = dgvInventory.Rows.Add();
-                        DataGridViewRow row = dgvInventory.Rows[rowIndex];
+                        var row = dgvInventory.Rows[rowIndex];
 
                         row.Cells["colItemID"].Value = reader["ItemID"].ToString();
                         row.Cells["colItemName"].Value = reader["ItemName"].ToString();
@@ -88,10 +80,11 @@ namespace FINALSSS
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {
             AddItemForm add = new AddItemForm();
+            add.Owner = this;
             add.FormClosed += (s, args) =>
             {
                 LoadItems();
-                LogActivity("Added new item.");
+                LogActivity(currentUsername, "Add Item", "Added new item");
             };
             add.ShowDialog();
         }
@@ -105,10 +98,11 @@ namespace FINALSSS
                 int currentQty = Convert.ToInt32(dgvInventory.SelectedRows[0].Cells["colStock"].Value);
 
                 AddStock addStockForm = new AddStock(itemId, itemName, currentQty);
+                addStockForm.Owner = this;
                 addStockForm.FormClosed += (s, args) =>
                 {
                     LoadItems();
-                    LogActivity($"Added stock for item: {itemName}.");
+                    LogActivity(currentUsername, "Add Stock", $"Added stock for item: {itemName}");
                 };
                 addStockForm.ShowDialog();
             }
@@ -128,10 +122,11 @@ namespace FINALSSS
                 string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value.ToString();
 
                 EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status);
+                editForm.Owner = this;
                 editForm.FormClosed += (s, args) =>
                 {
                     LoadItems();
-                    LogActivity($"Edited item: {itemName}.");
+                    LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
                 };
                 editForm.ShowDialog();
             }
@@ -163,7 +158,7 @@ namespace FINALSSS
                     while (reader.Read())
                     {
                         int rowIndex = dgvOrders.Rows.Add();
-                        DataGridViewRow row = dgvOrders.Rows[rowIndex];
+                        var row = dgvOrders.Rows[rowIndex];
 
                         row.Cells["colOrderID"].Value = Convert.ToInt32(reader["OrderID"]);
                         row.Cells["colCustomer"].Value = reader["CustomerName"].ToString();
@@ -191,7 +186,7 @@ namespace FINALSSS
             createOrderForm.FormClosed += (s, args) =>
             {
                 LoadOrders();
-                LogActivity("Created new order.");
+                LogActivity(currentUsername, "Create Order", "Created new order");
             };
             createOrderForm.ShowDialog();
         }
@@ -206,12 +201,13 @@ namespace FINALSSS
                 string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value.ToString();
 
                 EditStatus editStatusForm = new EditStatus(orderID, currentStatus);
-                editStatusForm.ShowDialog();
+                editStatusForm.Owner = this;
                 editStatusForm.FormClosed += (s, args) =>
                 {
                     LoadOrders();
-                    LogActivity($"Updated status of order ID: {orderID}.");
+                    LogActivity(currentUsername, "Update Order Status", $"Order ID {orderID} status updated to {currentStatus}");
                 };
+                editStatusForm.ShowDialog();
             }
         }
 
@@ -228,22 +224,27 @@ namespace FINALSSS
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
-                    string query = "SELECT LogID, ActionBy, ActionType, ActionDetails, ActionDate FROM ActivityLog ORDER BY ActionDate DESC";
+                    string query = @"SELECT LogID, ActionBy, ActionType, ActionDetails, ActionDate 
+                                     FROM ActivityLog 
+                                     WHERE ActionBy <> 'System'
+                                     ORDER BY ActionDate DESC";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvActivityLog.Rows.Clear();
+                    dgvActivityLog.AllowUserToAddRows = false;
 
                     while (reader.Read())
                     {
                         int rowIndex = dgvActivityLog.Rows.Add();
-                        DataGridViewRow row = dgvActivityLog.Rows[rowIndex];
+                        var row = dgvActivityLog.Rows[rowIndex];
 
-                        row.Cells["colLogID"].Value = reader["LogID"].ToString();
-                        row.Cells["colActionBy"].Value = reader["ActionBy"].ToString();
-                        row.Cells["colActionType"].Value = reader["ActionType"].ToString();
-                        row.Cells["colActionDetails"].Value = reader["ActionDetails"].ToString();
+                        row.Cells["colLogID"].Value = reader["LogID"];
+                        row.Cells["colActionBy"].Value = reader["ActionBy"];
+                        row.Cells["colActionType"].Value = reader["ActionType"];
+                        row.Cells["colActionDetails"].Value = reader["ActionDetails"];
                         row.Cells["colActionDate"].Value = Convert.ToDateTime(reader["ActionDate"]).ToString("yyyy-MM-dd HH:mm");
+                        row.Cells["colViewDetails"].Value = "View";
                     }
 
                     reader.Close();
@@ -257,7 +258,14 @@ namespace FINALSSS
 
         private void dgvActivityLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Implement if needed for buttons inside activity log
+            if (e.RowIndex < 0) return;
+
+            if (dgvActivityLog.Columns[e.ColumnIndex].Name == "colViewDetails")
+            {
+                int logId = Convert.ToInt32(dgvActivityLog.Rows[e.RowIndex].Cells["colLogID"].Value);
+                ActivityDetails detailsForm = new ActivityDetails(logId);
+                detailsForm.ShowDialog();
+            }
         }
 
         // ---------- SHARED METHODS ----------
@@ -275,28 +283,31 @@ namespace FINALSSS
 
             if (string.IsNullOrEmpty(searchText))
             {
-                // Reload the data if search box is cleared
                 if (dgv == dgvInventory) LoadItems();
                 else if (dgv == dgvOrders) LoadOrders();
                 else if (dgv == dgvActivityLog) LoadActivityLog();
             }
         }
 
-        public void LogActivity(string actionDescription)
+        // ---------- LOGGING ----------
+        public void LogActivity(string actionBy, string actionType, string actionDetails)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
-                    string query = "INSERT INTO ActivityLog (ActionDetails, ActionDate) VALUES (@action, @date)";
+                    string query = @"INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails, ActionDate)
+                                     VALUES (@by, @type, @details, @date)";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@action", actionDescription);
+                    cmd.Parameters.AddWithValue("@by", actionBy);
+                    cmd.Parameters.AddWithValue("@type", actionType);
+                    cmd.Parameters.AddWithValue("@details", actionDetails);
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
 
-                LoadActivityLog(); // refresh log
+                LoadActivityLog();
             }
             catch (Exception ex)
             {
@@ -313,7 +324,5 @@ namespace FINALSSS
             dgvOrders.ClearSelection();
             dgvActivityLog.ClearSelection();
         }
-
-        
     }
 }

@@ -29,9 +29,17 @@ namespace FINALSSS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            Main main = new Main();
-            main.Show();
-            this.Hide();
+            bool loginSuccess = true; // replace with real validation
+
+            if (loginSuccess)
+            {
+                this.DialogResult = DialogResult.OK; // signals success
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid credentials.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

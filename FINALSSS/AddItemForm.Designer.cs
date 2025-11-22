@@ -75,7 +75,7 @@
             this.txtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtItemName.Location = new System.Drawing.Point(192, 97);
             this.txtItemName.Name = "txtItemName";
-            this.txtItemName.Size = new System.Drawing.Size(192, 26);
+            this.txtItemName.Size = new System.Drawing.Size(206, 26);
             this.txtItemName.TabIndex = 2;
             // 
             // label3
@@ -126,7 +126,7 @@
             "Indoor"});
             this.cmbCategory.Location = new System.Drawing.Point(192, 149);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(192, 28);
+            this.cmbCategory.Size = new System.Drawing.Size(206, 28);
             this.cmbCategory.TabIndex = 7;
             // 
             // numStock
@@ -155,7 +155,7 @@
             "Not Available"});
             this.cmbStatus.Location = new System.Drawing.Point(192, 296);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(192, 28);
+            this.cmbStatus.Size = new System.Drawing.Size(206, 28);
             this.cmbStatus.TabIndex = 10;
             // 
             // btnSave
@@ -194,7 +194,7 @@
             "Roll"});
             this.cmbUnit.Location = new System.Drawing.Point(329, 246);
             this.cmbUnit.Name = "cmbUnit";
-            this.cmbUnit.Size = new System.Drawing.Size(55, 28);
+            this.cmbUnit.Size = new System.Drawing.Size(69, 28);
             this.cmbUnit.TabIndex = 13;
             // 
             // label7

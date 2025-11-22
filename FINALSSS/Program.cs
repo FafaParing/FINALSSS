@@ -16,7 +16,14 @@ namespace FINALSSS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UserLogIn());
+
+            using (UserLogIn login = new UserLogIn())
+            {
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new Main());
+                }
+            }
         }
     }
 }

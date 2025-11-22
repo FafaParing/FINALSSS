@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FINALSSS
 {
-    public partial class EditStatus: Form
+    public partial class EditStatus : Form
     {
         private int orderId;
         private string currentStatus;
+
         public EditStatus(int id, string status)
         {
             InitializeComponent();
@@ -24,10 +16,18 @@ namespace FINALSSS
             orderId = id;
             currentStatus = status;
 
-            // Display OrderID on label
             lblOrderID.Text = "Order ID: " + orderId.ToString();
-            cmbEditStatus.SelectedItem = currentStatus;
 
+            // Select current status safely
+            if (!string.IsNullOrWhiteSpace(currentStatus) &&
+                cmbEditStatus.Items.Contains(currentStatus))
+            {
+                cmbEditStatus.SelectedItem = currentStatus;
+            }
+            else
+            {
+                cmbEditStatus.SelectedIndex = -1;
+            }
         }
 
         private void btnUpdateEditStatus_Click(object sender, EventArgs e)
@@ -39,32 +39,59 @@ namespace FINALSSS
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+            string newStatus = cmbEditStatus.SelectedItem.ToString();
+
+            try
             {
-                conn.Open();
-                string query = "UPDATE Orders SET Status = @status WHERE OrderID = @id";
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open();
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@status", cmbEditStatus.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@id", orderId);
+                    string query = "UPDATE Orders SET Status = @status WHERE OrderID = @id";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@status", newStatus);
+                        cmd.Parameters.AddWithValue("@id", orderId);
+                        cmd.ExecuteNonQuery();
+                    }
 
-                cmd.ExecuteNonQuery();
+                    // Log action in ActivityLog
+                    string logQuery = @"
+                        INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails)
+                        VALUES (@user, @type, @details)";
+
+                    using (SqlCommand logCmd = new SqlCommand(logQuery, conn))
+                    {
+                        logCmd.Parameters.AddWithValue("@user", "System"); // or your username later
+                        logCmd.Parameters.AddWithValue("@type", "Updated Order Status");
+                        logCmd.Parameters.AddWithValue("@details",
+                            $"OrderID {orderId}: {currentStatus} → {newStatus}");
+
+                        logCmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Order status updated successfully!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-
-            
-
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating status: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancelEditStatus_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
 
         private void EditStatus_Load(object sender, EventArgs e)
         {
-            
+            // Not used but kept for designer
         }
     }
 }

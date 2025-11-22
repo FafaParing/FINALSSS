@@ -343,5 +343,10 @@ namespace FINALSSS
             }
             return false;
         }
+
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -8,40 +8,34 @@ namespace FINALSSS
     {
         private int itemId;
 
-        public EditItem(int itemId, string itemName, string category, decimal price,string unit, string status)
+        // Constructor to receive selected item info
+        public EditItem(int itemId, string itemName, string category, decimal price, string unit, string status)
         {
             InitializeComponent();
 
             this.itemId = itemId;
 
-            // Set the current values in the form controls
+            // Populate the form fields
             txtEditItemName.Text = itemName;
             cmbEditCategory.Text = category;
             numEditPrice.Value = price;
             cmbEditUnit.Text = unit;
             cmbStatus.Text = status;
         }
-        public EditItem()
-        {
-            InitializeComponent();
-        }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Cancel button closes the form
         private void btnCancelEdit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Save button updates database and closes the form
         private void btnSaveEdit_Click(object sender, EventArgs e)
         {
-            // Simple validation
+            // Validation
             if (string.IsNullOrWhiteSpace(txtEditItemName.Text) ||
                 string.IsNullOrWhiteSpace(cmbEditCategory.Text) ||
-                string.IsNullOrWhiteSpace(numEditPrice.Text) ||
+                string.IsNullOrWhiteSpace(cmbEditUnit.Text) ||
                 string.IsNullOrWhiteSpace(cmbStatus.Text))
             {
                 MessageBox.Show("Please fill in all fields.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -59,11 +53,10 @@ namespace FINALSSS
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
-
-                    string query = "UPDATE Items SET ItemName=@name, Category=@category, Price=@price, Unit=@unit, Status=@status " +
-                                   "WHERE ItemID=@id";
+                    string query = @"UPDATE Items 
+                                     SET ItemName=@name, Category=@category, Price=@price, Unit=@unit, Status=@status 
+                                     WHERE ItemID=@id";
                     SqlCommand cmd = new SqlCommand(query, conn);
-
                     cmd.Parameters.AddWithValue("@name", itemName);
                     cmd.Parameters.AddWithValue("@category", category);
                     cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = price;
@@ -75,28 +68,12 @@ namespace FINALSSS
                 }
 
                 MessageBox.Show("Item updated successfully.");
-
-                this.Close(); // close the EditItem form
+                this.Close(); // close form only
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
-
-        private void txtEditItemID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
