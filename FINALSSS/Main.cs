@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FINALSSS
@@ -33,7 +34,11 @@ namespace FINALSSS
             panelToShow.Visible = true;
         }
 
-        private void btnDashboard_Click(object sender, EventArgs e) => ShowPanel(panelDashboard);
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            ShowPanel(panelDashboard);
+            
+        }
         private void btnInventory_Click(object sender, EventArgs e) => ShowPanel(panelInventory);
         private void btnOrders_Click(object sender, EventArgs e) => ShowPanel(panelOrders);
         private void btnActivityLog_Click(object sender, EventArgs e) => ShowPanel(panelActivityLog);
@@ -449,6 +454,16 @@ namespace FINALSSS
             {
                 MessageBox.Show("Error loading transaction history: " + ex.Message);
             }
+        }
+
+        private void panelDashboard_Paint(object sender, PaintEventArgs e)
+        {
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
