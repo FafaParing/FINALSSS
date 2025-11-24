@@ -76,6 +76,7 @@ namespace FINALSSS
             {
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
+
                     conn.Open();
                     string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit, Status FROM Items";
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -509,6 +510,21 @@ namespace FINALSSS
             ResetColors();
             btn.BackColor = Color.FromArgb(108, 147, 255);
             btn.ForeColor = Color.White;
+        }
+
+        private void panelManageAccounts_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
