@@ -14,6 +14,7 @@ namespace FINALSSS
             InitializeComponent();
 
             // Panels and DataGridView setup
+            SetColors(btnDashboard);
             ShowPanel(panelDashboard);
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -36,15 +37,32 @@ namespace FINALSSS
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            SetColors(btnDashboard);
             ShowPanel(panelDashboard);
-            
         }
-        private void btnInventory_Click(object sender, EventArgs e) => ShowPanel(panelInventory);
-        private void btnOrders_Click(object sender, EventArgs e) => ShowPanel(panelOrders);
-        private void btnActivityLog_Click(object sender, EventArgs e) => ShowPanel(panelActivityLog);
-        private void btnTransactionHistory_Click(object sender, EventArgs e) => ShowPanel(panelTransactionHistory);
+        private void btnInventory_Click(object sender, EventArgs e)
+        {
+            SetColors(btnInventory);
+            ShowPanel(panelInventory);
+        }
+        private void btnOrders_Click(object sender, EventArgs e)
+        {
+            SetColors(btnOrders);
+            ShowPanel(panelOrders);
+        }
+        private void btnActivityLog_Click(object sender, EventArgs e)
+        {
+            SetColors(btnActivityLog);
+            ShowPanel(panelActivityLog);
+        }
+        private void btnTransactionHistory_Click(object sender, EventArgs e)
+        {
+            SetColors(btnTransactionHistory);
+            ShowPanel(panelTransactionHistory);
+        }
         private void btnSalesReport_Click(object sender, EventArgs e)
         {
+            SetColors(btnSalesReport);
             ShowPanel(panelSalesReport);
             dtpFrom.Value = DateTime.Today.AddMonths(-1);
             dtpTo.Value = DateTime.Today;
@@ -330,6 +348,8 @@ namespace FINALSSS
             dgvInventory.ClearSelection();
             dgvOrders.ClearSelection();
             dgvActivityLog.ClearSelection();
+
+            
         }
 
         // ---------- SALES REPORT ----------
@@ -464,6 +484,31 @@ namespace FINALSSS
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ResetColors()
+        {
+            Color defaultColor = Color.FromArgb(58, 111, 248); // your Theme #2 default
+            Color defaultTextColor = Color.White;
+
+            btnDashboard.BackColor = defaultColor;
+            btnDashboard.ForeColor = defaultTextColor;
+            btnInventory.BackColor = defaultColor;
+            btnInventory.ForeColor = defaultTextColor;
+            btnOrders.BackColor = defaultColor;
+            btnOrders.ForeColor = defaultTextColor;
+            btnTransactionHistory.BackColor = defaultColor;
+            btnTransactionHistory.ForeColor = defaultTextColor;
+            btnActivityLog.BackColor = defaultColor;
+            btnActivityLog.ForeColor = defaultTextColor;
+            btnSalesReport.BackColor = defaultColor;
+            btnSalesReport.ForeColor = defaultTextColor;
+        }
+        private void SetColors(Button btn)
+        {
+            ResetColors();
+            btn.BackColor = Color.FromArgb(108, 147, 255);
+            btn.ForeColor = Color.White;
         }
     }
 }
