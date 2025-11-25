@@ -7,22 +7,90 @@ namespace FINALSSS
 {
     public partial class Main : Form
     {
-        private string currentUsername = "Admin"; // Replace with real logged-in user
+        public string currentUsername = "Admin"; // Replace with actual logged-in user
 
         public Main()
         {
             InitializeComponent();
 
-            // Panels and DataGridView setup
+            // Panel setup
             SetColors(btnDashboard);
             ShowPanel(panelDashboard);
+
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+        private void Main_Load(object sender, EventArgs e) 
+        { LoadItems(); LoadOrders(); LoadActivityLog(); 
+            LoadTransactionHistory(); 
+            dgvInventory.ClearSelection(); 
+            dgvOrders.ClearSelection(); 
+            dgvActivityLog.ClearSelection(); 
+        }
+        private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
+        private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); }
+        private void btnOrders_Click(object sender, EventArgs e) { SetColors(btnOrders); ShowPanel(panelOrders); }
+        private void btnActivityLog_Click(object sender, EventArgs e) { SetColors(btnActivityLog); ShowPanel(panelActivityLog); }
+        private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); }
+        private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
+        private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); }
 
+        public void LoadSalesReport(DateTime fromDate, DateTime toDate) 
+        { 
+            try 
+            { using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString)) 
+                { conn.Open(); string query = @" SELECT i.ItemName, i.Category, SUM(oi.Quantity) AS QuantitySold, i.Price AS UnitPrice, SUM(oi.SubTotal) AS Total FROM OrderItems oi INNER JOIN Orders o ON oi.OrderID = o.OrderID INNER JOIN Items i ON oi.ItemID = i.ItemID WHERE o.OrderDate BETWEEN @from AND @to GROUP BY i.ItemName, i.Category, i.Price ORDER BY i.ItemName ASC";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@from", fromDate);
+                    cmd.Parameters.AddWithValue("@to", toDate); 
+                    SqlDataReader reader = cmd.ExecuteReader(); 
+                    dgvSalesReport.Rows.Clear(); int totalItemsSold = 0; 
+                    decimal totalSalesAmount = 0; while (reader.Read()) { int rowIndex = dgvSalesReport.Rows.Add(); 
+                        var row = dgvSalesReport.Rows[rowIndex]; int qtySold = Convert.ToInt32(reader["QuantitySold"]); 
+                        decimal unitPrice = Convert.ToDecimal(reader["UnitPrice"]); decimal total = Convert.ToDecimal(reader["Total"]); 
+                        row.Cells["colItemNameSales"].Value = reader["ItemName"].ToString(); 
+                        row.Cells["colCategorySales"].Value = reader["Category"].ToString(); 
+                        row.Cells["colQuantitySold"].Value = qtySold; 
+                        row.Cells["colUnitPrice"].Value = unitPrice.ToString("N2"); 
+                        row.Cells["colTotal"].Value = total.ToString("N2"); 
+                        totalItemsSold += qtySold; totalSalesAmount += total;
+                    } 
+                    reader.Close(); 
+                    lblTotalOrders.Text = totalItemsSold.ToString(); 
+                    lblTotalAmount.Text = totalSalesAmount.ToString("N2"); 
+                } 
+            } catch (Exception ex) 
+            { MessageBox.Show("Error loading sales report: " + ex.Message); } }
+        public void LoadTransactionHistory() 
+        { 
+            try 
+            { 
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString)) { conn.Open(); 
+                    string query = @" SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status FROM Orders ORDER BY OrderDate DESC"; 
+                    SqlCommand cmd = new SqlCommand(query, conn); 
+                    SqlDataReader reader = cmd.ExecuteReader(); 
+                    dgvTransactionHistory.Rows.Clear(); 
+                    while (reader.Read()) 
+                    { 
+                        int rowIndex = dgvTransactionHistory.Rows.Add(); 
+                        var row = dgvTransactionHistory.Rows[rowIndex]; 
+                        row.Cells["colTransOrderID"].Value = Convert.ToInt32(reader["OrderID"]); 
+                        row.Cells["colTransCustomer"].Value = reader["CustomerName"].ToString(); 
+                        row.Cells["colTransDate"].Value = Convert.ToDateTime(reader["OrderDate"]).ToString("yyyy-MM-dd HH:mm"); 
+                        row.Cells["colTransTotalAmount"].Value = Convert.ToDecimal(reader["TotalAmount"]).ToString("N2"); 
+                        row.Cells["colTransStatus"].Value = reader["Status"].ToString(); row.Cells["colTransViewDetails"].Value = "View"; 
+                    } 
+                    reader.Close(); 
+                } 
+            } 
+            catch (Exception ex) 
+            { 
+                MessageBox.Show("Error loading transaction history: " + ex.Message); 
+            } 
+        }
         private void ShowPanel(Panel panelToShow)
         {
             panelDashboard.Visible = false;
@@ -31,45 +99,33 @@ namespace FINALSSS
             panelActivityLog.Visible = false;
             panelSalesReport.Visible = false;
             panelTransactionHistory.Visible = false;
+            panelManageAccounts.Visible = false;
 
             panelToShow.Visible = true;
         }
 
-        private void btnDashboard_Click(object sender, EventArgs e)
+        private void SetColors(Button btn)
         {
-            SetColors(btnDashboard);
-            ShowPanel(panelDashboard);
-        }
-        private void btnInventory_Click(object sender, EventArgs e)
-        {
-            SetColors(btnInventory);
-            ShowPanel(panelInventory);
-        }
-        private void btnOrders_Click(object sender, EventArgs e)
-        {
-            SetColors(btnOrders);
-            ShowPanel(panelOrders);
-        }
-        private void btnActivityLog_Click(object sender, EventArgs e)
-        {
-            SetColors(btnActivityLog);
-            ShowPanel(panelActivityLog);
-        }
-        private void btnTransactionHistory_Click(object sender, EventArgs e)
-        {
-            SetColors(btnTransactionHistory);
-            ShowPanel(panelTransactionHistory);
-        }
-        private void btnSalesReport_Click(object sender, EventArgs e)
-        {
-            SetColors(btnSalesReport);
-            ShowPanel(panelSalesReport);
-            dtpFrom.Value = DateTime.Today.AddMonths(-1);
-            dtpTo.Value = DateTime.Today;
-            LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1));
+            ResetColors();
+            btn.BackColor = Color.FromArgb(108, 147, 255);
+            btn.ForeColor = Color.White;
         }
 
-        // ---------- INVENTORY ----------
+        private void ResetColors()
+        {
+            Color defaultColor = Color.FromArgb(58, 111, 248);
+            Color defaultTextColor = Color.White;
+
+            btnDashboard.BackColor = defaultColor; btnDashboard.ForeColor = defaultTextColor;
+            btnInventory.BackColor = defaultColor; btnInventory.ForeColor = defaultTextColor;
+            btnOrders.BackColor = defaultColor; btnOrders.ForeColor = defaultTextColor;
+            btnTransactionHistory.BackColor = defaultColor; btnTransactionHistory.ForeColor = defaultTextColor;
+            btnActivityLog.BackColor = defaultColor; btnActivityLog.ForeColor = defaultTextColor;
+            btnSalesReport.BackColor = defaultColor; btnSalesReport.ForeColor = defaultTextColor;
+            btnManageAccounts.BackColor = defaultColor; btnManageAccounts.ForeColor = defaultTextColor;
+        }
+
+        // ---------------- INVENTORY ----------------
         public void LoadItems()
         {
             try
@@ -82,7 +138,6 @@ namespace FINALSSS
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvInventory.Rows.Clear();
-
                     while (reader.Read())
                     {
                         int rowIndex = dgvInventory.Rows.Add();
@@ -100,30 +155,48 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Unexpected error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {
-            AddItemForm add = new AddItemForm { Owner = this };
-            add.FormClosed += (s, args) =>
+            try
             {
-                LoadItems();
-                LogActivity(currentUsername, "Add Item", "Added new item");
-            };
-            add.ShowDialog();
+                AddItemForm addForm = new AddItemForm { Owner = this };
+                addForm.FormClosed += (s, args) =>
+                {
+                    LoadItems();
+                };
+                addForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening Add Item form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnAddStocks_Click(object sender, EventArgs e)
         {
-            if (dgvInventory.SelectedRows.Count > 0)
+            if (dgvInventory.SelectedRows.Count == 0) return;
+
+            try
             {
-                int itemId = Convert.ToInt32(dgvInventory.SelectedRows[0].Cells["colItemID"].Value);
-                string itemName = dgvInventory.SelectedRows[0].Cells["colItemName"].Value.ToString();
-                int currentQty = Convert.ToInt32(dgvInventory.SelectedRows[0].Cells["colStock"].Value);
+                int itemId = 0, currentQty = 0;
+                string itemName = dgvInventory.SelectedRows[0].Cells["colItemName"].Value?.ToString() ?? "";
+
+                if (!int.TryParse(dgvInventory.SelectedRows[0].Cells["colItemID"].Value?.ToString(), out itemId) ||
+                    !int.TryParse(dgvInventory.SelectedRows[0].Cells["colStock"].Value?.ToString(), out currentQty))
+                {
+                    MessageBox.Show("Invalid item data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 AddStock addStockForm = new AddStock(itemId, itemName, currentQty) { Owner = this };
                 addStockForm.FormClosed += (s, args) =>
@@ -133,6 +206,10 @@ namespace FINALSSS
                 };
                 addStockForm.ShowDialog();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding stock: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -141,29 +218,54 @@ namespace FINALSSS
 
             if (dgvInventory.Columns[e.ColumnIndex].Name == "btnEdit")
             {
-                int itemId = Convert.ToInt32(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value);
-                string itemName = dgvInventory.Rows[e.RowIndex].Cells["colItemName"].Value.ToString();
-                string category = dgvInventory.Rows[e.RowIndex].Cells["colCategory"].Value.ToString();
-                decimal price = Convert.ToDecimal(dgvInventory.Rows[e.RowIndex].Cells["colPrice"].Value);
-                string unit = dgvInventory.Rows[e.RowIndex].Cells["colUnit"].Value.ToString();
-                string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value.ToString();
-
-                EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status) { Owner = this };
-                editForm.FormClosed += (s, args) =>
+                try
                 {
-                    LoadItems();
-                    LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
-                };
-                editForm.ShowDialog();
+                    int itemId = 0;
+                    string itemName = dgvInventory.Rows[e.RowIndex].Cells["colItemName"].Value?.ToString() ?? "";
+                    string category = dgvInventory.Rows[e.RowIndex].Cells["colCategory"].Value?.ToString() ?? "";
+                    string unit = dgvInventory.Rows[e.RowIndex].Cells["colUnit"].Value?.ToString() ?? "";
+                    string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
+
+                    if (!int.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value?.ToString(), out itemId))
+                    {
+                        MessageBox.Show("Invalid Item ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (!decimal.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colPrice"].Value?.ToString(), out decimal price))
+                    {
+                        MessageBox.Show("Invalid price value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status) { Owner = this };
+                    editForm.FormClosed += (s, args) =>
+                    {
+                        LoadItems();
+                        LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
+                    };
+                    editForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error editing item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btnSearchInventory_Click(object sender, EventArgs e)
         {
-            SearchInDataGridView(dgvInventory, txtSearchInventory.Text, "colItemName");
+            try
+            {
+                SearchInDataGridView(dgvInventory, txtSearchInventory.Text, "colItemName");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching inventory: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        // ---------- ORDERS ----------
+        // ---------------- ORDERS ----------------
         public void LoadOrders()
         {
             try
@@ -171,22 +273,18 @@ namespace FINALSSS
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
-                    string query = @"
-                        SELECT OrderID, CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status
-                        FROM Orders
-                        ORDER BY OrderDate DESC";
-
+                    string query = @"SELECT OrderID, CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status
+                                     FROM Orders ORDER BY OrderDate DESC";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvOrders.Rows.Clear();
-
                     while (reader.Read())
                     {
                         int rowIndex = dgvOrders.Rows.Add();
                         var row = dgvOrders.Rows[rowIndex];
 
-                        row.Cells["colOrderID"].Value = Convert.ToInt32(reader["OrderID"]);
+                        row.Cells["colOrderID"].Value = reader["OrderID"].ToString();
                         row.Cells["colCustomer"].Value = reader["CustomerName"].ToString();
                         row.Cells["colContactNum"].Value = reader["ContactNumber"].ToString();
                         row.Cells["colEmail"].Value = reader["Email"].ToString();
@@ -199,21 +297,28 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error loading orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading orders: " + ex.Message);
+                MessageBox.Show("Unexpected error loading orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
-            CreateOrder createOrderForm = new CreateOrder { Owner = this };
-            createOrderForm.FormClosed += (s, args) =>
+            try
             {
-                LoadOrders();
-                LogActivity(currentUsername, "Create Order", "Created new order");
-            };
-            createOrderForm.ShowDialog();
+                CreateOrder createForm = new CreateOrder { Owner = this };
+                createForm.FormClosed += (s, args) => LoadOrders();
+                createForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening Create Order form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -222,25 +327,40 @@ namespace FINALSSS
 
             if (dgvOrders.Columns[e.ColumnIndex].Name == "colAction")
             {
-                int orderID = Convert.ToInt32(dgvOrders.Rows[e.RowIndex].Cells["colOrderID"].Value);
-                string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value.ToString();
-
-                EditStatus editStatusForm = new EditStatus(orderID, currentStatus) { Owner = this };
-                editStatusForm.FormClosed += (s, args) =>
+                try
                 {
-                    LoadOrders();
-                    LogActivity(currentUsername, "Update Order Status", $"Order ID {orderID} status updated to {currentStatus}");
-                };
-                editStatusForm.ShowDialog();
+                    if (!int.TryParse(dgvOrders.Rows[e.RowIndex].Cells["colOrderID"].Value?.ToString(), out int orderID))
+                    {
+                        MessageBox.Show("Invalid Order ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value?.ToString() ?? "";
+
+                    EditStatus editStatusForm = new EditStatus(orderID, currentStatus) { Owner = this };
+                    editStatusForm.FormClosed += (s, args) => LoadOrders();
+                    editStatusForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error editing order status: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btnSearchOrders_Click(object sender, EventArgs e)
         {
-            SearchInDataGridView(dgvOrders, txtSearchOrders.Text, "colCustomer");
+            try
+            {
+                SearchInDataGridView(dgvOrders, txtSearchOrders.Text, "colCustomer");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        // ---------- ACTIVITY LOG ----------
+        // ---------------- ACTIVITY LOG ----------------
         public void LoadActivityLog()
         {
             try
@@ -274,9 +394,13 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error loading activity log: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading activity log: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unexpected error loading activity log: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -286,13 +410,25 @@ namespace FINALSSS
 
             if (dgvActivityLog.Columns[e.ColumnIndex].Name == "colViewDetails")
             {
-                int logId = Convert.ToInt32(dgvActivityLog.Rows[e.RowIndex].Cells["colLogID"].Value);
-                ActivityDetails detailsForm = new ActivityDetails(logId);
-                detailsForm.ShowDialog();
+                try
+                {
+                    if (!int.TryParse(dgvActivityLog.Rows[e.RowIndex].Cells["colLogID"].Value?.ToString(), out int logId))
+                    {
+                        MessageBox.Show("Invalid Log ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    ActivityDetails detailsForm = new ActivityDetails(logId);
+                    detailsForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error viewing activity details: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        // ---------- SHARED METHODS ----------
+        // ---------------- SHARED METHODS ----------------
         private void SearchInDataGridView(DataGridView dgv, string searchText, string columnName)
         {
             foreach (DataGridViewRow row in dgv.Rows)
@@ -313,7 +449,7 @@ namespace FINALSSS
             }
         }
 
-        // ---------- LOGGING ----------
+        // ---------------- LOGGING ----------------
         public void LogActivity(string actionBy, string actionType, string actionDetails)
         {
             try
@@ -330,185 +466,19 @@ namespace FINALSSS
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
-
-                LoadActivityLog();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error logging activity: " + ex.Message);
-            }
+            catch { /* optional: log to file or ignore */ }
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-            LoadItems();
-            LoadOrders();
-            LoadActivityLog();
-            LoadTransactionHistory();
-            dgvInventory.ClearSelection();
-            dgvOrders.ClearSelection();
-            dgvActivityLog.ClearSelection();
-
-            
-        }
-
-        // ---------- SALES REPORT ----------
-        public void LoadSalesReport(DateTime fromDate, DateTime toDate)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
-                {
-                    conn.Open();
-
-                    string query = @"
-                        SELECT 
-                            i.ItemName,
-                            i.Category,
-                            SUM(oi.Quantity) AS QuantitySold,
-                            i.Price AS UnitPrice,
-                            SUM(oi.SubTotal) AS Total
-                        FROM OrderItems oi
-                        INNER JOIN Orders o ON oi.OrderID = o.OrderID
-                        INNER JOIN Items i ON oi.ItemID = i.ItemID
-                        WHERE o.OrderDate BETWEEN @from AND @to
-                        GROUP BY i.ItemName, i.Category, i.Price
-                        ORDER BY i.ItemName ASC";
-
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@from", fromDate);
-                    cmd.Parameters.AddWithValue("@to", toDate);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    dgvSalesReport.Rows.Clear();
-
-                    int totalItemsSold = 0;
-                    decimal totalSalesAmount = 0;
-
-                    while (reader.Read())
-                    {
-                        int rowIndex = dgvSalesReport.Rows.Add();
-                        var row = dgvSalesReport.Rows[rowIndex];
-
-                        int qtySold = Convert.ToInt32(reader["QuantitySold"]);
-                        decimal unitPrice = Convert.ToDecimal(reader["UnitPrice"]);
-                        decimal total = Convert.ToDecimal(reader["Total"]);
-
-                        row.Cells["colItemNameSales"].Value = reader["ItemName"].ToString();
-                        row.Cells["colCategorySales"].Value = reader["Category"].ToString();
-                        row.Cells["colQuantitySold"].Value = qtySold;
-                        row.Cells["colUnitPrice"].Value = unitPrice.ToString("N2");
-                        row.Cells["colTotal"].Value = total.ToString("N2");
-
-                        totalItemsSold += qtySold;
-                        totalSalesAmount += total;
-                    }
-
-                    reader.Close();
-
-                    lblTotalOrders.Text = totalItemsSold.ToString();
-                    lblTotalAmount.Text = totalSalesAmount.ToString("N2");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading sales report: " + ex.Message);
-            }
-        }
-
-        private void btnGenerateSales_Click(object sender, EventArgs e)
-        {
-            DateTime fromDate = dtpFrom.Value.Date;
-            DateTime toDate = dtpTo.Value.Date.AddDays(1).AddSeconds(-1);
-            LoadSalesReport(fromDate, toDate);
-        }
-
-        // ---------- TRANSACTION HISTORY ----------
-        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            if (dgvTransactionHistory.Columns[e.ColumnIndex].Name == "colTransViewDetails")
-            {
-                int orderID = Convert.ToInt32(dgvTransactionHistory.Rows[e.RowIndex].Cells["colTransOrderID"].Value);
-                TransactionDetails detailsForm = new TransactionDetails(orderID);
-                detailsForm.ShowDialog();
-            }
-        }
-
-        public void LoadTransactionHistory()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
-                {
-                    conn.Open();
-
-                    string query = @"
-                        SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status
-                        FROM Orders
-                        ORDER BY OrderDate DESC";
-
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    dgvTransactionHistory.Rows.Clear();
-
-                    while (reader.Read())
-                    {
-                        int rowIndex = dgvTransactionHistory.Rows.Add();
-                        var row = dgvTransactionHistory.Rows[rowIndex];
-
-                        row.Cells["colTransOrderID"].Value = Convert.ToInt32(reader["OrderID"]);
-                        row.Cells["colTransCustomer"].Value = reader["CustomerName"].ToString();
-                        row.Cells["colTransDate"].Value = Convert.ToDateTime(reader["OrderDate"]).ToString("yyyy-MM-dd HH:mm");
-                        row.Cells["colTransTotalAmount"].Value = Convert.ToDecimal(reader["TotalAmount"]).ToString("N2");
-                        row.Cells["colTransStatus"].Value = reader["Status"].ToString();
-                        row.Cells["colTransViewDetails"].Value = "View";
-                    }
-
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading transaction history: " + ex.Message);
-            }
-        }
-
-        private void panelDashboard_Paint(object sender, PaintEventArgs e)
-        {
-           
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ResetColors()
-        {
-            Color defaultColor = Color.FromArgb(58, 111, 248); // your Theme #2 default
-            Color defaultTextColor = Color.White;
-
-            btnDashboard.BackColor = defaultColor;
-            btnDashboard.ForeColor = defaultTextColor;
-            btnInventory.BackColor = defaultColor;
-            btnInventory.ForeColor = defaultTextColor;
-            btnOrders.BackColor = defaultColor;
-            btnOrders.ForeColor = defaultTextColor;
-            btnTransactionHistory.BackColor = defaultColor;
-            btnTransactionHistory.ForeColor = defaultTextColor;
-            btnActivityLog.BackColor = defaultColor;
-            btnActivityLog.ForeColor = defaultTextColor;
-            btnSalesReport.BackColor = defaultColor;
-            btnSalesReport.ForeColor = defaultTextColor;
-        }
-        private void SetColors(Button btn)
-        {
-            ResetColors();
-            btn.BackColor = Color.FromArgb(108, 147, 255);
-            btn.ForeColor = Color.White;
+        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e) 
+        { 
+            if (e.RowIndex < 0) return; 
+            if (dgvTransactionHistory.Columns[e.ColumnIndex].Name == "colTransViewDetails") 
+            { 
+                int orderID = Convert.ToInt32(dgvTransactionHistory.Rows[e.RowIndex].Cells["colTransOrderID"].Value); 
+                TransactionDetails detailsForm = new TransactionDetails(orderID); 
+                detailsForm.ShowDialog(); 
+            } 
         }
     }
 }

@@ -185,6 +185,10 @@
             // 
             // dgvCurrentItems
             // 
+            this.dgvCurrentItems.AllowUserToAddRows = false;
+            this.dgvCurrentItems.AllowUserToDeleteRows = false;
+            this.dgvCurrentItems.AllowUserToResizeColumns = false;
+            this.dgvCurrentItems.AllowUserToResizeRows = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

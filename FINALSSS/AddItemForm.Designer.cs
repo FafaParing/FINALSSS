@@ -241,7 +241,6 @@
             this.Name = "AddItemForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add New Item";
-            this.Load += new System.EventHandler(this.AddItemForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

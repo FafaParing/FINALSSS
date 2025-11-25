@@ -11,14 +11,9 @@ namespace FINALSSS
             InitializeComponent();
         }
 
-        private void AddItemForm_Load(object sender, EventArgs e)
-        {
-            // No code needed here
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Simple validation
+            // Validate required fields
             if (string.IsNullOrWhiteSpace(txtItemName.Text) ||
                 string.IsNullOrWhiteSpace(cmbCategory.Text) ||
                 string.IsNullOrWhiteSpace(txtPrice.Text) ||
@@ -28,12 +23,17 @@ namespace FINALSSS
                 return;
             }
 
-            string itemName = txtItemName.Text;
-            string category = cmbCategory.Text;
+            string itemName = txtItemName.Text.Trim();
+            string category = cmbCategory.Text.Trim();
+            string unit = cmbUnit.Text.Trim();
+            string status = cmbStatus.Text.Trim();
             int stock = (int)numStock.Value;
-            decimal price = decimal.Parse(txtPrice.Text);
-            string unit = cmbUnit.Text;
-            string status = cmbStatus.Text;
+
+            if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
+            {
+                MessageBox.Show("Invalid price value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
@@ -41,33 +41,50 @@ namespace FINALSSS
                 {
                     conn.Open();
 
-                    string query = @"INSERT INTO Items (ItemName, Category, StockQuantity, Unit, Price, Status) 
-                                     VALUES (@name, @category, @quantity, @unit, @price, @status)";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    // Check for existing item
+                    string checkQuery = "SELECT COUNT(*) FROM Items WHERE ItemName = @name AND Category = @category";
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                    checkCmd.Parameters.AddWithValue("@name", itemName);
+                    checkCmd.Parameters.AddWithValue("@category", category);
 
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    if (existingCount > 0)
+                    {
+                        MessageBox.Show("Item already exists in this category.", "Duplicate Item", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Insert new item
+                    string insertQuery = @"INSERT INTO Items (ItemName, Category, StockQuantity, Unit, Price, Status) 
+                                           VALUES (@name, @category, @quantity, @unit, @price, @status)";
+                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     cmd.Parameters.AddWithValue("@name", itemName);
                     cmd.Parameters.AddWithValue("@category", category);
                     cmd.Parameters.AddWithValue("@quantity", stock);
-                    cmd.Parameters.AddWithValue("@price", price);
                     cmd.Parameters.AddWithValue("@unit", unit);
+                    cmd.Parameters.AddWithValue("@price", price);
                     cmd.Parameters.AddWithValue("@status", status);
 
                     cmd.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Item added successfully.");
+                MessageBox.Show("Item added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Refresh main form DataGridView
                 if (this.Owner is Main mainForm)
                 {
                     mainForm.LoadItems();
+                    mainForm.LogActivity(mainForm.currentUsername, "Add Item", $"Added item: {itemName}");
                 }
 
                 this.Close();
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Unexpected error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
