@@ -173,6 +173,12 @@ namespace FINALSSS
                 MessageBox.Show("Unexpected error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnGenerateSales_Click(object sender, EventArgs e) 
+        { 
+            DateTime fromDate = dtpFrom.Value.Date; 
+            DateTime toDate = dtpTo.Value.Date.AddDays(1).AddSeconds(-1); 
+            LoadSalesReport(fromDate, toDate); 
+        }
 
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {

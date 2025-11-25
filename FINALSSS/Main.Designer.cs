@@ -364,7 +364,6 @@
             this.panelManageAccounts.Name = "panelManageAccounts";
             this.panelManageAccounts.Size = new System.Drawing.Size(924, 631);
             this.panelManageAccounts.TabIndex = 2;
-            this.panelManageAccounts.Paint += new System.Windows.Forms.PaintEventHandler(this.panelManageAccounts_Paint);
             // 
             // btnDeleteAccount
             // 
@@ -397,7 +396,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(843, 412);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
