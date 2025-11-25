@@ -35,5 +35,10 @@ namespace FINALSSS
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+        }
     }
 }

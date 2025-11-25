@@ -39,5 +39,10 @@ namespace FINALSSS
         {
             this.Close();
         }
+
+        private void ActivityDetails_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
