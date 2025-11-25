@@ -23,12 +23,13 @@ namespace FINALSSS
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-        private void Main_Load(object sender, EventArgs e) 
-        { LoadItems(); LoadOrders(); LoadActivityLog(); 
-            LoadTransactionHistory(); 
-            dgvInventory.ClearSelection(); 
-            dgvOrders.ClearSelection(); 
-            dgvActivityLog.ClearSelection(); 
+        private void Main_Load(object sender, EventArgs e)
+        {
+            LoadItems(); LoadOrders(); LoadActivityLog();
+            LoadTransactionHistory();
+            dgvInventory.ClearSelection();
+            dgvOrders.ClearSelection();
+            dgvActivityLog.ClearSelection();
         }
         private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
         private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); }
@@ -38,58 +39,66 @@ namespace FINALSSS
         private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
         private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); }
 
-        public void LoadSalesReport(DateTime fromDate, DateTime toDate) 
-        { 
-            try 
-            { using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString)) 
-                { conn.Open(); string query = @" SELECT i.ItemName, i.Category, SUM(oi.Quantity) AS QuantitySold, i.Price AS UnitPrice, SUM(oi.SubTotal) AS Total FROM OrderItems oi INNER JOIN Orders o ON oi.OrderID = o.OrderID INNER JOIN Items i ON oi.ItemID = i.ItemID WHERE o.OrderDate BETWEEN @from AND @to GROUP BY i.ItemName, i.Category, i.Price ORDER BY i.ItemName ASC";
+        public void LoadSalesReport(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open(); string query = @" SELECT i.ItemName, i.Category, SUM(oi.Quantity) AS QuantitySold, i.Price AS UnitPrice, SUM(oi.SubTotal) AS Total FROM OrderItems oi INNER JOIN Orders o ON oi.OrderID = o.OrderID INNER JOIN Items i ON oi.ItemID = i.ItemID WHERE o.OrderDate BETWEEN @from AND @to GROUP BY i.ItemName, i.Category, i.Price ORDER BY i.ItemName ASC";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@from", fromDate);
-                    cmd.Parameters.AddWithValue("@to", toDate); 
-                    SqlDataReader reader = cmd.ExecuteReader(); 
-                    dgvSalesReport.Rows.Clear(); int totalItemsSold = 0; 
-                    decimal totalSalesAmount = 0; while (reader.Read()) { int rowIndex = dgvSalesReport.Rows.Add(); 
-                        var row = dgvSalesReport.Rows[rowIndex]; int qtySold = Convert.ToInt32(reader["QuantitySold"]); 
-                        decimal unitPrice = Convert.ToDecimal(reader["UnitPrice"]); decimal total = Convert.ToDecimal(reader["Total"]); 
-                        row.Cells["colItemNameSales"].Value = reader["ItemName"].ToString(); 
-                        row.Cells["colCategorySales"].Value = reader["Category"].ToString(); 
-                        row.Cells["colQuantitySold"].Value = qtySold; 
-                        row.Cells["colUnitPrice"].Value = unitPrice.ToString("N2"); 
-                        row.Cells["colTotal"].Value = total.ToString("N2"); 
+                    cmd.Parameters.AddWithValue("@to", toDate);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    dgvSalesReport.Rows.Clear(); int totalItemsSold = 0;
+                    decimal totalSalesAmount = 0; while (reader.Read())
+                    {
+                        int rowIndex = dgvSalesReport.Rows.Add();
+                        var row = dgvSalesReport.Rows[rowIndex]; int qtySold = Convert.ToInt32(reader["QuantitySold"]);
+                        decimal unitPrice = Convert.ToDecimal(reader["UnitPrice"]); decimal total = Convert.ToDecimal(reader["Total"]);
+                        row.Cells["colItemNameSales"].Value = reader["ItemName"].ToString();
+                        row.Cells["colCategorySales"].Value = reader["Category"].ToString();
+                        row.Cells["colQuantitySold"].Value = qtySold;
+                        row.Cells["colUnitPrice"].Value = unitPrice.ToString("N2");
+                        row.Cells["colTotal"].Value = total.ToString("N2");
                         totalItemsSold += qtySold; totalSalesAmount += total;
-                    } 
-                    reader.Close(); 
-                    lblTotalOrders.Text = totalItemsSold.ToString(); 
-                    lblTotalAmount.Text = totalSalesAmount.ToString("N2"); 
-                } 
-            } catch (Exception ex) 
-            { MessageBox.Show("Error loading sales report: " + ex.Message); } }
-        public void LoadTransactionHistory() 
-        { 
-            try 
-            { 
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString)) { conn.Open(); 
-                    string query = @" SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status FROM Orders ORDER BY OrderDate DESC"; 
-                    SqlCommand cmd = new SqlCommand(query, conn); 
-                    SqlDataReader reader = cmd.ExecuteReader(); 
-                    dgvTransactionHistory.Rows.Clear(); 
-                    while (reader.Read()) 
-                    { 
-                        int rowIndex = dgvTransactionHistory.Rows.Add(); 
-                        var row = dgvTransactionHistory.Rows[rowIndex]; 
-                        row.Cells["colTransOrderID"].Value = Convert.ToInt32(reader["OrderID"]); 
-                        row.Cells["colTransCustomer"].Value = reader["CustomerName"].ToString(); 
-                        row.Cells["colTransDate"].Value = Convert.ToDateTime(reader["OrderDate"]).ToString("yyyy-MM-dd HH:mm"); 
-                        row.Cells["colTransTotalAmount"].Value = Convert.ToDecimal(reader["TotalAmount"]).ToString("N2"); 
-                        row.Cells["colTransStatus"].Value = reader["Status"].ToString(); row.Cells["colTransViewDetails"].Value = "View"; 
-                    } 
-                    reader.Close(); 
-                } 
-            } 
-            catch (Exception ex) 
-            { 
-                MessageBox.Show("Error loading transaction history: " + ex.Message); 
-            } 
+                    }
+                    reader.Close();
+                    lblTotalOrders.Text = totalItemsSold.ToString();
+                    lblTotalAmount.Text = totalSalesAmount.ToString("N2");
+                }
+            }
+            catch (Exception ex)
+            { MessageBox.Show("Error loading sales report: " + ex.Message); }
+        }
+        public void LoadTransactionHistory()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open();
+                    string query = @" SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status FROM Orders ORDER BY OrderDate DESC";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    dgvTransactionHistory.Rows.Clear();
+                    while (reader.Read())
+                    {
+                        int rowIndex = dgvTransactionHistory.Rows.Add();
+                        var row = dgvTransactionHistory.Rows[rowIndex];
+                        row.Cells["colTransOrderID"].Value = Convert.ToInt32(reader["OrderID"]);
+                        row.Cells["colTransCustomer"].Value = reader["CustomerName"].ToString();
+                        row.Cells["colTransDate"].Value = Convert.ToDateTime(reader["OrderDate"]).ToString("yyyy-MM-dd HH:mm");
+                        row.Cells["colTransTotalAmount"].Value = Convert.ToDecimal(reader["TotalAmount"]).ToString("N2");
+                        row.Cells["colTransStatus"].Value = reader["Status"].ToString(); row.Cells["colTransViewDetails"].Value = "View";
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading transaction history: " + ex.Message);
+            }
         }
         private void ShowPanel(Panel panelToShow)
         {
@@ -132,7 +141,6 @@ namespace FINALSSS
             {
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
-
                     conn.Open();
                     string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit, Status FROM Items";
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -471,30 +479,15 @@ namespace FINALSSS
             catch { /* optional: log to file or ignore */ }
         }
 
-        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e) 
-        { 
-            if (e.RowIndex < 0) return; 
-            if (dgvTransactionHistory.Columns[e.ColumnIndex].Name == "colTransViewDetails") 
-            { 
-                int orderID = Convert.ToInt32(dgvTransactionHistory.Rows[e.RowIndex].Cells["colTransOrderID"].Value); 
-                TransactionDetails detailsForm = new TransactionDetails(orderID); 
-                detailsForm.ShowDialog(); 
-            } 
-        }
-
-        private void panelManageAccounts_Paint(object sender, PaintEventArgs e)
+        private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            if (e.RowIndex < 0) return;
+            if (dgvTransactionHistory.Columns[e.ColumnIndex].Name == "colTransViewDetails")
+            {
+                int orderID = Convert.ToInt32(dgvTransactionHistory.Rows[e.RowIndex].Cells["colTransOrderID"].Value);
+                TransactionDetails detailsForm = new TransactionDetails(orderID);
+                detailsForm.ShowDialog();
+            }
         }
     }
 }
