@@ -22,10 +22,13 @@ namespace FINALSSS
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvManageAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         private void Main_Load(object sender, EventArgs e)
         {
-            LoadItems(); LoadOrders(); LoadActivityLog();
+            LoadItems(); 
+            LoadOrders(); 
+            LoadActivityLog();
             LoadTransactionHistory();
             dgvInventory.ClearSelection();
             dgvOrders.ClearSelection();
@@ -38,6 +41,11 @@ namespace FINALSSS
         private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); }
         private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
         private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); }
+        private void btnManageAccounts_Click_1(object sender, EventArgs e)
+        {
+            SetColors(btnManageAccounts);
+            ShowPanel(panelManageAccounts);
+        }
 
         public void LoadSalesReport(DateTime fromDate, DateTime toDate)
         {
@@ -495,5 +503,12 @@ namespace FINALSSS
                 detailsForm.ShowDialog();
             }
         }
+
+        private void panelManageAccounts_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        
     }
 }
