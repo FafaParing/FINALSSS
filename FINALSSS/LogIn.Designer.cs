@@ -71,6 +71,7 @@
             this.Password.ForeColor = System.Drawing.Color.DimGray;
             this.Password.Location = new System.Drawing.Point(122, 404);
             this.Password.Name = "Password";
+            this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(401, 40);
             this.Password.TabIndex = 6;
             this.Password.TabStop = false;

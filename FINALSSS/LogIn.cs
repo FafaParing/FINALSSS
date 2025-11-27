@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace FINALSSS
 {
@@ -47,18 +49,63 @@ namespace FINALSSS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            bool loginSuccess = true; // Replace with real validation
+            var username = Username.Text;
+            var password = Password.Text;
 
-            if (loginSuccess)
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                this.DialogResult = DialogResult.OK; // signals success
-                this.Close();
+                MessageBox.Show("Invalid!");
+                return;
             }
-            else
+
+            using (var conn = new MySqlConnection(DBconnection.ConnectionString))
             {
-                MessageBox.Show("Invalid credentials.", "Login Failed",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                conn.Open();
+                // We select ONLY the hash based on the username
+                string query = @"SELECT UserID, Username, Password, Role FROM users WHERE Username = @user";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", username);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (!reader.Read())
+                    {
+                        MessageBox.Show("YOW");
+                        return;
+                    }
+
+                    var originalPassword = reader["Password"].ToString();
+
+                    if (password != originalPassword)
+                    {
+                        MessageBox.Show("Bro!!");
+                        return;
+                    }
+
+                    Session.UserID = Convert.ToInt32(reader["UserID"]);
+                    Session.Username = reader["Username"].ToString();
+                    Session.Role = reader["Role"].ToString();
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Hide();
+
+                }
             }
+
+            //bool loginSuccess = true; // Replace with real validation
+
+            //if (loginSuccess)
+            //{
+            //    this.DialogResult = DialogResult.OK; // signals success
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Invalid credentials.", "Login Failed",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
         }
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)

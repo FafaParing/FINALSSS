@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace FINALSSS
 {
@@ -30,9 +30,13 @@ namespace FINALSSS
             LoadOrders(); 
             LoadActivityLog();
             LoadTransactionHistory();
+            LoadManageUsers();
+
             dgvInventory.ClearSelection();
             dgvOrders.ClearSelection();
             dgvActivityLog.ClearSelection();
+
+            btnManageAccounts.Visible = Session.Role == "Admin";
         }
         private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
         private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); }
@@ -51,13 +55,13 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open(); string query = @" SELECT i.ItemName, i.Category, SUM(oi.Quantity) AS QuantitySold, i.Price AS UnitPrice, SUM(oi.SubTotal) AS Total FROM OrderItems oi INNER JOIN Orders o ON oi.OrderID = o.OrderID INNER JOIN Items i ON oi.ItemID = i.ItemID WHERE o.OrderDate BETWEEN @from AND @to GROUP BY i.ItemName, i.Category, i.Price ORDER BY i.ItemName ASC";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@from", fromDate);
                     cmd.Parameters.AddWithValue("@to", toDate);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     dgvSalesReport.Rows.Clear(); int totalItemsSold = 0;
                     decimal totalSalesAmount = 0; while (reader.Read())
                     {
@@ -83,12 +87,12 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @" SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status FROM Orders ORDER BY OrderDate DESC";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     dgvTransactionHistory.Rows.Clear();
                     while (reader.Read())
                     {
@@ -107,6 +111,43 @@ namespace FINALSSS
             {
                 MessageBox.Show("Error loading transaction history: " + ex.Message);
             }
+        }
+        
+
+        public void LoadManageUsers()
+        {
+            dgvManageAccounts.ClearSelection();
+
+
+            using (var conn = new MySqlConnection(DBconnection.ConnectionString))
+            {
+                conn.Open();
+                // We select ONLY the hash based on the username
+                string query = @"SELECT * FROM users";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int rowIndex = dgvManageAccounts.Rows.Add();
+                        var row = dgvManageAccounts.Rows[rowIndex];
+
+                        row.Cells["colUserID"].Value = reader["UserID"];
+                        row.Cells["colUsername"].Value = reader["Username"];
+                        row.Cells["colPassword"].Value = reader["Password"];
+                        row.Cells["colRole"].Value = reader["Role"];
+                    }
+                }
+            }
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    int rowIndex = dgvManageAccounts.Rows.Add();
+            //    var row = dgvManageAccounts.Rows[rowIndex];
+
+            //    row.Cells["colUserID"].Value = i.ToString();
+            //}
         }
         private void ShowPanel(Panel panelToShow)
         {
@@ -147,12 +188,12 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit, Status FROM Items";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
                     dgvInventory.Rows.Clear();
                     while (reader.Read())
@@ -172,7 +213,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("Database error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -293,13 +334,13 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"SELECT OrderID, CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status
                                      FROM Orders ORDER BY OrderDate DESC";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
                     dgvOrders.Rows.Clear();
                     while (reader.Read())
@@ -320,7 +361,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("Database error loading orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -388,15 +429,15 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"SELECT LogID, ActionBy, ActionType, ActionDetails, ActionDate 
                                      FROM ActivityLog 
                                      WHERE ActionBy <> 'System'
                                      ORDER BY ActionDate DESC";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
                     dgvActivityLog.Rows.Clear();
                     dgvActivityLog.AllowUserToAddRows = false;
@@ -417,7 +458,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show("Database error loading activity log: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -477,12 +518,12 @@ namespace FINALSSS
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails, ActionDate)
                                      VALUES (@by, @type, @details, @date)";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@by", actionBy);
                     cmd.Parameters.AddWithValue("@type", actionType);
                     cmd.Parameters.AddWithValue("@details", actionDetails);
@@ -509,6 +550,9 @@ namespace FINALSSS
 
         }
 
-        
+        private void btnAddAccount_Click(object sender, EventArgs e)
+        {
+            new CreateAccount().ShowDialog();
+        }
     }
 }
