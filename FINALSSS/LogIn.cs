@@ -2,8 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
+using System.Data.SqlClient;
 
 namespace FINALSSS
 {
@@ -58,17 +57,17 @@ namespace FINALSSS
                 return;
             }
 
-            using (var conn = new MySqlConnection(DBconnection.ConnectionString))
+            using (var conn = new SqlConnection(DBconnection.ConnectionString))
             {
                 conn.Open();
                 // We select ONLY the hash based on the username
                 string query = @"SELECT UserID, Username, Password, Role FROM users WHERE Username = @user";
 
-                using (var cmd = new MySqlCommand(query, conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@user", username);
 
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     if (!reader.Read())
                     {

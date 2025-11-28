@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing.Drawing2D;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FINALSSS
@@ -9,6 +11,28 @@ namespace FINALSSS
         public AddItemForm()
         {
             InitializeComponent();
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            GraphicsPath path = new GraphicsPath();
+            int radius = 30; // change this
+
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(this.Width - radius, this.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
+
+            this.Region = new Region(path);
+        }
+        public void RoundControl(Control control, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(control.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(control.Width - radius, control.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
+            control.Region = new Region(path);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -91,6 +115,33 @@ namespace FINALSSS
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddItemForm_Load(object sender, EventArgs e)
+        {
+            RoundControl(txtItemName, 10);
+            RoundControl(cmbCategory, 10);
+            RoundControl(numStock, 10);
+            RoundControl(txtPrice, 10);
+            RoundControl(cmbUnit, 10);
+            RoundControl(cmbStatus, 10);
+            RoundControl(btnSave, 10);
+            RoundControl(btnCancel, 10);
         }
     }
 }

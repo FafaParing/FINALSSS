@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using System.Drawing.Drawing2D;
 
 namespace FINALSSS
 {
@@ -55,13 +56,13 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open(); string query = @" SELECT i.ItemName, i.Category, SUM(oi.Quantity) AS QuantitySold, i.Price AS UnitPrice, SUM(oi.SubTotal) AS Total FROM OrderItems oi INNER JOIN Orders o ON oi.OrderID = o.OrderID INNER JOIN Items i ON oi.ItemID = i.ItemID WHERE o.OrderDate BETWEEN @from AND @to GROUP BY i.ItemName, i.Category, i.Price ORDER BY i.ItemName ASC";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@from", fromDate);
                     cmd.Parameters.AddWithValue("@to", toDate);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
                     dgvSalesReport.Rows.Clear(); int totalItemsSold = 0;
                     decimal totalSalesAmount = 0; while (reader.Read())
                     {
@@ -87,12 +88,12 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @" SELECT OrderID, CustomerName, OrderDate, TotalAmount, Status FROM Orders ORDER BY OrderDate DESC";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
                     dgvTransactionHistory.Rows.Clear();
                     while (reader.Read())
                     {
@@ -119,15 +120,15 @@ namespace FINALSSS
             dgvManageAccounts.ClearSelection();
 
 
-            using (var conn = new MySqlConnection(DBconnection.ConnectionString))
+            using (var conn = new SqlConnection(DBconnection.ConnectionString))
             {
                 conn.Open();
                 // We select ONLY the hash based on the username
                 string query = @"SELECT * FROM users";
 
-                using (var cmd = new MySqlCommand(query, conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         int rowIndex = dgvManageAccounts.Rows.Add();
@@ -168,7 +169,6 @@ namespace FINALSSS
             btn.BackColor = Color.FromArgb(108, 147, 255);
             btn.ForeColor = Color.White;
         }
-
         private void ResetColors()
         {
             Color defaultColor = Color.FromArgb(58, 111, 248);
@@ -188,12 +188,12 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit, Status FROM Items";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvInventory.Rows.Clear();
                     while (reader.Read())
@@ -213,7 +213,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show("Database error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -334,13 +334,13 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"SELECT OrderID, CustomerName, ContactNumber, Email, DeliveryAddress, OrderDate, TotalAmount, Status
                                      FROM Orders ORDER BY OrderDate DESC";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvOrders.Rows.Clear();
                     while (reader.Read())
@@ -361,7 +361,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show("Database error loading orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -429,15 +429,15 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"SELECT LogID, ActionBy, ActionType, ActionDetails, ActionDate 
                                      FROM ActivityLog 
                                      WHERE ActionBy <> 'System'
                                      ORDER BY ActionDate DESC";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     dgvActivityLog.Rows.Clear();
                     dgvActivityLog.AllowUserToAddRows = false;
@@ -458,7 +458,7 @@ namespace FINALSSS
                     reader.Close();
                 }
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show("Database error loading activity log: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -518,12 +518,12 @@ namespace FINALSSS
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DBconnection.ConnectionString))
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = @"INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails, ActionDate)
                                      VALUES (@by, @type, @details, @date)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@by", actionBy);
                     cmd.Parameters.AddWithValue("@type", actionType);
                     cmd.Parameters.AddWithValue("@details", actionDetails);
@@ -553,6 +553,16 @@ namespace FINALSSS
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             new CreateAccount().ShowDialog();
+        }
+
+        public void RoundControl(Control control, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(control.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(control.Width - radius, control.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
+            control.Region = new Region(path);
         }
     }
 }
