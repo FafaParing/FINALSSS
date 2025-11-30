@@ -62,7 +62,6 @@
             this.pictureBox2.Size = new System.Drawing.Size(653, 230);
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Password
             // 
@@ -75,7 +74,6 @@
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(401, 40);
             this.Password.TabIndex = 6;
-            this.Password.TabStop = false;
             this.Password.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // Username
@@ -88,7 +86,6 @@
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(401, 40);
             this.Username.TabIndex = 5;
-            this.Username.TabStop = false;
             // 
             // label1
             // 

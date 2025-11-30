@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Drawing2D;
+using System.Data;
 
 namespace FINALSSS
 {
@@ -13,7 +14,7 @@ namespace FINALSSS
         public Main()
         {
             InitializeComponent();
-
+            RefreshDashboard();
             // Panel setup
             SetColors(btnDashboard);
             ShowPanel(panelDashboard);
@@ -27,6 +28,20 @@ namespace FINALSSS
         }
         private void Main_Load(object sender, EventArgs e)
         {
+            RoundControl(TotalItems, 20);
+            RoundControl(OutOfStock, 20);
+            RoundControl(LowStock, 20);
+            if (Session.Role == "Admin")
+            {
+                btnManageAccounts.Visible = true;
+                panelManageAccounts.Visible = true;
+            }
+            else
+            {
+                btnManageAccounts.Visible = false;
+                panelManageAccounts.Visible = false;
+            }
+
             LoadItems(); 
             LoadOrders(); 
             LoadActivityLog();
@@ -46,11 +61,94 @@ namespace FINALSSS
         private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); }
         private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
         private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); }
+
+        public void RoundControl(Control control, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(control.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(control.Width - radius, control.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
+            control.Region = new Region(path);
+        }
         private void btnManageAccounts_Click_1(object sender, EventArgs e)
         {
             SetColors(btnManageAccounts);
             ShowPanel(panelManageAccounts);
         }
+
+        public void LoadTopSellingChart()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open();
+                    string query = @"SELECT TOP 5 i.ItemName, SUM(oi.Quantity) AS QuantitySold
+                             FROM OrderItems oi
+                             INNER JOIN Orders o ON oi.OrderID = o.OrderID
+                             INNER JOIN Items i ON oi.ItemID = i.ItemID
+                             GROUP BY i.ItemName
+                             ORDER BY QuantitySold DESC";
+
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    TopSellingChart.Series.Clear();
+                    TopSellingChart.Series.Add("TopSellingItems");
+                    TopSellingChart.Series["TopSellingItems"].XValueMember = "ItemName";
+                    TopSellingChart.Series["TopSellingItems"].YValueMembers = "QuantitySold";
+                    TopSellingChart.DataSource = dt;
+                    TopSellingChart.DataBind();
+
+                    // Optional: clean Y-axis
+                    TopSellingChart.ChartAreas[0].AxisY.LabelStyle.Enabled = false;
+                    TopSellingChart.ChartAreas[0].AxisY.MajorTickMark.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading top selling chart: " + ex.Message);
+            }
+        }
+
+
+        private void LoadDashboardMetrics()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                {
+                    conn.Open();
+
+                    // Total Items
+                    SqlCommand cmdTotal = new SqlCommand("SELECT COUNT(*) FROM Items", conn);
+                    lblTotalItems.Text = cmdTotal.ExecuteScalar().ToString();
+
+                    // Out of Stock
+                    SqlCommand cmdOut = new SqlCommand("SELECT COUNT(*) FROM Items WHERE StockQuantity = 0", conn);
+                    lblOutOfStock.Text = cmdOut.ExecuteScalar().ToString();
+
+                    // Low Stock (<=5)
+                    SqlCommand cmdLow = new SqlCommand("SELECT COUNT(*) FROM Items WHERE StockQuantity <= 5 AND StockQuantity > 0", conn);
+                    lblLowStock.Text = cmdLow.ExecuteScalar().ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading dashboard metrics: " + ex.Message);
+            }
+        }
+
+        private void RefreshDashboard()
+        {
+            LoadDashboardMetrics();    // existing metrics
+            LoadTopSellingChart();     // new chart
+        }
+
 
         public void LoadSalesReport(DateTime fromDate, DateTime toDate)
         {
@@ -555,14 +653,9 @@ namespace FINALSSS
             new CreateAccount().ShowDialog();
         }
 
-        public void RoundControl(Control control, int radius)
+        private void TopSellingChart_Click(object sender, EventArgs e)
         {
-            GraphicsPath path = new GraphicsPath();
-            path.AddArc(0, 0, radius, radius, 180, 90);
-            path.AddArc(control.Width - radius, 0, radius, radius, 270, 90);
-            path.AddArc(control.Width - radius, control.Height - radius, radius, radius, 0, 90);
-            path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
-            control.Region = new Region(path);
+
         }
     }
 }

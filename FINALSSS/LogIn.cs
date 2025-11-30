@@ -8,6 +8,12 @@ namespace FINALSSS
 {
     public partial class LogIn : Form
     {
+        public static class Session
+        {
+            public static int UserID;
+            public static string Username;
+            public static string Role;
+        }
         public LogIn()
         {
             InitializeComponent();
@@ -92,29 +98,6 @@ namespace FINALSSS
 
                 }
             }
-
-            //bool loginSuccess = true; // Replace with real validation
-
-            //if (loginSuccess)
-            //{
-            //    this.DialogResult = DialogResult.OK; // signals success
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Invalid credentials.", "Login Failed",
-            //        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
-        }
-
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
