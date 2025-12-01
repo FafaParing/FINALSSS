@@ -23,5 +23,20 @@ namespace FINALSSS
         {
             // No extra code needed here
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numQuantity_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

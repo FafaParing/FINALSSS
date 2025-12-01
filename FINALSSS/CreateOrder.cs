@@ -294,5 +294,20 @@ namespace FINALSSS
         }
 
         private void lblTotal_Click(object sender, EventArgs e) { }
+
+        private void panelOrder_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelCustomerInformation_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void CustomerInformation_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

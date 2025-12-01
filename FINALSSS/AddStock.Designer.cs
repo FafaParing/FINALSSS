@@ -47,7 +47,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(119, 13);
+            this.label1.Location = new System.Drawing.Point(108, 11);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 25);
@@ -58,8 +58,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(65, 75);
+            this.label2.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label2.Location = new System.Drawing.Point(26, 76);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 16);
@@ -70,7 +70,7 @@
             // 
             this.lblItemName.AutoSize = true;
             this.lblItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItemName.Location = new System.Drawing.Point(146, 75);
+            this.lblItemName.Location = new System.Drawing.Point(57, 101);
             this.lblItemName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblItemName.Name = "lblItemName";
             this.lblItemName.Size = new System.Drawing.Size(85, 17);
@@ -81,8 +81,8 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(30, 111);
+            this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label3.Location = new System.Drawing.Point(22, 129);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 16);
@@ -93,7 +93,7 @@
             // 
             this.lblCurrentQuantity.AutoSize = true;
             this.lblCurrentQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentQuantity.Location = new System.Drawing.Point(146, 111);
+            this.lblCurrentQuantity.Location = new System.Drawing.Point(57, 159);
             this.lblCurrentQuantity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCurrentQuantity.Name = "lblCurrentQuantity";
             this.lblCurrentQuantity.Size = new System.Drawing.Size(122, 17);
@@ -104,8 +104,8 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(36, 150);
+            this.label4.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label4.Location = new System.Drawing.Point(26, 189);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 16);
@@ -115,21 +115,21 @@
             // numAddQuantity
             // 
             this.numAddQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numAddQuantity.Location = new System.Drawing.Point(149, 146);
-            this.numAddQuantity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numAddQuantity.Location = new System.Drawing.Point(60, 216);
+            this.numAddQuantity.Margin = new System.Windows.Forms.Padding(2);
             this.numAddQuantity.Name = "numAddQuantity";
             this.numAddQuantity.Size = new System.Drawing.Size(74, 23);
             this.numAddQuantity.TabIndex = 6;
             // 
             // btnUpdateStock
             // 
-            this.btnUpdateStock.BackColor = System.Drawing.Color.Blue;
+            this.btnUpdateStock.BackColor = System.Drawing.Color.DarkBlue;
             this.btnUpdateStock.FlatAppearance.BorderSize = 0;
             this.btnUpdateStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdateStock.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnUpdateStock.Location = new System.Drawing.Point(42, 280);
-            this.btnUpdateStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUpdateStock.Location = new System.Drawing.Point(60, 280);
+            this.btnUpdateStock.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdateStock.Name = "btnUpdateStock";
             this.btnUpdateStock.Size = new System.Drawing.Size(110, 42);
             this.btnUpdateStock.TabIndex = 7;
@@ -144,8 +144,8 @@
             this.btnCancelStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelStock.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelStock.Location = new System.Drawing.Point(180, 280);
-            this.btnCancelStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancelStock.Location = new System.Drawing.Point(189, 280);
+            this.btnCancelStock.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelStock.Name = "btnCancelStock";
             this.btnCancelStock.Size = new System.Drawing.Size(110, 42);
             this.btnCancelStock.TabIndex = 8;
@@ -155,22 +155,22 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(111)))), ((int)(((byte)(248)))));
+            this.panel1.BackColor = System.Drawing.Color.DarkBlue;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(352, 50);
+            this.panel1.Size = new System.Drawing.Size(332, 50);
             this.panel1.TabIndex = 16;
             // 
             // AddStock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(147)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(352, 358);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(332, 342);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancelStock);
             this.Controls.Add(this.btnUpdateStock);
@@ -181,7 +181,7 @@
             this.Controls.Add(this.lblItemName);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddStock";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddStock";

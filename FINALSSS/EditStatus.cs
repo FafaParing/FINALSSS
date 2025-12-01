@@ -91,5 +91,15 @@ namespace FINALSSS
         {
             // Not used but kept for designer
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbEditStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

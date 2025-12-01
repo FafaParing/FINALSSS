@@ -657,5 +657,20 @@ namespace FINALSSS
         {
 
         }
+
+        private void panelDashboard_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelOrders_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dgvManageAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace FINALSSS
                 {
                     lblUser.Text = reader["ActionBy"].ToString();
                     lblAction.Text = reader["ActionType"].ToString();
+                    lblAction.Text = reader["ItemType"].ToString();
                     txtDetails.Text = reader["ActionDetails"].ToString();
                     lblDate.Text = Convert.ToDateTime(reader["ActionDate"]).ToString("g");
                 }
@@ -41,6 +42,21 @@ namespace FINALSSS
         }
 
         private void ActivityDetails_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
