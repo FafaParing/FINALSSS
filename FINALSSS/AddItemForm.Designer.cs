@@ -161,7 +161,6 @@
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Items.AddRange(new object[] {
             "In stock",
-            "Out of stock",
             "Not Available"});
             this.cmbStatus.Location = new System.Drawing.Point(196, 283);
             this.cmbStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -207,7 +206,9 @@
             this.cmbUnit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnit.FormattingEnabled = true;
             this.cmbUnit.Items.AddRange(new object[] {
-            "Roll"});
+            "ROLL",
+            "PCS",
+            "BOX"});
             this.cmbUnit.Location = new System.Drawing.Point(388, 214);
             this.cmbUnit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbUnit.Name = "cmbUnit";
