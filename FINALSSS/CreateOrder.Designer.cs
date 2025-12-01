@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvAvailableItems = new System.Windows.Forms.DataGridView();
             this.colItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,14 +93,14 @@
             this.dgvAvailableItems.AllowUserToDeleteRows = false;
             this.dgvAvailableItems.AllowUserToResizeColumns = false;
             this.dgvAvailableItems.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAvailableItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAvailableItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvAvailableItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAvailableItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colItemID,
@@ -111,7 +111,7 @@
             this.colUnit,
             this.colAdd});
             this.dgvAvailableItems.Location = new System.Drawing.Point(29, 144);
-            this.dgvAvailableItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvAvailableItems.Margin = new System.Windows.Forms.Padding(2);
             this.dgvAvailableItems.MultiSelect = false;
             this.dgvAvailableItems.Name = "dgvAvailableItems";
             this.dgvAvailableItems.ReadOnly = true;
@@ -185,14 +185,14 @@
             // 
             // dgvCurrentItems
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCurrentItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCurrentItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvCurrentItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCurrentItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colRemove,
@@ -202,7 +202,7 @@
             this.colPrice2,
             this.colSubtotal});
             this.dgvCurrentItems.Location = new System.Drawing.Point(579, 109);
-            this.dgvCurrentItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvCurrentItems.Margin = new System.Windows.Forms.Padding(2);
             this.dgvCurrentItems.Name = "dgvCurrentItems";
             this.dgvCurrentItems.RowHeadersVisible = false;
             this.dgvCurrentItems.RowHeadersWidth = 51;
@@ -258,22 +258,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
             this.label1.Location = new System.Drawing.Point(516, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 25);
+            this.label1.Size = new System.Drawing.Size(138, 25);
             this.label1.TabIndex = 2;
             this.label1.Text = "Create Order";
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.button1.BackColor = System.Drawing.Color.Blue;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.Control;
             this.button1.Location = new System.Drawing.Point(983, 622);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 37);
             this.button1.TabIndex = 3;
@@ -283,7 +285,7 @@
             // 
             // panelOrder
             // 
-            this.panelOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(111)))), ((int)(((byte)(248)))));
+            this.panelOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(147)))), ((int)(((byte)(255)))));
             this.panelOrder.Controls.Add(this.panel1);
             this.panelOrder.Controls.Add(this.btnSearch);
             this.panelOrder.Controls.Add(this.txtSearch);
@@ -297,14 +299,14 @@
             this.panelOrder.Controls.Add(this.button1);
             this.panelOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelOrder.Location = new System.Drawing.Point(0, 0);
-            this.panelOrder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelOrder.Margin = new System.Windows.Forms.Padding(2);
             this.panelOrder.Name = "panelOrder";
             this.panelOrder.Size = new System.Drawing.Size(1128, 670);
             this.panelOrder.TabIndex = 4;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(111)))), ((int)(((byte)(248)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -320,7 +322,7 @@
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.Black;
             this.btnSearch.Location = new System.Drawing.Point(473, 114);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(74, 27);
             this.btnSearch.TabIndex = 13;
@@ -332,7 +334,7 @@
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.ForeColor = System.Drawing.SystemColors.ScrollBar;
             this.txtSearch.Location = new System.Drawing.Point(92, 114);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(2);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(380, 28);
@@ -341,12 +343,13 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnCancel.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCancel.Location = new System.Drawing.Point(856, 622);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 37);
             this.btnCancel.TabIndex = 11;
@@ -408,7 +411,7 @@
             this.panelCustomerInformation.Controls.Add(this.OrderSummary);
             this.panelCustomerInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCustomerInformation.Location = new System.Drawing.Point(0, 0);
-            this.panelCustomerInformation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelCustomerInformation.Margin = new System.Windows.Forms.Padding(2);
             this.panelCustomerInformation.Name = "panelCustomerInformation";
             this.panelCustomerInformation.Size = new System.Drawing.Size(1128, 670);
             this.panelCustomerInformation.TabIndex = 4;
@@ -417,7 +420,7 @@
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(826, 622);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(127, 37);
             this.button3.TabIndex = 4;
@@ -429,7 +432,7 @@
             // 
             this.btnPlaceOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlaceOrder.Location = new System.Drawing.Point(965, 622);
-            this.btnPlaceOrder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPlaceOrder.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlaceOrder.Name = "btnPlaceOrder";
             this.btnPlaceOrder.Size = new System.Drawing.Size(127, 37);
             this.btnPlaceOrder.TabIndex = 3;
@@ -451,9 +454,9 @@
             this.CustomerInformation.Controls.Add(this.label8);
             this.CustomerInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerInformation.Location = new System.Drawing.Point(29, 76);
-            this.CustomerInformation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerInformation.Margin = new System.Windows.Forms.Padding(2);
             this.CustomerInformation.Name = "CustomerInformation";
-            this.CustomerInformation.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerInformation.Padding = new System.Windows.Forms.Padding(2);
             this.CustomerInformation.Size = new System.Drawing.Size(455, 535);
             this.CustomerInformation.TabIndex = 0;
             this.CustomerInformation.TabStop = false;
@@ -462,7 +465,7 @@
             // 
             this.txtDeliverAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeliverAdd.Location = new System.Drawing.Point(32, 329);
-            this.txtDeliverAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDeliverAdd.Margin = new System.Windows.Forms.Padding(2);
             this.txtDeliverAdd.Multiline = true;
             this.txtDeliverAdd.Name = "txtDeliverAdd";
             this.txtDeliverAdd.Size = new System.Drawing.Size(382, 171);
@@ -505,7 +508,7 @@
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.Location = new System.Drawing.Point(32, 205);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(275, 23);
             this.txtEmail.TabIndex = 7;
@@ -514,7 +517,7 @@
             // 
             this.txtContactNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContactNum.Location = new System.Drawing.Point(32, 132);
-            this.txtContactNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtContactNum.Margin = new System.Windows.Forms.Padding(2);
             this.txtContactNum.Name = "txtContactNum";
             this.txtContactNum.Size = new System.Drawing.Size(168, 23);
             this.txtContactNum.TabIndex = 6;
@@ -534,7 +537,7 @@
             // 
             this.txtCustomerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCustomerName.Location = new System.Drawing.Point(32, 79);
-            this.txtCustomerName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCustomerName.Margin = new System.Windows.Forms.Padding(2);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(275, 23);
             this.txtCustomerName.TabIndex = 4;
@@ -557,9 +560,9 @@
             this.OrderSummary.Controls.Add(this.label7);
             this.OrderSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrderSummary.Location = new System.Drawing.Point(503, 76);
-            this.OrderSummary.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OrderSummary.Margin = new System.Windows.Forms.Padding(2);
             this.OrderSummary.Name = "OrderSummary";
-            this.OrderSummary.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OrderSummary.Padding = new System.Windows.Forms.Padding(2);
             this.OrderSummary.Size = new System.Drawing.Size(589, 535);
             this.OrderSummary.TabIndex = 1;
             this.OrderSummary.TabStop = false;
@@ -574,7 +577,7 @@
             this.colPriceSummary,
             this.colSubTotalSummary});
             this.dgvOrderSummary.Location = new System.Drawing.Point(24, 114);
-            this.dgvOrderSummary.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvOrderSummary.Margin = new System.Windows.Forms.Padding(2);
             this.dgvOrderSummary.Name = "dgvOrderSummary";
             this.dgvOrderSummary.RowHeadersVisible = false;
             this.dgvOrderSummary.RowHeadersWidth = 51;
@@ -636,7 +639,7 @@
             this.Controls.Add(this.panelOrder);
             this.Controls.Add(this.panelCustomerInformation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateOrder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateOrder";
