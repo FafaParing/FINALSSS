@@ -29,7 +29,7 @@ namespace FINALSSS
                 {
                     lblUser.Text = reader["ActionBy"].ToString();
                     lblAction.Text = reader["ActionType"].ToString();
-                    txtDetails.Text = reader["ActionDetails"].ToString();
+                    lblnotes.Text = reader["ActionDetails"].ToString();
                     lblDate.Text = Convert.ToDateTime(reader["ActionDate"]).ToString("g");
                 }
             }
@@ -56,6 +56,11 @@ namespace FINALSSS
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtDetails_TextChanged(object sender, EventArgs e)
         {
 
         }
