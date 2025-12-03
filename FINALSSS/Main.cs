@@ -9,50 +9,48 @@ namespace FINALSSS
 {
     public partial class Main : Form
     {
-        public string currentUsername = "Admin"; // Replace with actual logged-in user
-
-        public Main()
+        public string currentUsername;
+        public string currentUserRole;
+        public Main(string username, string role)
         {
             InitializeComponent();
+            currentUsername = username;
+            currentUserRole = role;
             RefreshDashboard();
             // Panel setup
             SetColors(btnDashboard);
             ShowPanel(panelDashboard);
 
-            dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvManageAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+        
+
         private void Main_Load(object sender, EventArgs e)
         {
             RoundControl(TotalItems, 20);
             RoundControl(OutOfStock, 20);
             RoundControl(LowStock, 20);
-            if (Session.Role == "Admin")
-            {
-                btnManageAccounts.Visible = true;
-                panelManageAccounts.Visible = true;
-            }
-            else
-            {
-                btnManageAccounts.Visible = false;
-                panelManageAccounts.Visible = false;
-            }
 
+            if (currentUserRole != "Admin")
+                btnManageAccounts.Visible = false;
+            else
+                btnManageAccounts.Visible = true;
             LoadItems(); 
             LoadOrders(); 
             LoadActivityLog();
             LoadTransactionHistory();
             LoadManageUsers();
+            
 
             dgvInventory.ClearSelection();
             dgvOrders.ClearSelection();
             dgvActivityLog.ClearSelection();
 
-            btnManageAccounts.Visible = Session.Role == "Admin";
+            
         }
         private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
         private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); }
@@ -70,11 +68,6 @@ namespace FINALSSS
             path.AddArc(control.Width - radius, control.Height - radius, radius, radius, 0, 90);
             path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
             control.Region = new Region(path);
-        }
-        private void btnManageAccounts_Click_1(object sender, EventArgs e)
-        {
-            SetColors(btnManageAccounts);
-            ShowPanel(panelManageAccounts);
         }
 
         public void LoadTopSellingChart()
@@ -329,6 +322,11 @@ namespace FINALSSS
 
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 AddItemForm addForm = new AddItemForm { Owner = this };
@@ -347,7 +345,11 @@ namespace FINALSSS
         private void btnAddStocks_Click(object sender, EventArgs e)
         {
             if (dgvInventory.SelectedRows.Count == 0) return;
-
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 int itemId = 0, currentQty = 0;
@@ -364,7 +366,7 @@ namespace FINALSSS
                 addStockForm.FormClosed += (s, args) =>
                 {
                     LoadItems();
-                    LogActivity(currentUsername, "Add Stock", $"Added stock for item: {itemName}");
+                    LogActivity(currentUserRole, "Add Stock", $"Added stock for item: {itemName}");
                 };
                 addStockForm.ShowDialog();
             }
@@ -377,7 +379,11 @@ namespace FINALSSS
         private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (dgvInventory.Columns[e.ColumnIndex].Name == "btnEdit")
             {
                 try
@@ -404,7 +410,7 @@ namespace FINALSSS
                     editForm.FormClosed += (s, args) =>
                     {
                         LoadItems();
-                        LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
+                        LogActivity(currentUserRole, "Edit Item", $"Edited item: {itemName}");
                     };
                     editForm.ShowDialog();
                 }
@@ -471,6 +477,11 @@ namespace FINALSSS
 
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 CreateOrder createForm = new CreateOrder { Owner = this };
@@ -486,7 +497,11 @@ namespace FINALSSS
         private void dgvOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (dgvOrders.Columns[e.ColumnIndex].Name == "colAction")
             {
                 try
@@ -569,7 +584,11 @@ namespace FINALSSS
         private void dgvActivityLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
+            if (currentUserRole == "Admin")
+            {
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (dgvActivityLog.Columns[e.ColumnIndex].Name == "colViewDetails")
             {
                 try
@@ -622,6 +641,7 @@ namespace FINALSSS
                     string query = @"INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails, ActionDate)
                                      VALUES (@by, @type, @details, @date)";
                     SqlCommand cmd = new SqlCommand(query, conn);
+                    string combinedName = $"{actionBy} ({currentUserRole})";
                     cmd.Parameters.AddWithValue("@by", actionBy);
                     cmd.Parameters.AddWithValue("@type", actionType);
                     cmd.Parameters.AddWithValue("@details", actionDetails);
@@ -634,6 +654,7 @@ namespace FINALSSS
 
         private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex < 0) return;
             if (dgvTransactionHistory.Columns[e.ColumnIndex].Name == "colTransViewDetails")
             {
@@ -643,34 +664,27 @@ namespace FINALSSS
             }
         }
 
-        private void panelManageAccounts_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+      
 
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             new CreateAccount().ShowDialog();
         }
 
-        private void TopSellingChart_Click(object sender, EventArgs e)
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
+            var result = MessageBox.Show("Are you sure you want to log out?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                // Open login form again
+                LogIn loginForm = new LogIn();
+                loginForm.Show();
 
+                // Close current main form
+                this.Close();
+            }
         }
 
-        private void panelDashboard_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panelOrders_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dgvManageAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        
     }
 }

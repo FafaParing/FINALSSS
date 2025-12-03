@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace FINALSSS
 {
@@ -33,26 +33,43 @@ namespace FINALSSS
             var username = Username.Text.Trim();
             var password = Password.Text.Trim();
 
-            //MessageBox.Show($"Username: {username}, Password: {password}");
-
-            using (var conn = new MySqlConnection(DBconnection.ConnectionString))
+            // Basic validation
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                conn.Open();
+                MessageBox.Show("Username and password cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                string query = @"INSERT INTO users (Username, Password) VALUES (@User, @Password)";
-
-                using (var cmd = new MySqlCommand(query, conn))
+            try
+            {
+                using (var conn = new SqlConnection(DBconnection.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@User", username);
-                    cmd.Parameters.AddWithValue("@Password", password);
+                    conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                    string query = @"INSERT INTO users (Username, Password) VALUES (@User, @Password)";
 
-                    this.Close();
+                    using (var cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@User", username);
+                        cmd.Parameters.AddWithValue("@Password", password);
 
-                    MessageBox.Show("User successfully added!");
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("User successfully added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.Close();
+                    }
                 }
             }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show("Database error: " + sqlEx.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
     }
 }

@@ -8,21 +8,21 @@ namespace FINALSSS
 {
     public partial class LogIn : Form
     {
-        public static class Session
-        {
-            public static int UserID;
-            public static string Username;
-            public static string Role;
-        }
+        // Properties to store logged-in info
+        public string LoggedInUsername { get; private set; }
+        public string LoggedInUserRole { get; private set; }
+
         public LogIn()
         {
             InitializeComponent();
         }
+
+        // Rounded form corners
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             GraphicsPath path = new GraphicsPath();
-            int radius = 40; // change this
+            int radius = 40;
 
             path.AddArc(0, 0, radius, radius, 180, 90);
             path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
@@ -31,6 +31,8 @@ namespace FINALSSS
 
             this.Region = new Region(path);
         }
+
+        // Rounded controls (textboxes/buttons)
         public void RoundControl(Control control, int radius)
         {
             GraphicsPath path = new GraphicsPath();
@@ -40,6 +42,7 @@ namespace FINALSSS
             path.AddArc(0, control.Height - radius, radius, radius, 90, 90);
             control.Region = new Region(path);
         }
+
         private void UserLogIn_Load(object sender, EventArgs e)
         {
             RoundControl(Username, 20);
@@ -47,56 +50,61 @@ namespace FINALSSS
             RoundControl(btnLogin, 20);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            // Optional: handle text change if needed
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var username = Username.Text;
-            var password = Password.Text;
+            string username = Username.Text.Trim();
+            string password = Password.Text.Trim();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Invalid!");
+                MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using (var conn = new SqlConnection(DBconnection.ConnectionString))
+            try
             {
-                conn.Open();
-                // We select ONLY the hash based on the username
-                string query = @"SELECT UserID, Username, Password, Role FROM users WHERE Username = @user";
-
-                using (var cmd = new SqlCommand(query, conn))
+                using (var conn = new SqlConnection(DBconnection.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@user", username);
+                    conn.Open();
+                    string query = @"SELECT Username, Password, Role FROM users WHERE Username = @user";
 
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (!reader.Read())
+                    using (var cmd = new SqlCommand(query, conn))
                     {
-                        MessageBox.Show("YOW");
-                        return;
+                        cmd.Parameters.AddWithValue("@user", username);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                MessageBox.Show("Username not found.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            string dbPassword = reader["Password"].ToString();
+                            string dbRole = reader["Role"].ToString();
+
+                            if (password != dbPassword)
+                            {
+                                MessageBox.Show("Incorrect password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            // Successful login
+                            LoggedInUsername = username;
+                            LoggedInUserRole = dbRole;
+
+                            // Open Main form and pass username + role
+                            Main mainForm = new Main(LoggedInUsername, LoggedInUserRole);
+                            mainForm.Show();
+
+                            this.Hide();
+                        }
                     }
-
-                    var originalPassword = reader["Password"].ToString();
-
-                    if (password != originalPassword)
-                    {
-                        MessageBox.Show("Bro!!");
-                        return;
-                    }
-
-                    Session.UserID = Convert.ToInt32(reader["UserID"]);
-                    Session.Username = reader["Username"].ToString();
-                    Session.Role = reader["Role"].ToString();
-
-                    this.DialogResult = DialogResult.OK;
-                    this.Hide();
-
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error connecting to database: " + ex.Message, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

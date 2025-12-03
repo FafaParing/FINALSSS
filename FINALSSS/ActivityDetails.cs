@@ -29,7 +29,6 @@ namespace FINALSSS
                 {
                     lblUser.Text = reader["ActionBy"].ToString();
                     lblAction.Text = reader["ActionType"].ToString();
-                    lblAction.Text = reader["ItemType"].ToString();
                     txtDetails.Text = reader["ActionDetails"].ToString();
                     lblDate.Text = Convert.ToDateTime(reader["ActionDate"]).ToString("g");
                 }
