@@ -43,7 +43,7 @@ namespace FINALSSS
             control.Region = new Region(path);
         }
 
-        private void UserLogIn_Load(object sender, EventArgs e)
+        private void LogIn_Load(object sender, EventArgs e)
         {
             RoundControl(Username, 20);
             RoundControl(Password, 20);

@@ -16,7 +16,7 @@ namespace FINALSSS
         {
             base.OnPaint(e);
             GraphicsPath path = new GraphicsPath();
-            int radius = 30; // change this
+            int radius = 30;
 
             path.AddArc(0, 0, radius, radius, 180, 90);
             path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
@@ -135,11 +135,7 @@ namespace FINALSSS
         private void AddItemForm_Load(object sender, EventArgs e)
         {
             RoundControl(txtItemName, 10);
-            RoundControl(cmbCategory, 10);
-            RoundControl(numStock, 10);
             RoundControl(txtPrice, 10);
-            RoundControl(cmbUnit, 10);
-            RoundControl(cmbStatus, 10);
             RoundControl(btnSave, 10);
             RoundControl(btnCancel, 10);
         }

@@ -20,6 +20,7 @@ namespace FINALSSS
             // Panel setup
             SetColors(btnDashboard);
             ShowPanel(panelDashboard);
+            RoundControl(panel1, 20);
 
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -39,26 +40,15 @@ namespace FINALSSS
                 btnManageAccounts.Visible = false;
             else
                 btnManageAccounts.Visible = true;
-            LoadItems(); 
-            LoadOrders(); 
-            LoadActivityLog();
-            LoadTransactionHistory();
-            LoadManageUsers();
-            
-
-            dgvInventory.ClearSelection();
-            dgvOrders.ClearSelection();
-            dgvActivityLog.ClearSelection();
-
-            
+          
         }
         private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
-        private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); }
-        private void btnOrders_Click(object sender, EventArgs e) { SetColors(btnOrders); ShowPanel(panelOrders); }
-        private void btnActivityLog_Click(object sender, EventArgs e) { SetColors(btnActivityLog); ShowPanel(panelActivityLog); }
-        private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); }
+        private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); LoadItems(); }
+        private void btnOrders_Click(object sender, EventArgs e) { SetColors(btnOrders); ShowPanel(panelOrders); LoadOrders(); }
+        private void btnActivityLog_Click(object sender, EventArgs e) { SetColors(btnActivityLog); ShowPanel(panelActivityLog); LoadActivityLog(); }
+        private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); LoadTransactionHistory(); }
         private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
-        private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); }
+        private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); LoadManageUsers(); }
 
         public void RoundControl(Control control, int radius)
         {
@@ -90,15 +80,13 @@ namespace FINALSSS
                     da.Fill(dt);
 
                     TopSellingChart.Series.Clear();
-                    TopSellingChart.Series.Add("TopSellingItems");
-                    TopSellingChart.Series["TopSellingItems"].XValueMember = "ItemName";
-                    TopSellingChart.Series["TopSellingItems"].YValueMembers = "QuantitySold";
+                    TopSellingChart.Series.Add("Top Selling");
+                    TopSellingChart.Series["Top Selling"].XValueMember = "ItemName";
+                    TopSellingChart.Series["Top Selling"].YValueMembers = "QuantitySold";
                     TopSellingChart.DataSource = dt;
                     TopSellingChart.DataBind();
 
-                    // Optional: clean Y-axis
-                    TopSellingChart.ChartAreas[0].AxisY.LabelStyle.Enabled = false;
-                    TopSellingChart.ChartAreas[0].AxisY.MajorTickMark.Enabled = false;
+                    
                 }
             }
             catch (Exception ex)
@@ -128,6 +116,9 @@ namespace FINALSSS
                     SqlCommand cmdLow = new SqlCommand("SELECT COUNT(*) FROM Items WHERE StockQuantity <= 5 AND StockQuantity > 0", conn);
                     lblLowStock.Text = cmdLow.ExecuteScalar().ToString();
 
+                    RoundControl(picTotalItems, 50);
+                    RoundControl(picOutOfStock, 50);
+                    RoundControl(picLowStock, 50);
                 }
             }
             catch (Exception ex)
@@ -257,12 +248,12 @@ namespace FINALSSS
         private void SetColors(Button btn)
         {
             ResetColors();
-            btn.BackColor = Color.FromArgb(108, 147, 255);
-            btn.ForeColor = Color.White;
+            btn.BackColor = Color.WhiteSmoke;
+            btn.ForeColor = Color.Black;
         }
         private void ResetColors()
         {
-            Color defaultColor = Color.FromArgb(58, 111, 248);
+            Color defaultColor = Color.DarkBlue;
             Color defaultTextColor = Color.White;
 
             btnDashboard.BackColor = defaultColor; btnDashboard.ForeColor = defaultTextColor;
@@ -291,14 +282,15 @@ namespace FINALSSS
                     {
                         int rowIndex = dgvInventory.Rows.Add();
                         var row = dgvInventory.Rows[rowIndex];
+                        var quantity = Convert.ToInt32(reader["StockQuantity"]);
 
                         row.Cells["colItemID"].Value = reader["ItemID"].ToString();
                         row.Cells["colItemName"].Value = reader["ItemName"].ToString();
                         row.Cells["colCategory"].Value = reader["Category"].ToString();
-                        row.Cells["colStock"].Value = reader["StockQuantity"].ToString();
+                        row.Cells["colStock"].Value = quantity.ToString();
                         row.Cells["colPrice"].Value = reader["Price"].ToString();
                         row.Cells["colUnit"].Value = reader["Unit"].ToString();
-                        row.Cells["colStatus"].Value = reader["Status"].ToString();
+                        row.Cells["colStatus"].Value = quantity < 1 ? "Out of stock" : reader["Status"].ToString();
                     }
 
                     reader.Close();
@@ -322,6 +314,8 @@ namespace FINALSSS
 
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {
+            string newItem = dgvInventory.SelectedRows[0].Cells["colItemName"].Value?.ToString() ?? "";
+
             if (currentUserRole == "Admin")
             {
                 MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -332,6 +326,7 @@ namespace FINALSSS
                 AddItemForm addForm = new AddItemForm { Owner = this };
                 addForm.FormClosed += (s, args) =>
                 {
+                    LogActivity(currentUsername, "Add Item", $"Added Item: {newItem}");
                     LoadItems();
                 };
                 addForm.ShowDialog();
@@ -366,7 +361,7 @@ namespace FINALSSS
                 addStockForm.FormClosed += (s, args) =>
                 {
                     LoadItems();
-                    LogActivity(currentUserRole, "Add Stock", $"Added stock for item: {itemName}");
+                    LogActivity(currentUsername, "Add Stock", $"Added stock for item: {itemName}");
                 };
                 addStockForm.ShowDialog();
             }
@@ -379,11 +374,7 @@ namespace FINALSSS
         private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            if (currentUserRole == "Admin")
-            {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            
             if (dgvInventory.Columns[e.ColumnIndex].Name == "btnEdit")
             {
                 try
@@ -393,7 +384,11 @@ namespace FINALSSS
                     string category = dgvInventory.Rows[e.RowIndex].Cells["colCategory"].Value?.ToString() ?? "";
                     string unit = dgvInventory.Rows[e.RowIndex].Cells["colUnit"].Value?.ToString() ?? "";
                     string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
-
+                    if (currentUserRole == "Admin")
+                    {
+                        MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     if (!int.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value?.ToString(), out itemId))
                     {
                         MessageBox.Show("Invalid Item ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -410,7 +405,7 @@ namespace FINALSSS
                     editForm.FormClosed += (s, args) =>
                     {
                         LoadItems();
-                        LogActivity(currentUserRole, "Edit Item", $"Edited item: {itemName}");
+                        LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
                     };
                     editForm.ShowDialog();
                 }
@@ -618,16 +613,19 @@ namespace FINALSSS
                 {
                     bool match = string.IsNullOrEmpty(searchText) ||
                                  row.Cells[columnName].Value.ToString().ToLower().Contains(searchText.ToLower());
+                    Console.WriteLine(searchText);
                     row.Visible = match;
                 }
             }
 
+            
             if (string.IsNullOrEmpty(searchText))
             {
                 if (dgv == dgvInventory) LoadItems();
                 else if (dgv == dgvOrders) LoadOrders();
                 else if (dgv == dgvActivityLog) LoadActivityLog();
             }
+
         }
 
         // ---------------- LOGGING ----------------
@@ -685,6 +683,36 @@ namespace FINALSSS
             }
         }
 
-        
+        private void txtSearchInventory_MouseEnter(object sender, EventArgs e)
+        {
+            if (txtSearchInventory.Text == "Enter name")
+            {
+                txtSearchInventory.Text = "";
+            }
+        }
+
+        private void txtSearchInventory_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtSearchInventory.Text.Length < 1)
+            {
+                txtSearchInventory.Text = "Enter name";
+            }
+        }
+
+        private void txtSearchInventory_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void TopSellingChart_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelInventory_Paint(object sender, PaintEventArgs e)
+        {
+            RoundControl(btnAddNewItem, 10);
+            RoundControl(btnAddStocks, 10);
+        }
     }
 }
