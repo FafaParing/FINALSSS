@@ -143,5 +143,10 @@ namespace FINALSSS
             RoundControl(btnSave, 10);
             RoundControl(btnCancel, 10);
         }
+
+        private void numStock_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

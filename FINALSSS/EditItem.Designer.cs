@@ -58,55 +58,56 @@
             // lblItemID
             // 
             this.lblItemID.AutoSize = true;
-            this.lblItemID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItemID.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblItemID.Location = new System.Drawing.Point(82, 79);
+            this.lblItemID.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblItemID.ForeColor = System.Drawing.Color.Black;
+            this.lblItemID.Location = new System.Drawing.Point(88, 104);
             this.lblItemID.Name = "lblItemID";
-            this.lblItemID.Size = new System.Drawing.Size(59, 16);
+            this.lblItemID.Size = new System.Drawing.Size(68, 21);
             this.lblItemID.TabIndex = 0;
             this.lblItemID.Text = "Item ID:";
             // 
             // lblItemName
             // 
             this.lblItemName.AutoSize = true;
-            this.lblItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItemName.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblItemName.Location = new System.Drawing.Point(55, 135);
+            this.lblItemName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblItemName.ForeColor = System.Drawing.Color.Black;
+            this.lblItemName.Location = new System.Drawing.Point(55, 163);
             this.lblItemName.Name = "lblItemName";
-            this.lblItemName.Size = new System.Drawing.Size(85, 16);
+            this.lblItemName.Size = new System.Drawing.Size(94, 21);
             this.lblItemName.TabIndex = 1;
             this.lblItemName.Text = "Item Name:";
+            this.lblItemName.Click += new System.EventHandler(this.lblItemName_Click);
             // 
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategory.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblCategory.Location = new System.Drawing.Point(69, 198);
+            this.lblCategory.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblCategory.ForeColor = System.Drawing.Color.Black;
+            this.lblCategory.Location = new System.Drawing.Point(66, 222);
             this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(74, 16);
+            this.lblCategory.Size = new System.Drawing.Size(79, 21);
             this.lblCategory.TabIndex = 2;
             this.lblCategory.Text = "Category:";
             // 
             // lblPrice
             // 
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrice.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblPrice.Location = new System.Drawing.Point(97, 252);
+            this.lblPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblPrice.ForeColor = System.Drawing.Color.Black;
+            this.lblPrice.Location = new System.Drawing.Point(95, 282);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(47, 16);
+            this.lblPrice.Size = new System.Drawing.Size(50, 21);
             this.lblPrice.TabIndex = 4;
             this.lblPrice.Text = "Price:";
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblStatus.Location = new System.Drawing.Point(88, 312);
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStatus.ForeColor = System.Drawing.Color.Black;
+            this.lblStatus.Location = new System.Drawing.Point(83, 337);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(54, 16);
+            this.lblStatus.Size = new System.Drawing.Size(59, 21);
             this.lblStatus.TabIndex = 5;
             this.lblStatus.Text = "Status:";
             // 
@@ -121,7 +122,7 @@
             // lblCategoryValue
             // 
             this.lblCategoryValue.AutoSize = true;
-            this.lblCategoryValue.Location = new System.Drawing.Point(150, 110);
+            this.lblCategoryValue.Location = new System.Drawing.Point(150, 134);
             this.lblCategoryValue.Name = "lblCategoryValue";
             this.lblCategoryValue.Size = new System.Drawing.Size(0, 13);
             this.lblCategoryValue.TabIndex = 8;
@@ -129,7 +130,7 @@
             // lblQuantityValue
             // 
             this.lblQuantityValue.AutoSize = true;
-            this.lblQuantityValue.Location = new System.Drawing.Point(150, 150);
+            this.lblQuantityValue.Location = new System.Drawing.Point(153, 174);
             this.lblQuantityValue.Name = "lblQuantityValue";
             this.lblQuantityValue.Size = new System.Drawing.Size(0, 13);
             this.lblQuantityValue.TabIndex = 9;
@@ -152,14 +153,14 @@
             // 
             // btnSaveEdit
             // 
-            this.btnSaveEdit.BackColor = System.Drawing.Color.Blue;
+            this.btnSaveEdit.BackColor = System.Drawing.Color.DarkBlue;
             this.btnSaveEdit.FlatAppearance.BorderSize = 0;
             this.btnSaveEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveEdit.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.btnSaveEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSaveEdit.Location = new System.Drawing.Point(63, 379);
+            this.btnSaveEdit.Location = new System.Drawing.Point(112, 395);
             this.btnSaveEdit.Name = "btnSaveEdit";
-            this.btnSaveEdit.Size = new System.Drawing.Size(148, 52);
+            this.btnSaveEdit.Size = new System.Drawing.Size(113, 40);
             this.btnSaveEdit.TabIndex = 12;
             this.btnSaveEdit.Text = "Save";
             this.btnSaveEdit.UseVisualStyleBackColor = false;
@@ -170,11 +171,11 @@
             this.btnCancelEdit.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.btnCancelEdit.FlatAppearance.BorderSize = 0;
             this.btnCancelEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelEdit.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.btnCancelEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelEdit.Location = new System.Drawing.Point(247, 379);
+            this.btnCancelEdit.Location = new System.Drawing.Point(274, 395);
             this.btnCancelEdit.Name = "btnCancelEdit";
-            this.btnCancelEdit.Size = new System.Drawing.Size(148, 52);
+            this.btnCancelEdit.Size = new System.Drawing.Size(113, 40);
             this.btnCancelEdit.TabIndex = 14;
             this.btnCancelEdit.Text = "Cancel";
             this.btnCancelEdit.UseVisualStyleBackColor = false;
@@ -183,97 +184,97 @@
             // txtEditItemID
             // 
             this.txtEditItemID.Enabled = false;
-            this.txtEditItemID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEditItemID.Location = new System.Drawing.Point(174, 73);
+            this.txtEditItemID.Font = new System.Drawing.Font("Segoe UI", 13F);
+            this.txtEditItemID.Location = new System.Drawing.Point(156, 94);
             this.txtEditItemID.Name = "txtEditItemID";
-            this.txtEditItemID.Size = new System.Drawing.Size(181, 23);
+            this.txtEditItemID.Size = new System.Drawing.Size(187, 31);
             this.txtEditItemID.TabIndex = 15;
             // 
             // txtEditItemName
             // 
-            this.txtEditItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEditItemName.Location = new System.Drawing.Point(174, 129);
+            this.txtEditItemName.Font = new System.Drawing.Font("Segoe UI", 13F);
+            this.txtEditItemName.Location = new System.Drawing.Point(156, 153);
             this.txtEditItemName.Name = "txtEditItemName";
-            this.txtEditItemName.Size = new System.Drawing.Size(181, 23);
+            this.txtEditItemName.Size = new System.Drawing.Size(231, 31);
             this.txtEditItemName.TabIndex = 16;
             // 
             // cmbEditCategory
             // 
-            this.cmbEditCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbEditCategory.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.cmbEditCategory.FormattingEnabled = true;
-            this.cmbEditCategory.Location = new System.Drawing.Point(174, 190);
+            this.cmbEditCategory.Location = new System.Drawing.Point(156, 212);
             this.cmbEditCategory.Name = "cmbEditCategory";
-            this.cmbEditCategory.Size = new System.Drawing.Size(181, 24);
+            this.cmbEditCategory.Size = new System.Drawing.Size(187, 31);
             this.cmbEditCategory.TabIndex = 17;
             // 
             // numEditPrice
             // 
-            this.numEditPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numEditPrice.Location = new System.Drawing.Point(174, 246);
+            this.numEditPrice.Font = new System.Drawing.Font("Segoe UI", 13F);
+            this.numEditPrice.Location = new System.Drawing.Point(156, 270);
             this.numEditPrice.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.numEditPrice.Name = "numEditPrice";
-            this.numEditPrice.Size = new System.Drawing.Size(78, 23);
+            this.numEditPrice.Size = new System.Drawing.Size(85, 31);
             this.numEditPrice.TabIndex = 19;
             // 
             // cmbStatus
             // 
-            this.cmbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.cmbStatus.FormattingEnabled = true;
-            this.cmbStatus.Location = new System.Drawing.Point(174, 304);
+            this.cmbStatus.Location = new System.Drawing.Point(156, 333);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(184, 24);
+            this.cmbStatus.Size = new System.Drawing.Size(184, 31);
             this.cmbStatus.TabIndex = 20;
             // 
             // cmbEditUnit
             // 
-            this.cmbEditUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbEditUnit.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.cmbEditUnit.FormattingEnabled = true;
-            this.cmbEditUnit.Location = new System.Drawing.Point(319, 246);
+            this.cmbEditUnit.Location = new System.Drawing.Point(338, 270);
             this.cmbEditUnit.Name = "cmbEditUnit";
-            this.cmbEditUnit.Size = new System.Drawing.Size(39, 24);
+            this.cmbEditUnit.Size = new System.Drawing.Size(103, 31);
             this.cmbEditUnit.TabIndex = 23;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(269, 252);
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(287, 281);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 16);
+            this.label2.Size = new System.Drawing.Size(45, 21);
             this.label2.TabIndex = 24;
             this.label2.Text = "Unit:";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(111)))), ((int)(((byte)(248)))));
+            this.panel1.BackColor = System.Drawing.Color.DarkBlue;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(482, 56);
+            this.panel1.Size = new System.Drawing.Size(497, 58);
             this.panel1.TabIndex = 25;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(198, 20);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(196, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 19);
+            this.label1.Size = new System.Drawing.Size(102, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Edit Item";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditItem
             // 
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(147)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(482, 453);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(497, 475);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbEditUnit);
@@ -298,6 +299,7 @@
             this.Name = "EditItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "t";
+            this.Load += new System.EventHandler(this.EditItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numEditPrice)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

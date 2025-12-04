@@ -75,5 +75,15 @@ namespace FINALSSS
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void lblItemName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditItem_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
