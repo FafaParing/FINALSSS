@@ -7,6 +7,8 @@ namespace FINALSSS
 {
     public partial class CreateOrder : Form
     {
+        public int CreatedOrderID { get; set; }
+
         public CreateOrder()
         {
             InitializeComponent();

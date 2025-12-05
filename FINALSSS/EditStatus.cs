@@ -6,17 +6,20 @@ namespace FINALSSS
 {
     public partial class EditStatus : Form
     {
-        private int orderId;
+        public string UpdatedStatus { get; set; }
+
+        private string currentName;
         private string currentStatus;
 
-        public EditStatus(int id, string status)
+        public EditStatus(string name, string status)
         {
             InitializeComponent();
 
-            orderId = id;
+            currentName = name;
             currentStatus = status;
 
-            lblOrderID.Text = "Order ID: " + orderId.ToString();
+            txtName.Text = name;
+            txtCurrentStatus.Text = status;
 
             if (!string.IsNullOrWhiteSpace(currentStatus) &&
                 cmbEditStatus.Items.Contains(currentStatus))
@@ -46,28 +49,17 @@ namespace FINALSSS
                 {
                     conn.Open();
 
-                    string query = "UPDATE Orders SET Status = @status WHERE OrderID = @id";
+                    string query = "UPDATE Orders SET Status = @status WHERE CustomerName = @name";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@status", newStatus);
-                        cmd.Parameters.AddWithValue("@id", orderId);
+                        cmd.Parameters.AddWithValue("@name", currentName);
                         cmd.ExecuteNonQuery();
                     }
-
-                    string logQuery = @"
-                        INSERT INTO ActivityLog (ActionBy, ActionType, ActionDetails)
-                        VALUES (@user, @type, @details)";
-
-                    using (SqlCommand logCmd = new SqlCommand(logQuery, conn))
-                    {
-                        logCmd.Parameters.AddWithValue("@user", "System");
-                        logCmd.Parameters.AddWithValue("@type", "Updated Order Status");
-                        logCmd.Parameters.AddWithValue("@details",
-                            $"OrderID {orderId}: {currentStatus} → {newStatus}");
-
-                        logCmd.ExecuteNonQuery();
-                    }
                 }
+
+                // Return the new status to main form
+                UpdatedStatus = newStatus;
 
                 MessageBox.Show("Order status updated successfully!", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -81,6 +73,7 @@ namespace FINALSSS
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnCancelEditStatus_Click(object sender, EventArgs e)
         {
@@ -103,6 +96,11 @@ namespace FINALSSS
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }

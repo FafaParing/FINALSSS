@@ -6,6 +6,8 @@ namespace FINALSSS
 {
     public partial class EditItem : Form
     {
+        public string UpdatedItemName { get; set; }
+
         private int itemId;
 
         // Constructor to receive selected item info

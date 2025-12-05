@@ -8,6 +8,8 @@ namespace FINALSSS
 {
     public partial class AddItemForm : Form
     {
+        public string AddedItemName { get; set; }
+
         public AddItemForm()
         {
             InitializeComponent();

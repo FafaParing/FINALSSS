@@ -6,6 +6,8 @@ namespace FINALSSS
 {
     public partial class AddStock : Form
     {
+        public int AddedQuantity { get; set; }
+
         private int itemId;
         private int currentQty;
 

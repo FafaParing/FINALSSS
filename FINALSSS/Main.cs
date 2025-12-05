@@ -314,106 +314,129 @@ namespace FINALSSS
 
         private void btnAddNewItem_Click(object sender, EventArgs e)
         {
-            string newItem = dgvInventory.SelectedRows[0].Cells["colItemName"].Value?.ToString() ?? "";
-
             if (currentUserRole == "Admin")
             {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
                 AddItemForm addForm = new AddItemForm { Owner = this };
-                addForm.FormClosed += (s, args) =>
+
+                var result = addForm.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
-                    LogActivity(currentUsername, "Add Item", $"Added Item: {newItem}");
+                    // Correct: use the property from AddItemForm
+                    LogActivity(currentUsername, "Add Item", $"Added Item: {addForm.AddedItemName}");
                     LoadItems();
-                };
-                addForm.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error opening Add Item form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error opening Add Item form: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnAddStocks_Click(object sender, EventArgs e)
         {
             if (dgvInventory.SelectedRows.Count == 0) return;
+
             if (currentUserRole == "Admin")
             {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
-                int itemId = 0, currentQty = 0;
+                int itemId, currentQty;
                 string itemName = dgvInventory.SelectedRows[0].Cells["colItemName"].Value?.ToString() ?? "";
 
                 if (!int.TryParse(dgvInventory.SelectedRows[0].Cells["colItemID"].Value?.ToString(), out itemId) ||
                     !int.TryParse(dgvInventory.SelectedRows[0].Cells["colStock"].Value?.ToString(), out currentQty))
                 {
-                    MessageBox.Show("Invalid item data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid item data.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 AddStock addStockForm = new AddStock(itemId, itemName, currentQty) { Owner = this };
-                addStockForm.FormClosed += (s, args) =>
+
+                if (addStockForm.ShowDialog() == DialogResult.OK)
                 {
                     LoadItems();
-                    LogActivity(currentUsername, "Add Stock", $"Added stock for item: {itemName}");
-                };
-                addStockForm.ShowDialog();
+                    LogActivity(currentUsername, "Add Stock",
+                        $"Added {addStockForm.AddedQuantity} stocks to item: {itemName}");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding stock: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error adding stock: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            
+
             if (dgvInventory.Columns[e.ColumnIndex].Name == "btnEdit")
             {
                 try
                 {
-                    int itemId = 0;
+                    if (currentUserRole == "Admin")
+                    {
+                        MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    int itemId;
                     string itemName = dgvInventory.Rows[e.RowIndex].Cells["colItemName"].Value?.ToString() ?? "";
                     string category = dgvInventory.Rows[e.RowIndex].Cells["colCategory"].Value?.ToString() ?? "";
                     string unit = dgvInventory.Rows[e.RowIndex].Cells["colUnit"].Value?.ToString() ?? "";
                     string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
-                    if (currentUserRole == "Admin")
-                    {
-                        MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+
                     if (!int.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value?.ToString(), out itemId))
                     {
-                        MessageBox.Show("Invalid Item ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Item ID.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     if (!decimal.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colPrice"].Value?.ToString(), out decimal price))
                     {
-                        MessageBox.Show("Invalid price value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid price value.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
-                    EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status) { Owner = this };
-                    editForm.FormClosed += (s, args) =>
+                    EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status)
+                    {
+                        Owner = this
+                    };
+
+                    if (editForm.ShowDialog() == DialogResult.OK)
                     {
                         LoadItems();
-                        LogActivity(currentUsername, "Edit Item", $"Edited item: {itemName}");
-                    };
-                    editForm.ShowDialog();
+                        LogActivity(currentUsername, "Edit Item",
+                            $"Edited item: {editForm.UpdatedItemName}");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error editing item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error editing item: " + ex.Message, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
 
         private void btnSearchInventory_Click(object sender, EventArgs e)
@@ -474,48 +497,68 @@ namespace FINALSSS
         {
             if (currentUserRole == "Admin")
             {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
                 CreateOrder createForm = new CreateOrder { Owner = this };
-                createForm.FormClosed += (s, args) => LoadOrders();
-                createForm.ShowDialog();
+
+                if (createForm.ShowDialog() == DialogResult.OK)
+                {
+                    LoadOrders();
+                    LogActivity(currentUsername, "Create Order",
+                                $"Created new order with ID: {createForm.CreatedOrderID}");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error opening Create Order form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error opening Create Order form: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void dgvOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
+
             if (currentUserRole == "Admin")
             {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (dgvOrders.Columns[e.ColumnIndex].Name == "colAction")
             {
                 try
                 {
                     if (!int.TryParse(dgvOrders.Rows[e.RowIndex].Cells["colOrderID"].Value?.ToString(), out int orderID))
                     {
-                        MessageBox.Show("Invalid Order ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Order ID.", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value?.ToString() ?? "";
+                    string currentName = dgvOrders.Rows[e.RowIndex].Cells["colCustomer"].Value?.ToString() ?? "";
 
-                    EditStatus editStatusForm = new EditStatus(orderID, currentStatus) { Owner = this };
-                    editStatusForm.FormClosed += (s, args) => LoadOrders();
-                    editStatusForm.ShowDialog();
+                    EditStatus editStatusForm = new EditStatus(currentName, currentStatus) { Owner = this };
+
+                    if (editStatusForm.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadOrders();
+                        LogActivity(currentUsername, "Edit Order Status",
+                            $"Updated order #{orderID} status to: {editStatusForm.UpdatedStatus}");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error editing order status: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error editing order status: " + ex.Message, "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
