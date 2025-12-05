@@ -171,7 +171,7 @@
             this.lblnotes.AutoSize = true;
             this.lblnotes.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblnotes.ForeColor = System.Drawing.Color.Black;
-            this.lblnotes.Location = new System.Drawing.Point(71, 286);
+            this.lblnotes.Location = new System.Drawing.Point(97, 286);
             this.lblnotes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblnotes.Name = "lblnotes";
             this.lblnotes.Size = new System.Drawing.Size(71, 28);

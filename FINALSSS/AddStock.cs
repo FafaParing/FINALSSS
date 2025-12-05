@@ -71,5 +71,10 @@ namespace FINALSSS
         {
 
         }
+
+        private void AddStock_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
