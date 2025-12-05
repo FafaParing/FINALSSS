@@ -43,7 +43,8 @@ namespace FINALSSS
             if (string.IsNullOrWhiteSpace(txtItemName.Text) ||
                 string.IsNullOrWhiteSpace(cmbCategory.Text) ||
                 string.IsNullOrWhiteSpace(txtPrice.Text) ||
-                string.IsNullOrWhiteSpace(cmbUnit.Text))
+                string.IsNullOrWhiteSpace(cmbUnit.Text) ||
+                numStock.Value <= 0)           
             {
                 MessageBox.Show("Please fill in all required fields.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

@@ -43,10 +43,10 @@ namespace FINALSSS
           
         }
         private void btnDashboard_Click(object sender, EventArgs e) { SetColors(btnDashboard); ShowPanel(panelDashboard); }
-        private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); LoadItems(); }
-        private void btnOrders_Click(object sender, EventArgs e) { SetColors(btnOrders); ShowPanel(panelOrders); LoadOrders(); }
+        private void btnInventory_Click(object sender, EventArgs e) { SetColors(btnInventory); ShowPanel(panelInventory); LoadItems(); txtSearchInventory.Text = "Enter name"; }
+        private void btnOrders_Click(object sender, EventArgs e) { SetColors(btnOrders); ShowPanel(panelOrders); LoadOrders(); txtSearchOrders.Text = "Enter name"; }
         private void btnActivityLog_Click(object sender, EventArgs e) { SetColors(btnActivityLog); ShowPanel(panelActivityLog); LoadActivityLog(); }
-        private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); LoadTransactionHistory(); }
+        private void btnTransactionHistory_Click(object sender, EventArgs e) { SetColors(btnTransactionHistory); ShowPanel(panelTransactionHistory); LoadTransactionHistory(); txtSearchTransaction.Text = "Enter name"; }
         private void btnSalesReport_Click(object sender, EventArgs e) { SetColors(btnSalesReport); ShowPanel(panelSalesReport); dtpFrom.Value = DateTime.Today.AddMonths(-1); dtpTo.Value = DateTime.Today; LoadSalesReport(dtpFrom.Value.Date, dtpTo.Value.Date.AddDays(1).AddSeconds(-1)); }
         private void btnManageAccounts_Click(object sender, EventArgs e) { SetColors(btnManageAccounts); ShowPanel(panelManageAccounts); LoadManageUsers(); }
 
@@ -733,7 +733,6 @@ namespace FINALSSS
                 txtSearchInventory.Text = "";
             }
         }
-
         private void txtSearchInventory_MouseLeave(object sender, EventArgs e)
         {
             if (txtSearchInventory.Text.Length < 1)
@@ -741,6 +740,21 @@ namespace FINALSSS
                 txtSearchInventory.Text = "Enter name";
             }
         }
+        private void txtSearchOrders_MouseEnter(object sender, EventArgs e)
+        {
+            if (txtSearchOrders.Text == "Enter name")
+            {
+                txtSearchOrders.Text = "";
+            }
+        }
+        private void txtSearchOrders_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtSearchOrders.Text.Length < 1)
+            {
+                txtSearchOrders.Text = "Enter name";
+            }
+        }
+
 
         private void txtSearchInventory_MouseClick(object sender, MouseEventArgs e)
         {
@@ -756,6 +770,44 @@ namespace FINALSSS
         {
             RoundControl(btnAddNewItem, 10);
             RoundControl(btnAddStocks, 10);
+        }
+
+        private void btnSearchOrder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SearchInDataGridView(dgvOrders, txtSearchOrders.Text, "colCustomer");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching order: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SearchInDataGridView(dgvTransactionHistory, txtSearchTransaction.Text, "colTransCustomer");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching transaction: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void txtSearchTransaction_MouseEnter(object sender, EventArgs e)
+        {
+            if (txtSearchTransaction.Text == "Enter name")
+            {
+                txtSearchTransaction.Text = "";
+            }
+        }
+        private void txtSearchTransaction_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtSearchTransaction.Text.Length < 1)
+            {
+                txtSearchTransaction.Text = "Enter name";
+            }
         }
     }
 }

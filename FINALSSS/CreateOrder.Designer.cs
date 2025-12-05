@@ -51,7 +51,7 @@
             this.panelOrder = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.txtSearchCreateOrder = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -192,6 +192,10 @@
             // 
             // dgvCurrentItems
             // 
+            this.dgvCurrentItems.AllowUserToAddRows = false;
+            this.dgvCurrentItems.AllowUserToDeleteRows = false;
+            this.dgvCurrentItems.AllowUserToResizeColumns = false;
+            this.dgvCurrentItems.AllowUserToResizeRows = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -294,7 +298,7 @@
             this.panelOrder.BackColor = System.Drawing.Color.White;
             this.panelOrder.Controls.Add(this.panel1);
             this.panelOrder.Controls.Add(this.btnSearch);
-            this.panelOrder.Controls.Add(this.txtSearch);
+            this.panelOrder.Controls.Add(this.txtSearchCreateOrder);
             this.panelOrder.Controls.Add(this.btnCancel);
             this.panelOrder.Controls.Add(this.lblTotal);
             this.panelOrder.Controls.Add(this.label5);
@@ -336,18 +340,22 @@
             this.btnSearch.TabIndex = 13;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // txtSearch
+            // txtSearchCreateOrder
             // 
-            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.txtSearch.Location = new System.Drawing.Point(123, 140);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtSearch.Multiline = true;
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(505, 34);
-            this.txtSearch.TabIndex = 12;
-            this.txtSearch.Text = "Search...";
+            this.txtSearchCreateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchCreateOrder.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtSearchCreateOrder.Location = new System.Drawing.Point(123, 140);
+            this.txtSearchCreateOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSearchCreateOrder.Multiline = true;
+            this.txtSearchCreateOrder.Name = "txtSearchCreateOrder";
+            this.txtSearchCreateOrder.Size = new System.Drawing.Size(505, 34);
+            this.txtSearchCreateOrder.TabIndex = 12;
+            this.txtSearchCreateOrder.Text = "Enter name";
+            this.txtSearchCreateOrder.TextChanged += new System.EventHandler(this.txtSearchCreateOrder_TextChanged);
+            this.txtSearchCreateOrder.MouseEnter += new System.EventHandler(this.txtSearchCreateOrder_MouseEnter);
+            this.txtSearchCreateOrder.MouseLeave += new System.EventHandler(this.txtSearchCreateOrder_MouseLeave);
             // 
             // btnCancel
             // 
@@ -703,8 +711,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1504, 825);
-            this.Controls.Add(this.panelCustomerInformation);
             this.Controls.Add(this.panelOrder);
+            this.Controls.Add(this.panelCustomerInformation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "CreateOrder";
@@ -749,7 +757,7 @@
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.TextBox txtSearchCreateOrder;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.GroupBox OrderSummary;
         private System.Windows.Forms.GroupBox CustomerInformation;

@@ -311,5 +311,44 @@ namespace FINALSSS
         {
 
         }
+        private void txtSearchCreateOrder_MouseEnter(object sender, EventArgs e)
+        {
+            if (txtSearchCreateOrder.Text == "Enter name")
+            {
+                txtSearchCreateOrder.Text = "";
+            }
+        }
+        private void txtSearchCreateOrder_MouseLeave(object sender, EventArgs e)
+        {
+            if (txtSearchCreateOrder.Text.Length < 1)
+            {
+                txtSearchCreateOrder.Text = "Enter name";
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchText = txtSearchCreateOrder.Text.Trim().ToLower();
+
+            foreach (DataGridViewRow row in dgvAvailableItems.Rows)
+            {
+                if (row.IsNewRow) continue; // skip the empty new row
+
+                // Get the item name from the column
+                string itemName = row.Cells["colItemName"].Value?.ToString().ToLower() ?? "";
+
+                // Show or hide the row based on the search
+                row.Visible = itemName.Contains(searchText);
+            }
+            
+        }
+
+        private void txtSearchCreateOrder_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearchCreateOrder.Text == "")
+            {
+                LoadAvailableItems();
+            }
+        }
     }
 }
