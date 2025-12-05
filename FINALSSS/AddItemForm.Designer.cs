@@ -133,7 +133,10 @@
             this.cmbCategory.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Items.AddRange(new object[] {
-            "Indoor"});
+            "Indoor",
+            "Kitchenware",
+            "Outdoor",
+            "Flooring"});
             this.cmbCategory.Location = new System.Drawing.Point(387, 162);
             this.cmbCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbCategory.Name = "cmbCategory";
