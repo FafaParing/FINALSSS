@@ -47,9 +47,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(200, 9);
+            this.label1.Location = new System.Drawing.Point(115, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(141, 37);
+            this.label1.Size = new System.Drawing.Size(114, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Add Stock";
             // 
@@ -58,9 +59,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label2.Location = new System.Drawing.Point(192, 97);
+            this.label2.Location = new System.Drawing.Point(116, 147);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 28);
+            this.label2.Size = new System.Drawing.Size(95, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "Item Name:";
             // 
@@ -68,9 +70,10 @@
             // 
             this.lblItemName.AutoSize = true;
             this.lblItemName.Font = new System.Drawing.Font("Segoe UI", 13F);
-            this.lblItemName.Location = new System.Drawing.Point(202, 125);
+            this.lblItemName.Location = new System.Drawing.Point(115, 168);
+            this.lblItemName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblItemName.Name = "lblItemName";
-            this.lblItemName.Size = new System.Drawing.Size(138, 30);
+            this.lblItemName.Size = new System.Drawing.Size(114, 25);
             this.lblItemName.TabIndex = 2;
             this.lblItemName.Text = "lblItemName";
             // 
@@ -79,9 +82,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label3.Location = new System.Drawing.Point(21, 188);
+            this.label3.Location = new System.Drawing.Point(11, 78);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(169, 28);
+            this.label3.Size = new System.Drawing.Size(135, 21);
             this.label3.TabIndex = 3;
             this.label3.Text = "Current Quantity:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -90,9 +94,10 @@
             // 
             this.lblCurrentQuantity.AutoSize = true;
             this.lblCurrentQuantity.Font = new System.Drawing.Font("Segoe UI", 13F);
-            this.lblCurrentQuantity.Location = new System.Drawing.Point(153, 216);
+            this.lblCurrentQuantity.Location = new System.Drawing.Point(45, 103);
+            this.lblCurrentQuantity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCurrentQuantity.Name = "lblCurrentQuantity";
-            this.lblCurrentQuantity.Size = new System.Drawing.Size(122, 30);
+            this.lblCurrentQuantity.Size = new System.Drawing.Size(101, 25);
             this.lblCurrentQuantity.TabIndex = 4;
             this.lblCurrentQuantity.Text = "lblCurQuan";
             // 
@@ -101,19 +106,20 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label4.Location = new System.Drawing.Point(303, 180);
+            this.label4.Location = new System.Drawing.Point(167, 78);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(163, 28);
+            this.label4.Size = new System.Drawing.Size(131, 21);
             this.label4.TabIndex = 5;
             this.label4.Text = "Quantity to Add:";
             // 
             // numAddQuantity
             // 
             this.numAddQuantity.Font = new System.Drawing.Font("Segoe UI", 13F);
-            this.numAddQuantity.Location = new System.Drawing.Point(351, 210);
-            this.numAddQuantity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numAddQuantity.Location = new System.Drawing.Point(224, 101);
+            this.numAddQuantity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numAddQuantity.Name = "numAddQuantity";
-            this.numAddQuantity.Size = new System.Drawing.Size(99, 36);
+            this.numAddQuantity.Size = new System.Drawing.Size(74, 31);
             this.numAddQuantity.TabIndex = 6;
             // 
             // btnUpdateStock
@@ -123,10 +129,10 @@
             this.btnUpdateStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateStock.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnUpdateStock.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnUpdateStock.Location = new System.Drawing.Point(100, 288);
-            this.btnUpdateStock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnUpdateStock.Location = new System.Drawing.Point(50, 236);
+            this.btnUpdateStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnUpdateStock.Name = "btnUpdateStock";
-            this.btnUpdateStock.Size = new System.Drawing.Size(147, 52);
+            this.btnUpdateStock.Size = new System.Drawing.Size(110, 42);
             this.btnUpdateStock.TabIndex = 7;
             this.btnUpdateStock.Text = "Add";
             this.btnUpdateStock.UseVisualStyleBackColor = false;
@@ -139,10 +145,10 @@
             this.btnCancelStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelStock.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnCancelStock.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelStock.Location = new System.Drawing.Point(294, 288);
-            this.btnCancelStock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancelStock.Location = new System.Drawing.Point(188, 236);
+            this.btnCancelStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancelStock.Name = "btnCancelStock";
-            this.btnCancelStock.Size = new System.Drawing.Size(147, 52);
+            this.btnCancelStock.Size = new System.Drawing.Size(110, 42);
             this.btnCancelStock.TabIndex = 8;
             this.btnCancelStock.Text = "Cancel";
             this.btnCancelStock.UseVisualStyleBackColor = false;
@@ -155,17 +161,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(538, 62);
+            this.panel1.Size = new System.Drawing.Size(333, 50);
             this.panel1.TabIndex = 16;
             // 
             // AddStock
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(538, 374);
+            this.ClientSize = new System.Drawing.Size(333, 304);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancelStock);
             this.Controls.Add(this.btnUpdateStock);
@@ -176,7 +182,7 @@
             this.Controls.Add(this.lblItemName);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AddStock";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddStock";
