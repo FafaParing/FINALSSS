@@ -24,13 +24,25 @@ namespace FINALSSS
             RoundControl(panel1, 20);
 
             dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInventory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrders.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvActivityLog.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTransactionHistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSalesReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             dgvManageAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvManageAccounts.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
         }
-        
+
 
         private void Main_Load(object sender, EventArgs e)
         {
