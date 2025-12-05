@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Drawing2D;
 using System.Data;
+using System.Collections.Generic;
 
 namespace FINALSSS
 {
@@ -267,30 +268,32 @@ namespace FINALSSS
         {
             try
             {
+                dgvInventory.Rows.Clear();
+                dgvInventory.ClearSelection();
+
                 using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
                     string query = "SELECT ItemID, ItemName, Category, StockQuantity, Price, Unit, Status FROM Items";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    dgvInventory.Rows.Clear();
-                    while (reader.Read())
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int rowIndex = dgvInventory.Rows.Add();
-                        var row = dgvInventory.Rows[rowIndex];
-                        var quantity = Convert.ToInt32(reader["StockQuantity"]);
+                        while (reader.Read())
+                        {
+                            int rowIndex = dgvInventory.Rows.Add();
+                            var row = dgvInventory.Rows[rowIndex];
 
-                        row.Cells["colItemID"].Value = reader["ItemID"].ToString();
-                        row.Cells["colItemName"].Value = reader["ItemName"].ToString();
-                        row.Cells["colCategory"].Value = reader["Category"].ToString();
-                        row.Cells["colStock"].Value = quantity.ToString();
-                        row.Cells["colPrice"].Value = reader["Price"].ToString();
-                        row.Cells["colUnit"].Value = reader["Unit"].ToString();
-                        row.Cells["colStatus"].Value = quantity < 1 ? "Out of stock" : reader["Status"].ToString();
+                            int quantity = Convert.ToInt32(reader["StockQuantity"]);
+
+                            row.Cells["colItemID"].Value = reader["ItemID"].ToString();
+                            row.Cells["colItemName"].Value = reader["ItemName"].ToString();
+                            row.Cells["colCategory"].Value = reader["Category"].ToString();
+                            row.Cells["colStock"].Value = quantity.ToString();
+                            row.Cells["colPrice"].Value = Convert.ToDecimal(reader["Price"]).ToString("0.00");
+                            row.Cells["colUnit"].Value = reader["Unit"].ToString();
+                            row.Cells["colStatus"].Value = quantity < 1 ? "Out of stock" : reader["Status"].ToString();
+                        }
                     }
-
-                    reader.Close();
                 }
             }
             catch (SqlException ex)
@@ -302,6 +305,7 @@ namespace FINALSSS
                 MessageBox.Show("Unexpected error loading items: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnGenerateSales_Click(object sender, EventArgs e) 
         { 
             DateTime fromDate = dtpFrom.Value.Date; 
@@ -370,6 +374,8 @@ namespace FINALSSS
                     LoadItems();
                     LogActivity(currentUsername, "Add Stock",
                         $"Added {addStockForm.AddedQuantity} stocks to item: {itemName}");
+
+                    LoadActivityLog();
                 }
             }
             catch (Exception ex)
@@ -390,30 +396,17 @@ namespace FINALSSS
                 {
                     if (currentUserRole == "Admin")
                     {
-                        MessageBox.Show("Only staffs can use this feature.", "Access Denied",
+                        MessageBox.Show("Only staff can use this feature.", "Access Denied",
                                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    int itemId;
+                    int itemId = Convert.ToInt32(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value);
                     string itemName = dgvInventory.Rows[e.RowIndex].Cells["colItemName"].Value?.ToString() ?? "";
                     string category = dgvInventory.Rows[e.RowIndex].Cells["colCategory"].Value?.ToString() ?? "";
                     string unit = dgvInventory.Rows[e.RowIndex].Cells["colUnit"].Value?.ToString() ?? "";
                     string status = dgvInventory.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
-
-                    if (!int.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colItemID"].Value?.ToString(), out itemId))
-                    {
-                        MessageBox.Show("Invalid Item ID.", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (!decimal.TryParse(dgvInventory.Rows[e.RowIndex].Cells["colPrice"].Value?.ToString(), out decimal price))
-                    {
-                        MessageBox.Show("Invalid price value.", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    decimal price = Convert.ToDecimal(dgvInventory.Rows[e.RowIndex].Cells["colPrice"].Value);
 
                     EditItem editForm = new EditItem(itemId, itemName, category, price, unit, status)
                     {
@@ -422,7 +415,8 @@ namespace FINALSSS
 
                     if (editForm.ShowDialog() == DialogResult.OK)
                     {
-                        LoadItems();
+                        LoadItems(); // Refresh the DataGridView
+
                         LogActivity(currentUsername, "Edit Item",
                             $"Edited item: {editForm.UpdatedItemName}");
                     }
@@ -433,8 +427,8 @@ namespace FINALSSS
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
+
 
         private void btnSearchInventory_Click(object sender, EventArgs e)
         {
@@ -522,43 +516,97 @@ namespace FINALSSS
         {
             if (e.RowIndex < 0) return;
 
+            if (dgvOrders.Columns[e.ColumnIndex].Name != "colAction") return;
+
             if (currentUserRole == "Admin")
             {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Only staff can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (dgvOrders.Columns[e.ColumnIndex].Name == "colAction")
+            if (!int.TryParse(dgvOrders.Rows[e.RowIndex].Cells["colOrderID"].Value?.ToString(), out int orderID))
             {
-                try
+                MessageBox.Show("Invalid Order ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value?.ToString() ?? "";
+            string customerName = dgvOrders.Rows[e.RowIndex].Cells["colCustomer"].Value?.ToString() ?? "";
+
+            if (currentStatus == "Cancelled")
+            {
+                MessageBox.Show("This order has been cancelled and cannot be edited.", "Action Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            EditStatus editStatusForm = new EditStatus(customerName, currentStatus) { Owner = this };
+
+            if (editStatusForm.ShowDialog() != DialogResult.OK) return;
+
+            string newStatus = editStatusForm.UpdatedStatus;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
                 {
-                    if (!int.TryParse(dgvOrders.Rows[e.RowIndex].Cells["colOrderID"].Value?.ToString(), out int orderID))
+                    conn.Open();
+
+                    // Update order status
+                    string updateOrderQuery = "UPDATE Orders SET Status=@status WHERE OrderID=@orderId";
+                    using (SqlCommand cmd = new SqlCommand(updateOrderQuery, conn))
                     {
-                        MessageBox.Show("Invalid Order ID.", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        cmd.Parameters.AddWithValue("@status", newStatus);
+                        cmd.Parameters.AddWithValue("@orderId", orderID);
+                        cmd.ExecuteNonQuery();
                     }
 
-                    string currentStatus = dgvOrders.Rows[e.RowIndex].Cells["colOrderStatus"].Value?.ToString() ?? "";
-                    string currentName = dgvOrders.Rows[e.RowIndex].Cells["colCustomer"].Value?.ToString() ?? "";
-
-                    EditStatus editStatusForm = new EditStatus(currentName, currentStatus) { Owner = this };
-
-                    if (editStatusForm.ShowDialog() == DialogResult.OK)
+                    // Restore stock if cancelled
+                    if (newStatus == "Cancelled" && currentStatus != "Cancelled")
                     {
-                        LoadOrders();
-                        LogActivity(currentUsername, "Edit Order Status",
-                            $"Updated order #{orderID} status to: {editStatusForm.UpdatedStatus}");
+                        // Get all items in the order
+                        List<(int itemId, int qty)> itemsToRestore = new List<(int itemId, int qty)>();
+                        string getItemsQuery = "SELECT ItemID, Quantity FROM OrderItems WHERE OrderID=@orderId";
+                        using (SqlCommand cmd = new SqlCommand(getItemsQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@orderId", orderID);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    itemsToRestore.Add((Convert.ToInt32(reader["ItemID"]), Convert.ToInt32(reader["Quantity"])));
+                                }
+                            }
+                        }
+
+                        // Update stock for each item
+                        foreach (var item in itemsToRestore)
+                        {
+                            string updateStockQuery = "UPDATE Items SET StockQuantity = StockQuantity + @qty WHERE ItemID=@itemId";
+                            using (SqlCommand cmd = new SqlCommand(updateStockQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@qty", item.qty);
+                                cmd.Parameters.AddWithValue("@itemId", item.itemId);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error editing order status: " + ex.Message, "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                // Refresh grid and log activity
+                LoadOrders();
+                LogActivity(currentUsername, "Edit Order Status", $"Updated order #{orderID} status to: {newStatus}");
+
+                MessageBox.Show("Order status updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating order status: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
 
         private void btnSearchOrders_Click(object sender, EventArgs e)
         {
@@ -683,7 +731,8 @@ namespace FINALSSS
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch { /* optional: log to file or ignore */ }
+            catch(Exception ex)
+            { MessageBox.Show("Error logging activity: " + ex.Message); }
         }
 
         private void dgvTransactionHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)

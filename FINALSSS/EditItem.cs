@@ -6,7 +6,7 @@ namespace FINALSSS
 {
     public partial class EditItem : Form
     {
-        public string UpdatedItemName { get; set; }
+        public string UpdatedItemName { get; private set; }
 
         private int itemId;
 
@@ -17,7 +17,7 @@ namespace FINALSSS
 
             this.itemId = itemId;
 
-            // Populate the form fields
+            // Populate form fields
             txtEditItemName.Text = itemName;
             cmbEditCategory.Text = category;
             numEditPrice.Value = price;
@@ -25,13 +25,12 @@ namespace FINALSSS
             cmbStatus.Text = status;
         }
 
-        // Cancel button closes the form
         private void btnCancelEdit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        // Save button updates database and closes the form
         private void btnSaveEdit_Click(object sender, EventArgs e)
         {
             // Validation
@@ -56,8 +55,8 @@ namespace FINALSSS
                 {
                     conn.Open();
                     string query = @"UPDATE Items 
-                                     SET ItemName=@name, Category=@category, Price=@price, Unit=@unit, Status=@status 
-                                     WHERE ItemID=@id";
+                             SET ItemName=@name, Category=@category, Price=@price, Unit=@unit, Status=@status 
+                             WHERE ItemID=@id";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@name", itemName);
                     cmd.Parameters.AddWithValue("@category", category);
@@ -69,8 +68,16 @@ namespace FINALSSS
                     cmd.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Item updated successfully.");
-                this.Close(); // close form only
+                // Store updated name for parent form logging
+                UpdatedItemName = itemName;
+
+                // Optional: show message box
+                MessageBox.Show("Item updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Set DialogResult to OK so parent form can detect success
+                this.DialogResult = DialogResult.OK;
+
+                this.Close(); // Close the edit form
             }
             catch (Exception ex)
             {
@@ -78,14 +85,6 @@ namespace FINALSSS
             }
         }
 
-        private void lblItemName_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void EditItem_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

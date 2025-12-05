@@ -48,6 +48,12 @@ namespace FINALSSS
                     cmd.ExecuteNonQuery();
                 }
 
+                // Set AddedQuantity so Main form can use it
+                this.AddedQuantity = qtyToAdd;
+
+                // Set DialogResult to OK so Main knows the action succeeded
+                this.DialogResult = DialogResult.OK;
+
                 MessageBox.Show("Stock updated successfully.");
                 this.Close();
             }
@@ -56,6 +62,7 @@ namespace FINALSSS
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
 
         private void btnCancelStock_Click(object sender, EventArgs e)
         {

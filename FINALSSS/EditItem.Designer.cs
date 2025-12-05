@@ -76,7 +76,6 @@
             this.lblItemName.Size = new System.Drawing.Size(119, 28);
             this.lblItemName.TabIndex = 1;
             this.lblItemName.Text = "Item Name:";
-            this.lblItemName.Click += new System.EventHandler(this.lblItemName_Click);
             // 
             // lblCategory
             // 
@@ -306,7 +305,6 @@
             this.Name = "EditItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "t";
-            this.Load += new System.EventHandler(this.EditItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numEditPrice)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
