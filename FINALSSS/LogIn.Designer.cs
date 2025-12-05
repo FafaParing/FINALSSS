@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Username = new System.Windows.Forms.TextBox();
+            this.exit = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -116,25 +117,40 @@
             this.Username.Size = new System.Drawing.Size(401, 46);
             this.Username.TabIndex = 5;
             // 
+            // exit
+            // 
+            this.exit.AutoSize = true;
+            this.exit.BackColor = System.Drawing.Color.DarkBlue;
+            this.exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exit.ForeColor = System.Drawing.Color.White;
+            this.exit.Location = new System.Drawing.Point(611, 9);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(30, 29);
+            this.exit.TabIndex = 15;
+            this.exit.Text = "X";
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.DarkBlue;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(611, 9);
+            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(248, 568);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 29);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "X";
+            this.label3.Size = new System.Drawing.Size(143, 23);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Forgot Password?";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(653, 622);
+            this.ClientSize = new System.Drawing.Size(653, 660);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.exit);
             this.Controls.Add(this.Username);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -160,6 +176,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Username;
+        private System.Windows.Forms.Label exit;
         private System.Windows.Forms.Label label3;
     }
 }

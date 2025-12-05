@@ -107,5 +107,15 @@ namespace FINALSSS
                 MessageBox.Show("Error connecting to database: " + ex.Message, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ask Admin for your account");
+        }
     }
 }

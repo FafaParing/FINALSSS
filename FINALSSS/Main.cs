@@ -22,6 +22,7 @@ namespace FINALSSS
             ShowPanel(panelDashboard);
             RoundControl(panel1, 20);
 
+            dgvInventory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActivityLog.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -199,6 +200,7 @@ namespace FINALSSS
 
         public void LoadManageUsers()
         {
+            dgvManageAccounts.Rows.Clear();
             dgvManageAccounts.ClearSelection();
 
 
@@ -224,13 +226,7 @@ namespace FINALSSS
                 }
             }
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    int rowIndex = dgvManageAccounts.Rows.Add();
-            //    var row = dgvManageAccounts.Rows[rowIndex];
-
-            //    row.Cells["colUserID"].Value = i.ToString();
-            //}
+            
         }
         private void ShowPanel(Panel panelToShow)
         {
@@ -808,6 +804,11 @@ namespace FINALSSS
             {
                 txtSearchTransaction.Text = "Enter name";
             }
+        }
+
+        private void dgvManageAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
