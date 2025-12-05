@@ -66,7 +66,7 @@ namespace FINALSSS
                 using (var conn = new SqlConnection(DBconnection.ConnectionString))
                 {
                     conn.Open();
-                    string query = @"SELECT Username, Password, Role FROM users WHERE Username = @user";
+                    string query = @"SELECT Username, Password, Role, AccountStatus FROM users WHERE Username = @user";
 
                     using (var cmd = new SqlCommand(query, conn))
                     {
@@ -82,6 +82,17 @@ namespace FINALSSS
 
                             string dbPassword = reader["Password"].ToString();
                             string dbRole = reader["Role"].ToString();
+                            string accountStatus = reader["AccountStatus"].ToString();
+
+                            // Check if account is inactive
+                            if (accountStatus == "Inactive")
+                            {
+                                MessageBox.Show("Your account has been deactivated. Please contact the administrator.",
+                                                "Access Denied",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Warning);
+                                return; // stop login
+                            }
 
                             if (password != dbPassword)
                             {
@@ -93,10 +104,8 @@ namespace FINALSSS
                             LoggedInUsername = username;
                             LoggedInUserRole = dbRole;
 
-                            // Open Main form and pass username + role
                             Main mainForm = new Main(LoggedInUsername, LoggedInUserRole);
                             mainForm.Show();
-
                             this.Hide();
                         }
                     }
@@ -107,6 +116,7 @@ namespace FINALSSS
                 MessageBox.Show("Error connecting to database: " + ex.Message, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void exit_Click(object sender, EventArgs e)
         {

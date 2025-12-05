@@ -196,18 +196,16 @@ namespace FINALSSS
                 MessageBox.Show("Error loading transaction history: " + ex.Message);
             }
         }
-        
+
 
         public void LoadManageUsers()
         {
             dgvManageAccounts.Rows.Clear();
             dgvManageAccounts.ClearSelection();
 
-
             using (var conn = new SqlConnection(DBconnection.ConnectionString))
             {
                 conn.Open();
-                // We select ONLY the hash based on the username
                 string query = @"SELECT * FROM users";
 
                 using (var cmd = new SqlCommand(query, conn))
@@ -222,12 +220,15 @@ namespace FINALSSS
                         row.Cells["colUsername"].Value = reader["Username"];
                         row.Cells["colPassword"].Value = reader["Password"];
                         row.Cells["colRole"].Value = reader["Role"];
+
+                        string status = reader["AccountStatus"].ToString();
+                        row.Cells["colAccountStatus"].Value = status;
+                        row.Cells["colDeactivate"].Value = status == "Active" ? "Deactivate" : "Activate";
                     }
                 }
             }
-
-            
         }
+
         private void ShowPanel(Panel panelToShow)
         {
             panelDashboard.Visible = false;
@@ -618,11 +619,7 @@ namespace FINALSSS
         private void dgvActivityLog_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            if (currentUserRole == "Admin")
-            {
-                MessageBox.Show("Only staffs can use this feature.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            
             if (dgvActivityLog.Columns[e.ColumnIndex].Name == "colViewDetails")
             {
                 try
@@ -808,7 +805,73 @@ namespace FINALSSS
 
         private void dgvManageAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
+            if (dgvManageAccounts.Columns[e.ColumnIndex].Name == "colView")
+            {
+                // Get values from the selected row
+                string username = dgvManageAccounts.Rows[e.RowIndex].Cells["colUsername"].Value?.ToString() ?? "";
+                string password = dgvManageAccounts.Rows[e.RowIndex].Cells["colPassword"].Value?.ToString() ?? "";
+
+                // Display in message box
+                MessageBox.Show(
+                    $"Username: {username}\nPassword: {password}",
+                    "Account Details",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            if (dgvManageAccounts.Columns[e.ColumnIndex].Name == "colDeactivate")
+            {
+                int userId = Convert.ToInt32(dgvManageAccounts.Rows[e.RowIndex].Cells["colUserID"].Value);
+                string username = dgvManageAccounts.Rows[e.RowIndex].Cells["colUsername"].Value?.ToString();
+                string status = dgvManageAccounts.Rows[e.RowIndex].Cells["colAccountStatus"].Value?.ToString();
+
+                // Determine action
+                string action = status == "Active" ? "deactivate" : "activate";
+
+                // Confirm
+                var confirm = MessageBox.Show(
+                    $"Are you sure you want to {action} the account: {username}?",
+                    "Confirm Action",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (confirm == DialogResult.No) return;
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(DBconnection.ConnectionString))
+                    {
+                        conn.Open();
+
+                        string query = "UPDATE Users SET AccountStatus = @status WHERE UserID = @id";
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            string newStatus = status == "Active" ? "Inactive" : "Active";
+                            cmd.Parameters.AddWithValue("@status", newStatus);
+                            cmd.Parameters.AddWithValue("@id", userId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    MessageBox.Show($"Account successfully {action}d.",
+                        "Success",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    // Refresh grid
+                    LoadManageUsers();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating account: " + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void label14_Click(object sender, EventArgs e)
