@@ -58,22 +58,22 @@
             // lblItemID
             // 
             this.lblItemID.AutoSize = true;
-            this.lblItemID.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblItemID.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblItemID.ForeColor = System.Drawing.Color.Black;
-            this.lblItemID.Location = new System.Drawing.Point(88, 104);
+            this.lblItemID.Location = new System.Drawing.Point(83, 98);
             this.lblItemID.Name = "lblItemID";
-            this.lblItemID.Size = new System.Drawing.Size(84, 28);
+            this.lblItemID.Size = new System.Drawing.Size(68, 21);
             this.lblItemID.TabIndex = 0;
             this.lblItemID.Text = "Item ID:";
             // 
             // lblItemName
             // 
             this.lblItemName.AutoSize = true;
-            this.lblItemName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblItemName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblItemName.ForeColor = System.Drawing.Color.Black;
-            this.lblItemName.Location = new System.Drawing.Point(55, 163);
+            this.lblItemName.Location = new System.Drawing.Point(55, 157);
             this.lblItemName.Name = "lblItemName";
-            this.lblItemName.Size = new System.Drawing.Size(117, 28);
+            this.lblItemName.Size = new System.Drawing.Size(95, 21);
             this.lblItemName.TabIndex = 1;
             this.lblItemName.Text = "Item Name:";
             this.lblItemName.Click += new System.EventHandler(this.lblItemName_Click);
@@ -81,33 +81,33 @@
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblCategory.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblCategory.ForeColor = System.Drawing.Color.Black;
-            this.lblCategory.Location = new System.Drawing.Point(66, 222);
+            this.lblCategory.Location = new System.Drawing.Point(68, 216);
             this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(98, 28);
+            this.lblCategory.Size = new System.Drawing.Size(82, 21);
             this.lblCategory.TabIndex = 2;
             this.lblCategory.Text = "Category:";
             // 
             // lblPrice
             // 
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblPrice.ForeColor = System.Drawing.Color.Black;
-            this.lblPrice.Location = new System.Drawing.Point(95, 282);
+            this.lblPrice.Location = new System.Drawing.Point(100, 274);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(62, 28);
+            this.lblPrice.Size = new System.Drawing.Size(50, 21);
             this.lblPrice.TabIndex = 4;
             this.lblPrice.Text = "Price:";
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblStatus.ForeColor = System.Drawing.Color.Black;
-            this.lblStatus.Location = new System.Drawing.Point(83, 337);
+            this.lblStatus.Location = new System.Drawing.Point(91, 339);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(72, 28);
+            this.lblStatus.Size = new System.Drawing.Size(59, 21);
             this.lblStatus.TabIndex = 5;
             this.lblStatus.Text = "Status:";
             // 
@@ -116,7 +116,7 @@
             this.lblItemNameValue.AutoSize = true;
             this.lblItemNameValue.Location = new System.Drawing.Point(150, 70);
             this.lblItemNameValue.Name = "lblItemNameValue";
-            this.lblItemNameValue.Size = new System.Drawing.Size(0, 16);
+            this.lblItemNameValue.Size = new System.Drawing.Size(0, 13);
             this.lblItemNameValue.TabIndex = 7;
             // 
             // lblCategoryValue
@@ -124,7 +124,7 @@
             this.lblCategoryValue.AutoSize = true;
             this.lblCategoryValue.Location = new System.Drawing.Point(150, 134);
             this.lblCategoryValue.Name = "lblCategoryValue";
-            this.lblCategoryValue.Size = new System.Drawing.Size(0, 16);
+            this.lblCategoryValue.Size = new System.Drawing.Size(0, 13);
             this.lblCategoryValue.TabIndex = 8;
             // 
             // lblQuantityValue
@@ -132,7 +132,7 @@
             this.lblQuantityValue.AutoSize = true;
             this.lblQuantityValue.Location = new System.Drawing.Point(153, 174);
             this.lblQuantityValue.Name = "lblQuantityValue";
-            this.lblQuantityValue.Size = new System.Drawing.Size(0, 16);
+            this.lblQuantityValue.Size = new System.Drawing.Size(0, 13);
             this.lblQuantityValue.TabIndex = 9;
             // 
             // lblPriceValue
@@ -140,7 +140,7 @@
             this.lblPriceValue.AutoSize = true;
             this.lblPriceValue.Location = new System.Drawing.Point(150, 190);
             this.lblPriceValue.Name = "lblPriceValue";
-            this.lblPriceValue.Size = new System.Drawing.Size(0, 16);
+            this.lblPriceValue.Size = new System.Drawing.Size(0, 13);
             this.lblPriceValue.TabIndex = 10;
             // 
             // lblStatusValue
@@ -148,7 +148,7 @@
             this.lblStatusValue.AutoSize = true;
             this.lblStatusValue.Location = new System.Drawing.Point(150, 230);
             this.lblStatusValue.Name = "lblStatusValue";
-            this.lblStatusValue.Size = new System.Drawing.Size(0, 16);
+            this.lblStatusValue.Size = new System.Drawing.Size(0, 13);
             this.lblStatusValue.TabIndex = 11;
             // 
             // btnSaveEdit
@@ -187,7 +187,7 @@
             this.txtEditItemID.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.txtEditItemID.Location = new System.Drawing.Point(156, 94);
             this.txtEditItemID.Name = "txtEditItemID";
-            this.txtEditItemID.Size = new System.Drawing.Size(187, 36);
+            this.txtEditItemID.Size = new System.Drawing.Size(187, 31);
             this.txtEditItemID.TabIndex = 15;
             // 
             // txtEditItemName
@@ -195,7 +195,7 @@
             this.txtEditItemName.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.txtEditItemName.Location = new System.Drawing.Point(156, 153);
             this.txtEditItemName.Name = "txtEditItemName";
-            this.txtEditItemName.Size = new System.Drawing.Size(231, 36);
+            this.txtEditItemName.Size = new System.Drawing.Size(231, 31);
             this.txtEditItemName.TabIndex = 16;
             // 
             // cmbEditCategory
@@ -204,7 +204,7 @@
             this.cmbEditCategory.FormattingEnabled = true;
             this.cmbEditCategory.Location = new System.Drawing.Point(156, 212);
             this.cmbEditCategory.Name = "cmbEditCategory";
-            this.cmbEditCategory.Size = new System.Drawing.Size(187, 38);
+            this.cmbEditCategory.Size = new System.Drawing.Size(187, 31);
             this.cmbEditCategory.TabIndex = 17;
             // 
             // numEditPrice
@@ -217,7 +217,7 @@
             0,
             0});
             this.numEditPrice.Name = "numEditPrice";
-            this.numEditPrice.Size = new System.Drawing.Size(85, 36);
+            this.numEditPrice.Size = new System.Drawing.Size(85, 31);
             this.numEditPrice.TabIndex = 19;
             // 
             // cmbStatus
@@ -226,7 +226,7 @@
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Location = new System.Drawing.Point(156, 333);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(184, 38);
+            this.cmbStatus.Size = new System.Drawing.Size(184, 31);
             this.cmbStatus.TabIndex = 20;
             // 
             // cmbEditUnit
@@ -235,17 +235,17 @@
             this.cmbEditUnit.FormattingEnabled = true;
             this.cmbEditUnit.Location = new System.Drawing.Point(338, 270);
             this.cmbEditUnit.Name = "cmbEditUnit";
-            this.cmbEditUnit.Size = new System.Drawing.Size(103, 38);
+            this.cmbEditUnit.Size = new System.Drawing.Size(103, 31);
             this.cmbEditUnit.TabIndex = 23;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(287, 281);
+            this.label2.Location = new System.Drawing.Point(288, 273);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 28);
+            this.label2.Size = new System.Drawing.Size(44, 21);
             this.label2.TabIndex = 24;
             this.label2.Text = "Unit:";
             // 
@@ -266,7 +266,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(196, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 37);
+            this.label1.Size = new System.Drawing.Size(102, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Edit Item";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

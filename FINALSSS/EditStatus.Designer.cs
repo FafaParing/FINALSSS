@@ -47,9 +47,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(522, 62);
+            this.panel1.Size = new System.Drawing.Size(392, 50);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -57,9 +57,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(172, 9);
+            this.label1.Location = new System.Drawing.Point(129, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 37);
+            this.label1.Size = new System.Drawing.Size(117, 30);
             this.label1.TabIndex = 1;
             this.label1.Text = "Edit Status";
             // 
@@ -71,10 +72,10 @@
             "Processing",
             "Delivered",
             "Cancelled"});
-            this.cmbEditStatus.Location = new System.Drawing.Point(146, 333);
-            this.cmbEditStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmbEditStatus.Location = new System.Drawing.Point(110, 271);
+            this.cmbEditStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbEditStatus.Name = "cmbEditStatus";
-            this.cmbEditStatus.Size = new System.Drawing.Size(192, 38);
+            this.cmbEditStatus.Size = new System.Drawing.Size(145, 31);
             this.cmbEditStatus.TabIndex = 1;
             this.cmbEditStatus.SelectedIndexChanged += new System.EventHandler(this.cmbEditStatus_SelectedIndexChanged);
             // 
@@ -85,10 +86,10 @@
             this.btnUpdateEditStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateEditStatus.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.btnUpdateEditStatus.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnUpdateEditStatus.Location = new System.Drawing.Point(86, 430);
-            this.btnUpdateEditStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnUpdateEditStatus.Location = new System.Drawing.Point(64, 349);
+            this.btnUpdateEditStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnUpdateEditStatus.Name = "btnUpdateEditStatus";
-            this.btnUpdateEditStatus.Size = new System.Drawing.Size(141, 49);
+            this.btnUpdateEditStatus.Size = new System.Drawing.Size(106, 40);
             this.btnUpdateEditStatus.TabIndex = 3;
             this.btnUpdateEditStatus.Text = "Update";
             this.btnUpdateEditStatus.UseVisualStyleBackColor = false;
@@ -101,10 +102,10 @@
             this.btnCancelEditStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelEditStatus.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.btnCancelEditStatus.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancelEditStatus.Location = new System.Drawing.Point(254, 430);
-            this.btnCancelEditStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancelEditStatus.Location = new System.Drawing.Point(190, 349);
+            this.btnCancelEditStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancelEditStatus.Name = "btnCancelEditStatus";
-            this.btnCancelEditStatus.Size = new System.Drawing.Size(141, 49);
+            this.btnCancelEditStatus.Size = new System.Drawing.Size(106, 40);
             this.btnCancelEditStatus.TabIndex = 4;
             this.btnCancelEditStatus.Text = "Cancel";
             this.btnCancelEditStatus.UseVisualStyleBackColor = false;
@@ -113,34 +114,31 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(99, 115);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(74, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 28);
+            this.label2.Size = new System.Drawing.Size(57, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "Name:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(141, 303);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(106, 246);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 28);
+            this.label4.Size = new System.Drawing.Size(100, 21);
             this.label4.TabIndex = 7;
             this.label4.Text = "New Status: ";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(141, 208);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(106, 169);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 28);
+            this.label5.Size = new System.Drawing.Size(59, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "Status:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -148,28 +146,26 @@
             // txtCurrentStatus
             // 
             this.txtCurrentStatus.Font = new System.Drawing.Font("Segoe UI", 13F);
-            this.txtCurrentStatus.Location = new System.Drawing.Point(146, 237);
-            this.txtCurrentStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCurrentStatus.Location = new System.Drawing.Point(110, 193);
             this.txtCurrentStatus.Name = "txtCurrentStatus";
-            this.txtCurrentStatus.Size = new System.Drawing.Size(203, 36);
+            this.txtCurrentStatus.Size = new System.Drawing.Size(153, 31);
             this.txtCurrentStatus.TabIndex = 9;
             this.txtCurrentStatus.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 13F);
-            this.txtName.Location = new System.Drawing.Point(104, 144);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtName.Location = new System.Drawing.Point(78, 117);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(291, 36);
+            this.txtName.Size = new System.Drawing.Size(219, 31);
             this.txtName.TabIndex = 11;
             // 
             // EditStatus
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(522, 503);
+            this.ClientSize = new System.Drawing.Size(392, 409);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtCurrentStatus);
             this.Controls.Add(this.label5);
@@ -180,7 +176,7 @@
             this.Controls.Add(this.cmbEditStatus);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EditStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditStatus";
