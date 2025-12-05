@@ -47,7 +47,7 @@
             this.label1.Location = new System.Drawing.Point(106, 16);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 28);
+            this.label1.Size = new System.Drawing.Size(196, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "Create Account";
             // 
@@ -58,7 +58,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(56, 276);
+            this.button1.Location = new System.Drawing.Point(65, 289);
             this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 46);
@@ -69,16 +69,16 @@
             // 
             // Username
             // 
-            this.Username.Location = new System.Drawing.Point(41, 128);
+            this.Username.Location = new System.Drawing.Point(34, 135);
             this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(302, 31);
+            this.Username.Size = new System.Drawing.Size(302, 37);
             this.Username.TabIndex = 2;
             // 
             // Password
             // 
-            this.Password.Location = new System.Drawing.Point(41, 212);
+            this.Password.Location = new System.Drawing.Point(34, 219);
             this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(302, 31);
+            this.Password.Size = new System.Drawing.Size(302, 37);
             this.Password.TabIndex = 3;
             // 
             // lblUsername
@@ -86,9 +86,9 @@
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblUsername.ForeColor = System.Drawing.Color.Black;
-            this.lblUsername.Location = new System.Drawing.Point(36, 100);
+            this.lblUsername.Location = new System.Drawing.Point(29, 107);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(87, 21);
+            this.lblUsername.Size = new System.Drawing.Size(106, 28);
             this.lblUsername.TabIndex = 4;
             this.lblUsername.Text = "Username";
             // 
@@ -97,9 +97,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(36, 184);
+            this.label3.Location = new System.Drawing.Point(29, 191);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 21);
+            this.label3.Size = new System.Drawing.Size(101, 28);
             this.label3.TabIndex = 5;
             this.label3.Text = "Password";
             // 
@@ -110,7 +110,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(201, 276);
+            this.button2.Location = new System.Drawing.Point(210, 289);
             this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(113, 46);
@@ -128,15 +128,15 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(402, 60);
+            this.panel1.Size = new System.Drawing.Size(420, 60);
             this.panel1.TabIndex = 16;
             // 
             // CreateAccount
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(402, 348);
+            this.ClientSize = new System.Drawing.Size(420, 350);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
